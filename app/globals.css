@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0b1f1a;
+  --surface: #12302a;
+  --surface-2: #183b34;
+  --line: #24493f;
+  --text: #e8f5ef;
+  --muted: #9bb8ad;
+  --mint: #5fd6a0;
+  --mint-dark: #2fa876;
+  --cta: #f97316;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface2: var(--surface-2);
+  --color-line: var(--line);
+  --color-fg: var(--text);
+  --color-muted: var(--muted);
+  --color-mint: var(--mint);
+  --color-mintd: var(--mint-dark);
+  --color-cta: var(--cta);
+  --font-sans: var(--font-poppins), system-ui, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-poppins), system-ui, sans-serif; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; border-radius: .75rem; padding: .8rem 1.4rem; font-weight: 600; transition: transform .15s, background .15s; }
+.btn:hover { transform: translateY(-1px); }
+.btn-cta { background: var(--cta); color: #fff; }
+.btn-cta:hover { background: #ea580c; }
+.btn-mint { background: var(--mint); color: #06231a; }
+.btn-mint:hover { background: #7fe3b6; }
+.btn-ghost { border: 1px solid var(--line); color: var(--text); }
+.btn-ghost:hover { background: var(--surface-2); }
+
+/* Content imported from the WordPress site */
+.prose-cmc { line-height: 1.75; color: #d3e6dd; }
+.prose-cmc > * + * { margin-top: 1.1rem; }
+.prose-cmc h2 { font-size: 1.7rem; font-weight: 700; color: var(--text); margin-top: 2.2rem; line-height: 1.25; }
+.prose-cmc h3 { font-size: 1.3rem; font-weight: 600; color: var(--text); margin-top: 1.8rem; }
+.prose-cmc h4, .prose-cmc h5, .prose-cmc h6 { font-weight: 600; color: var(--mint); margin-top: 1.4rem; }
+.prose-cmc a { color: var(--mint); text-decoration: underline; text-underline-offset: 3px; }
+.prose-cmc ul { list-style: disc; padding-left: 1.4rem; }
+.prose-cmc ol { list-style: decimal; padding-left: 1.4rem; }
+.prose-cmc li + li { margin-top: .4rem; }
+.prose-cmc img { max-width: 100%; height: auto; border-radius: 1rem; }
+.prose-cmc table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+.prose-cmc th, .prose-cmc td { border: 1px solid var(--line); padding: .6rem .8rem; text-align: left; }
+.prose-cmc blockquote { border-left: 3px solid var(--mint); padding-left: 1rem; color: var(--muted); }
+.prose-cmc strong { color: var(--text); }
