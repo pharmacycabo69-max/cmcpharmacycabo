@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { ProductCard } from "@/components/ProductCard";
-import { categoryBySlug, getProduct, money, products } from "@/lib/products";
+import { NoPhoto, ProductCard } from "@/components/ProductCard";
+import { categoryBySlug, getProduct, hasPrice, money, products } from "@/lib/products";
 import { JsonLd, orgId } from "@/lib/seo";
 import { SITE, abs } from "@/lib/site";
 
@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const p = getProduct((await params).slug);
   if (!p) return {};
   const cat = p.categories[0]?.name;
-  const desc = `${p.name}${cat ? ` — ${cat}` : ""}. ${money(p.price)}. Order from CMC Pharmacy Cabo with 24/7 delivery to your hotel or villa in Los Cabos.`.slice(0, 158);
+  const desc = `${p.name}${cat ? ` — ${cat}` : ""}. ${hasPrice(p) ? `${money(p.price)}. ` : ""}Order from CMC Pharmacy Cabo with 24/7 delivery to your hotel or villa in Los Cabos.`.slice(0, 158);
   return {
     title: `${p.name} in Cabo San Lucas`,
     description: desc,
@@ -30,14 +30,14 @@ export default async function Product({ params }: Props) {
   const p = getProduct((await params).slug);
   if (!p) notFound();
   const cat = p.categories[0];
-  const msg = encodeURIComponent(`Hi, I'd like to order: ${p.name}${p.sku ? ` (SKU ${p.sku})` : ""}`);
+  const msg = encodeURIComponent(`Hi, ${hasPrice(p) ? "I'd like to order" : "I'd like the price and availability of"}: ${p.name}${p.sku ? ` (SKU ${p.sku})` : ""}`);
   const same = cat ? products.filter((x) => x.cats.includes(cat.id) && x.id !== p.id && x.img).slice(0, 4) : [];
   const ld = {
     "@context": "https://schema.org", "@type": "Product", name: p.name, sku: p.sku ?? undefined, mpn: p.sku ?? undefined,
     description: text(p.short || p.description).slice(0, 300) || p.name,
     image: p.images.map((i) => i.src), category: cat?.name,
     brand: p.brands[0] ? { "@type": "Brand", name: p.brands[0] } : undefined,
-    offers: {
+    offers: !hasPrice(p) ? undefined : {
       "@type": "Offer", url: abs(`/product/${p.slug}`), price: p.price.toFixed(2), priceCurrency: "USD",
       availability: p.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
       itemCondition: "https://schema.org/NewCondition", seller: { "@id": orgId },
@@ -50,22 +50,23 @@ export default async function Product({ params }: Props) {
       <Breadcrumbs items={crumbs} />
       <div className="mt-6 grid gap-10 md:grid-cols-2">
         <div className="space-y-3">
+          {p.images.length === 0 && <div className="rounded-xl border border-slate-200 p-4"><NoPhoto className="aspect-square w-full" /></div>}
           {p.images.slice(0, 3).map((i, n) => (
             <div key={i.src} className="flex justify-center rounded-xl border border-slate-200 bg-white p-4">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={n === 0 ? i.src : i.thumb} alt={i.alt || p.name} width={n === 0 ? 800 : 300} height={n === 0 ? 800 : 300} loading={n === 0 ? "eager" : "lazy"} fetchPriority={n === 0 ? "high" : "auto"} className="max-h-[460px] w-auto object-contain" />
+              <img src={n === 0 ? i.src : i.thumb} alt={i.alt || p.name} width={600} height={600} loading={n === 0 ? "eager" : "lazy"} fetchPriority={n === 0 ? "high" : "auto"} className="max-h-[460px] w-auto object-contain" />
             </div>
           ))}
         </div>
         <div>
           <h1 className="text-2xl font-bold leading-snug tracking-tight md:text-3xl">{p.name}</h1>
           <p className="mt-4 flex items-baseline gap-3">
-            <span className="text-3xl font-semibold">{money(p.price)}</span>
-            {p.onSale && <span className="text-slate-400 line-through">{money(p.regular)}</span>}
+            <span className="text-3xl font-semibold">{hasPrice(p) ? money(p.price) : <span className="text-2xl text-brand">Ask for price</span>}</span>
+            {hasPrice(p) && p.onSale && <span className="text-slate-400 line-through">{money(p.regular)}</span>}
           </p>
           <p className="mt-2 text-sm text-slate-500">{p.sku && <>SKU {p.sku} · </>}<span className={p.inStock ? "text-brand" : "text-red-600"}>{p.inStock ? "In stock" : "Out of stock"}</span></p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <a href={`${SITE.whatsapp}?text=${msg}`} target="_blank" rel="noopener" className="btn btn-primary">Order on WhatsApp</a>
+            <a href={`${SITE.whatsapp}?text=${msg}`} target="_blank" rel="noopener" className="btn btn-primary">{hasPrice(p) ? "Order on WhatsApp" : "Ask price on WhatsApp"}</a>
             <a href={SITE.tel} className="btn btn-outline">Call {SITE.phone}</a>
           </div>
           <ul className="mt-5 space-y-1 text-sm text-slate-600">

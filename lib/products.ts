@@ -21,6 +21,9 @@ export const PAGE_SIZE = 24;
 
 export const money = (n: number) => `$${n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
+/** Products imported without a price are "ask for price", not free. */
+export const hasPrice = (p: { price: number }) => p.price > 0;
+
 export function getProduct(slug: string): Product | null {
   const s = products.find((p) => p.slug === slug);
   if (!s) return null;
@@ -45,7 +48,7 @@ export function search({ q, cat, page = 1, sort }: { q?: string; cat?: number; p
   let list = products;
   if (cat) { const ids = categoryIds(cat); list = list.filter((p) => p.cats.some((c) => ids.has(c))); }
   if (q) { const t = q.toLowerCase().split(/\s+/).filter(Boolean); list = list.filter((p) => t.every((w) => p.name.toLowerCase().includes(w) || p.sku?.toLowerCase() === w)); }
-  if (sort === "price-asc") list = [...list].sort((a, b) => a.price - b.price);
+  if (sort === "price-asc") list = [...list].sort((a, b) => (hasPrice(a) ? a.price : Infinity) - (hasPrice(b) ? b.price : Infinity));
   else if (sort === "price-desc") list = [...list].sort((a, b) => b.price - a.price);
   const total = list.length;
   const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
