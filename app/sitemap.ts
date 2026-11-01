@@ -20,6 +20,7 @@ export default async function sitemap(props: { id: Promise<string> }): Promise<M
       { url: u("/shop"), priority: 0.8, changeFrequency: "daily" },
       { url: u("/blog"), priority: 0.6, changeFrequency: "weekly" },
       { url: u("/delivery-areas"), priority: 0.8 },
+      { url: u("/cabonurse"), priority: 0.8 },
       ...allPages().map((p) => ({ url: u(`/${p.slug}`), lastModified: p.date ?? undefined, priority: p.type === "post" ? 0.5 : 0.7 })),
     ];
   }

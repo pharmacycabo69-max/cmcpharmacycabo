@@ -16,6 +16,7 @@ export const metadata: Metadata = {
 const SERVICES = [
   { t: "24/7 pharmacy delivery", d: "Prescriptions, OTC medicine and travel essentials brought to your hotel, resort or villa.", href: "/24-7-pharmacy-delivery-cabo-san-lucas" },
   { t: "English-speaking doctors", d: "Video consultations and hotel visits with bilingual physicians, available now.", href: "/doctor-consultation" },
+  { t: "CaboNurse", d: "Book a licensed nurse at your hotel or villa for injections, wound care or a home visit.", href: "/cabonurse" },
   { t: "IV therapy", d: "Hydration, recovery and immunity drips administered where you’re staying.", href: "/iv-therapy" },
   { t: "Concierge partnerships", d: "Guest medical support for hotels, resorts and property managers.", href: "/for-concierges" },
 ];
@@ -64,7 +65,7 @@ export default function Home() {
 
       <section className="section" aria-labelledby="services">
         <h2 id="services" className="h2">Everything your trip needs, delivered</h2>
-        <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map((s) => (
             <li key={s.t}>
               <Link href={s.href} className="block h-full rounded-xl border border-slate-200 p-6 transition hover:border-brand">

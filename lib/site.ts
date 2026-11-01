@@ -21,6 +21,7 @@ export const NAV = [
   { href: "/shop", label: "Shop" },
   { href: "/delivery-areas", label: "Delivery areas" },
   { href: "/doctor-consultation", label: "Doctors" },
+  { href: "/cabonurse", label: "CaboNurse" },
   { href: "/iv-therapy", label: "IV therapy" },
   { href: "/blog", label: "Blog" },
   { href: "/faq", label: "FAQ" },
