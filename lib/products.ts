@@ -15,8 +15,19 @@ export type Product = ProductSummary & {
   attributes: { name: string; terms: string[] }[]; brands: string[];
 };
 
-export const products = indexJson as ProductSummary[];
-export const categories = catsJson as Category[];
+/** Products with neither a photo nor a price are hidden everywhere (listings, product pages, sitemap). */
+const visible = (p: ProductSummary) => !!p.img || p.price > 0;
+export const products = (indexJson as ProductSummary[]).filter(visible);
+
+// Category counts are recomputed from the visible products (each category counts its descendants too)
+const rawCats = catsJson as Category[];
+const parentOf = new Map(rawCats.map((c) => [c.id, c.parent]));
+const counts = new Map<number, number>();
+for (const p of products) {
+  const seen = new Set<number>();
+  for (let id of p.cats) for (; id && !seen.has(id); id = parentOf.get(id) ?? 0) { seen.add(id); counts.set(id, (counts.get(id) ?? 0) + 1); }
+}
+export const categories: Category[] = rawCats.map((c) => ({ ...c, count: counts.get(c.id) ?? 0 }));
 export const PAGE_SIZE = 24;
 
 export const money = (n: number) => `$${n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
