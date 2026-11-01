@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { NURSE, NURSE_SERVICES, getNurseService } from "@/lib/cabonurse";
+import { useEffect, useMemo, useState } from "react";
+import { IV, IV_DRIPS, getDrip } from "@/lib/ivtherapy";
 
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const WD = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
@@ -19,7 +19,7 @@ const dlabel = (s: string) => {
 /** Current date/hour in Cabo, independent of the visitor's timezone */
 function caboNow() {
   const p: Record<string, number> = {};
-  new Intl.DateTimeFormat("en-US", { timeZone: NURSE.timezone, hourCycle: "h23", year: "numeric", month: "numeric", day: "numeric", hour: "numeric" })
+  new Intl.DateTimeFormat("en-US", { timeZone: IV.timezone, hourCycle: "h23", year: "numeric", month: "numeric", day: "numeric", hour: "numeric" })
     .formatToParts(new Date()).forEach((x) => { if (x.type !== "literal") p[x.type] = +x.value; });
   return { y: p.year, m: p.month - 1, d: p.day, h: p.hour };
 }
@@ -31,10 +31,11 @@ const ERROR_TEXT: Record<string, string> = {
   stripe: "We couldn’t start the payment. Try again or send your request on WhatsApp.",
 };
 
-export function BookingWizard({ initialService = "", error = "" }: { initialService?: string; error?: string }) {
+export function BookingWizard() {
   const now = useMemo(caboNow, []);
   const [step, setStep] = useState(1);
-  const [k, setK] = useState(getNurseService(initialService) ? initialService : "");
+  const [k, setK] = useState("");
+  const [error, setError] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [cy, setCy] = useState(now.y);
@@ -42,9 +43,21 @@ export function BookingWizard({ initialService = "", error = "" }: { initialServ
   const [f, setF] = useState<Form>({ name: "", phone: "", email: "", loc: "", notes: "" });
   const [err, setErr] = useState("");
 
-  const svc = getNurseService(k);
+  // Preselect a drip from "#book-<id>" links and surface checkout errors from "?error=" (keeps the page static)
+  useEffect(() => {
+    const read = () => {
+      const id = location.hash.replace(/^#book-?/, "");
+      if (id && getDrip(id)) { setK(id); setStep(1); document.getElementById("book")?.scrollIntoView({ behavior: "smooth" }); }
+    };
+    read();
+    setError(new URLSearchParams(location.search).get("error") ?? "");
+    window.addEventListener("hashchange", read);
+    return () => window.removeEventListener("hashchange", read);
+  }, []);
+
+  const svc = getDrip(k);
   const todayIso = iso(now.y, now.m, now.d);
-  const lastD = new Date(now.y, now.m, now.d + NURSE.maxDays);
+  const lastD = new Date(now.y, now.m, now.d + IV.maxDays);
   const lastIso = iso(lastD.getFullYear(), lastD.getMonth(), lastD.getDate());
   const isToday = date === todayIso;
 
@@ -62,13 +75,13 @@ export function BookingWizard({ initialService = "", error = "" }: { initialServ
   const back = () => { setErr(""); setStep((s) => Math.max(1, s - 1)); };
 
   const waText = svc
-    ? `Hi! I would like to book CaboNurse: ${svc.name} (${money(svc.priceUsd)}) on ${dlabel(date)}, ${tlabel(time)} (Cabo time).\nName: ${f.name}\nPhone: ${f.phone}\nEmail: ${f.email}\nLocation: ${f.loc}${f.notes ? `\nNotes: ${f.notes}` : ""}`
+    ? `Hi! I would like to book IV therapy: ${svc.name} (${money(svc.priceUsd)}) on ${dlabel(date)}, ${tlabel(time)} (Cabo time).\nName: ${f.name}\nPhone: ${f.phone}\nEmail: ${f.email}\nLocation: ${f.loc}${f.notes ? `\nNotes: ${f.notes}` : ""}`
     : "";
-  const waHref = `https://wa.me/${NURSE.whatsapp}?text=${encodeURIComponent(waText)}`;
+  const waHref = `https://wa.me/${IV.whatsapp}?text=${encodeURIComponent(waText)}`;
 
   const first = new Date(cy, cm, 1).getDay();
   const days = new Date(cy, cm + 1, 0).getDate();
-  const hours = NURSE.hours.filter((h) => !(isToday && h <= now.h + 1)); // at least ~1h lead time
+  const hours = IV.hours.filter((h) => !(isToday && h <= now.h + 1)); // at least ~1h lead time
 
   const btn = "rounded-full px-5 py-3 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-40";
   const primary = `${btn} bg-brand text-white hover:bg-brand-dark`;
@@ -79,7 +92,7 @@ export function BookingWizard({ initialService = "", error = "" }: { initialServ
   return (
     <section id="book" aria-labelledby="wiz-h" className="scroll-mt-24 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
       <div className="bg-brand px-6 pb-5 pt-6 text-white">
-        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-teal-100">Book CaboNurse online</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-teal-100">Book IV therapy online</p>
         <h2 id="wiz-h" className="mt-1 text-2xl font-bold">{titles[step - 1]}</h2>
         <div className="mt-4 flex gap-2" aria-hidden>
           {[1, 2, 3, 4].map((i) => <span key={i} className={`h-1 flex-1 rounded-full ${step >= i ? "bg-white" : "bg-white/25"}`} />)}
@@ -92,11 +105,11 @@ export function BookingWizard({ initialService = "", error = "" }: { initialServ
         {step === 1 && (
           <>
             <div className="grid gap-2.5">
-              {NURSE_SERVICES.map((o) => (
+              {IV_DRIPS.map((o) => (
                 <button key={o.id} type="button" aria-pressed={k === o.id} onClick={() => setK(o.id)}
                   className={`flex w-full items-center justify-between gap-3 rounded-xl border-2 p-4 text-left transition ${k === o.id ? "border-brand bg-brand-soft" : "border-slate-200 hover:border-slate-300"}`}>
-                  <span><b className="block text-[0.95rem]">{o.name}</b><span className="mt-0.5 block text-xs text-slate-500">{o.description}</span></span>
-                  <span className="whitespace-nowrap font-bold text-brand">{money(o.priceUsd)}</span>
+                  <span><b className="block text-[0.95rem]">{o.name}</b><span className="mt-0.5 block text-xs text-slate-500">{o.tagline} · {o.duration}</span></span>
+                  <span className="whitespace-nowrap font-bold text-brand">{o.from ? "From " : ""}{money(o.priceUsd)}</span>
                 </button>
               ))}
             </div>
@@ -158,15 +171,15 @@ export function BookingWizard({ initialService = "", error = "" }: { initialServ
         {step === 4 && svc && (
           <>
             <dl className="rounded-xl bg-slate-50 p-4 text-sm">
-              {([["Service", svc.name], ["Date", dlabel(date)], ["Time", tlabel(time)], ["Name", f.name], ["Phone", f.phone], ["Email", f.email], ["Location", f.loc], ["Price", `${money(svc.priceUsd)} USD`]] as const).map(([a, b]) => (
+              {([["Service", svc.name], ["Date", dlabel(date)], ["Time", tlabel(time)], ["Name", f.name], ["Phone", f.phone], ["Email", f.email], ["Location", f.loc], ["Price", `${svc.from ? "From " : ""}${money(svc.priceUsd)} USD`]] as const).map(([a, b]) => (
                 <div key={a} className="flex justify-between gap-4 py-1"><dt className="text-slate-500">{a}</dt><dd className="text-right font-semibold">{b}</dd></div>
               ))}
             </dl>
-            <form method="post" action="/api/cabonurse/checkout" className="mt-5 flex flex-col gap-3">
+            <form method="post" action="/api/iv-therapy/checkout" className="mt-5 flex flex-col gap-3">
               <input type="hidden" name="option" value={svc.id} /><input type="hidden" name="date" value={date} /><input type="hidden" name="time" value={time} />
               <input type="hidden" name="name" value={f.name} /><input type="hidden" name="phone" value={f.phone} /><input type="hidden" name="email" value={f.email} />
               <input type="hidden" name="location" value={f.loc} /><input type="hidden" name="notes" value={f.notes} />
-              <button className={primary}>Pay {Math.round(NURSE.depositRate * 100)}% deposit · {money(svc.priceUsd * NURSE.depositRate)}</button>
+              <button className={primary}>Pay {Math.round(IV.depositRate * 100)}% deposit · {money(svc.priceUsd * IV.depositRate)}</button>
               <a href={waHref} target="_blank" rel="noopener" className={`${btn} bg-[#1fa855] text-center text-white hover:bg-[#188a45]`}>Send request on WhatsApp</a>
             </form>
             <p className="mt-4 text-xs leading-relaxed text-slate-500">The deposit is paid by card with Stripe; the balance is paid after the service. This is a booking request: our team confirms availability and the exact time by WhatsApp or phone. Not for emergencies — call 911.</p>

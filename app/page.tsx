@@ -16,8 +16,7 @@ export const metadata: Metadata = {
 const SERVICES = [
   { t: "24/7 pharmacy delivery", d: "Prescriptions, OTC medicine and travel essentials brought to your hotel, resort or villa.", href: "/24-7-pharmacy-delivery-cabo-san-lucas" },
   { t: "English-speaking doctors", d: "Video consultations and hotel visits with bilingual physicians, available now.", href: "/doctor-consultation" },
-  { t: "CaboNurse", d: "Book a licensed nurse at your hotel or villa for injections, wound care or a home visit.", href: "/cabonurse" },
-  { t: "IV therapy", d: "Hydration, recovery and immunity drips administered where you’re staying.", href: "/iv-therapy" },
+  { t: "IV therapy", d: "Book a licensed nurse for hydration, hangover, immunity and NAD+ drips at your hotel or villa.", href: "/iv-therapy" },
   { t: "Concierge partnerships", d: "Guest medical support for hotels, resorts and property managers.", href: "/for-concierges" },
 ];
 

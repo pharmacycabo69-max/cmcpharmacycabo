@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getStripe } from "@/lib/stripe";
-import { NURSE } from "@/lib/cabonurse";
+import { IV } from "@/lib/ivtherapy";
 
 export const metadata: Metadata = { title: "Booking received", robots: { index: false, follow: false } };
 
@@ -25,7 +25,7 @@ export default async function Success({ searchParams }: { searchParams: Promise<
         Our team will confirm availability and the exact time with you by WhatsApp or phone. A receipt was sent to your email.
       </p>
       <div className="mt-8 flex justify-center gap-3">
-        <a href={`https://wa.me/${NURSE.whatsapp}`} className="btn btn-primary">WhatsApp {NURSE.phoneDisplay}</a>
+        <a href={`https://wa.me/${IV.whatsapp}`} className="btn btn-primary">WhatsApp {IV.phoneDisplay}</a>
         <Link href="/" className="btn btn-outline">Back home</Link>
       </div>
     </div>

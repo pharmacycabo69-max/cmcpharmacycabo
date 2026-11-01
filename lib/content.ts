@@ -13,7 +13,7 @@ export type Page = {
 
 const all = pages as Page[];
 // "shop" is rebuilt natively and the empty duplicate is skipped
-const HIDDEN = new Set(["", "shop"]);
+const HIDDEN = new Set(["", "shop", "iv-therapy"]);
 
 export const getPage = (slug: string) => all.find((p) => p.slug === slug && p.html.length > 0);
 export const home = () => all.find((p) => p.slug === "")!;
