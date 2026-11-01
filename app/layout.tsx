@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   applicationName: SITE.name,
   alternates: { canonical: "/" },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 } },
-  openGraph: { siteName: SITE.name, type: "website", locale: "en_US", images: [{ url: SITE.logo, alt: SITE.name }] },
+  openGraph: { siteName: SITE.name, type: "website", locale: "en_US" },
   twitter: { card: "summary_large_image" },
   formatDetection: { telephone: true },
 };

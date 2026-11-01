@@ -10,7 +10,7 @@ export const SITE = {
   region: "Baja California Sur",
   postalCode: "23450",
   country: "MX",
-  logo: "/wp-content/uploads/2025/09/cmc-pharmacy-cabo-san-lucas-logo.png",
+  logo: "/apple-icon",
   tagline: "24/7 Pharmacy Delivery & English-Speaking Doctors in Los Cabos",
   description:
     "24/7 pharmacy in Cabo San Lucas & San José del Cabo. English-speaking pharmacists, prescription and OTC delivery to your hotel or villa, and doctors on call.",

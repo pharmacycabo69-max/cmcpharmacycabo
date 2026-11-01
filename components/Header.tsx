@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import { Logo } from "@/components/Logo";
 import { NAV, SITE } from "@/lib/site";
 
 export function Header() {
@@ -7,7 +7,7 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-6 px-4">
         <Link href="/" aria-label={`${SITE.name} home`} className="shrink-0">
-          <Image src={SITE.logo} alt={SITE.name} width={300} height={109} className="h-9 w-auto" priority />
+          <Logo />
         </Link>
         <nav aria-label="Main" className="hidden items-center gap-7 text-sm font-medium text-slate-700 lg:flex">
           {NAV.map((n) => <Link key={n.href} href={n.href} className="hover:text-brand">{n.label}</Link>)}
