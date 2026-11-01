@@ -1,21 +1,29 @@
 export const SITE = {
   name: "CMC Pharmacy Cabo",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://cmcpharmacycabo.com",
+  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://cmcpharmacycabo.com").replace(/\/$/, ""),
   phone: "+52 624 267 3177",
   tel: "tel:+526242673177",
   whatsapp: "https://wa.me/5216242673177",
   email: "support@cmcpharmacy.com",
-  address: "Francisco I Madero, Centro, San Lucas, 23450 Cabo San Lucas, B.C.S.",
-  tagline: "Bilingual Pharmacy & Doctor Network in Los Cabos",
+  street: "Francisco I Madero, Centro",
+  locality: "Cabo San Lucas",
+  region: "Baja California Sur",
+  postalCode: "23450",
+  country: "MX",
+  logo: "/wp-content/uploads/2025/09/cmc-pharmacy-cabo-san-lucas-logo.png",
+  tagline: "24/7 Pharmacy Delivery & English-Speaking Doctors in Los Cabos",
+  description:
+    "24/7 pharmacy in Cabo San Lucas & San José del Cabo. English-speaking pharmacists, prescription and OTC delivery to your hotel or villa, and doctors on call.",
+  rating: { value: 5.0, count: 89 },
 };
 
 export const NAV = [
-  { href: "/", label: "Home" },
   { href: "/shop", label: "Shop" },
-  { href: "/iv-therapy", label: "IV Therapy" },
+  { href: "/delivery-areas", label: "Delivery areas" },
   { href: "/doctor-consultation", label: "Doctors" },
-  { href: "/about-us-pharmacy-delivery", label: "About" },
+  { href: "/iv-therapy", label: "IV therapy" },
   { href: "/blog", label: "Blog" },
-  { href: "/contact-us", label: "Contact" },
   { href: "/faq", label: "FAQ" },
 ];
+
+export const abs = (path: string) => `${SITE.url}${path === "/" ? "" : path}`;
