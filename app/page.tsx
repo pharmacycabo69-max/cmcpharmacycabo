@@ -4,6 +4,7 @@ import Link from "next/link";
 import { JsonLd, faqSchema, pharmacySchema, websiteSchema } from "@/lib/seo";
 import { deliveryAreas, posts } from "@/lib/content";
 import { topCategories } from "@/lib/products";
+import { photo } from "@/components/PageBanner";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -58,7 +59,7 @@ export default function Home() {
             </div>
             <p className="mt-5 text-sm text-slate-500"><span className="font-semibold text-slate-800">★ {SITE.rating.value.toFixed(1)}</span> on Google · {SITE.rating.count} verified reviews</p>
           </div>
-          <Image src="/wp-content/uploads/2026/07/cabo-pharmacy-english-speaking-pharmacist-cmc.png" alt="English-speaking pharmacist at CMC Pharmacy Cabo in Cabo San Lucas" width={800} height={800} priority sizes="(min-width: 768px) 560px, 100vw" className="w-full rounded-2xl" />
+          <Image src={photo("arco").src} alt={photo("arco").alt} width={photo("arco").w} height={photo("arco").h} priority sizes="(min-width: 768px) 560px, 100vw" className="aspect-[4/3] w-full rounded-2xl object-cover shadow-lg" />
         </div>
       </section>
 

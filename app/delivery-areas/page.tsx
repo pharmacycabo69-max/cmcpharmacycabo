@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { PageBanner } from "@/components/PageBanner";
 import { deliveryAreas } from "@/lib/content";
 import { SITE } from "@/lib/site";
 
@@ -13,6 +14,8 @@ export const metadata: Metadata = {
 export default function DeliveryAreas() {
   const areas = deliveryAreas();
   return (
+    <>
+    <PageBanner />
     <div className="mx-auto max-w-4xl px-4 py-10">
       <Breadcrumbs items={[{ name: "Delivery areas", href: "/delivery-areas" }]} />
       <h1 className="mt-5 text-3xl font-bold tracking-tight md:text-4xl">Pharmacy delivery to Los Cabos hotels &amp; resorts</h1>
@@ -23,5 +26,6 @@ export default function DeliveryAreas() {
         ))}
       </ul>
     </div>
+    </>
   );
 }

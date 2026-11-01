@@ -2,14 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { PageBanner, photo } from "@/components/PageBanner";
 import { Prose } from "@/components/Prose";
-import { allPages, getPage, related } from "@/lib/content";
+import { allPages, deliveryAreas, getPage, related } from "@/lib/content";
 import { JsonLd, articleSchema } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 
 export const dynamicParams = false;
 export const generateStaticParams = () => allPages().map((p) => ({ slug: p.slug }));
 
+const isArea = (slug: string) => deliveryAreas().some((p) => p.slug === slug);
 const brandless = (t: string) => t.replace(/\s*[|\-–—]\s*CMC Pharmacy Cabo\s*$/i, "").trim();
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -24,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title, description: page.description || undefined, url: `/${page.slug}`,
       type: page.type === "post" ? "article" : "website",
       publishedTime: page.type === "post" ? page.date ?? undefined : undefined,
-      images: page.image ? [page.image] : undefined,
+      images: page.image ? [page.image] : isArea(page.slug) ? [photo("bay").src] : undefined,
     },
   };
 }
@@ -37,6 +39,8 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const more = related(slug);
   const crumbs = isPost ? [{ name: "Blog", href: "/blog" }, { name: page.title, href: `/${slug}` }] : [{ name: page.title, href: `/${slug}` }];
   return (
+    <>
+    {isArea(slug) && <PageBanner />}
     <article className="mx-auto max-w-3xl px-4 py-10">
       {isPost && <JsonLd data={articleSchema({ title: page.title, description: page.description, path: `/${slug}`, date: page.date, image: page.image })} />}
       <Breadcrumbs items={crumbs} />
@@ -66,5 +70,6 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         </section>
       )}
     </article>
+    </>
   );
 }
