@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { BookingWizard } from "@/components/BookingWizard";
+import { BookDripButton } from "@/components/BookDripButton";
+import { BookingError } from "@/components/BookingError";
 import { JsonLd, faqSchema, orgId } from "@/lib/seo";
 import { IV, IV_DRIPS, IV_FAQ } from "@/lib/ivtherapy";
 import { abs } from "@/lib/site";
@@ -45,9 +46,8 @@ export default function IvTherapy() {
           <h1 className="mt-5 text-4xl font-bold leading-[1.1] tracking-tight md:text-5xl">IV therapy in Cabo San Lucas, delivered to your hotel or villa</h1>
           <p className="mt-5 max-w-2xl text-lg text-slate-600">Medical-grade IV drips for hydration, recovery, immunity and longevity, administered by licensed Mexican medical professionals at your hotel, villa or our pharmacy.</p>
           <div className="mt-7 flex flex-wrap gap-3">
-            <a href="#book" className="btn btn-primary">Book online</a>
+            <a href="#drips" className="btn btn-primary">Choose your drip &amp; book</a>
             <a href={wa} target="_blank" rel="noopener" className="btn btn-outline">WhatsApp {IV.phoneDisplay}</a>
-            <a href="#drips" className="btn btn-outline">See drip menu</a>
           </div>
         </div>
       </section>
@@ -61,8 +61,9 @@ export default function IvTherapy() {
 
       <section id="drips" className="scroll-mt-20 bg-slate-50" aria-labelledby="menu">
         <div className="section">
+          <BookingError />
           <h2 id="menu" className="h2">Our IV drip menu</h2>
-          <p className="mt-3 max-w-2xl text-slate-600">Ten medical-grade formulas for energy, recovery, immunity, beauty and longevity. Prices in USD.</p>
+          <p className="mt-3 max-w-2xl text-slate-600">Ten medical-grade formulas for energy, recovery, immunity, beauty and longevity. Prices in USD. Pick a drip to choose your date and time. A 50% deposit secures your visit.</p>
           <ul className="mt-8 grid gap-6 md:grid-cols-2">
             {IV_DRIPS.map((d, i) => (
               <li key={d.id} className="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white">
@@ -76,15 +77,13 @@ export default function IvTherapy() {
                   <p className="mt-1 text-sm text-slate-600">{d.tagline}</p>
                   <p className="mt-3 text-sm"><strong>Includes:</strong> {d.includes}</p>
                   <ul className="mt-3 space-y-1 text-sm text-slate-600">{d.benefits.map((b) => <li key={b}>✓ {b}</li>)}</ul>
-                  <a href={`#book-${d.id}`} className="btn btn-primary mt-5 self-start">Book this drip</a>
+                  <BookDripButton id={d.id} className="btn btn-primary mt-5 self-start" />
                 </div>
               </li>
             ))}
           </ul>
         </div>
       </section>
-
-      <div className="mx-auto max-w-3xl px-4 py-16"><BookingWizard /></div>
 
       <section className="bg-slate-50" aria-labelledby="how">
         <div className="section">

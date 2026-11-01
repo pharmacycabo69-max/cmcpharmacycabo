@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { IV, IV_DRIPS, getDrip } from "@/lib/ivtherapy";
 
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -25,35 +25,16 @@ function caboNow() {
 }
 
 type Form = { name: string; phone: string; email: string; loc: string; notes: string };
-const ERROR_TEXT: Record<string, string> = {
-  invalid: "Something in your booking didn’t validate. Please review it and try again.",
-  config: "Online payment is temporarily unavailable. Send your request on WhatsApp instead.",
-  stripe: "We couldn’t start the payment. Try again or send your request on WhatsApp.",
-};
-
-export function BookingWizard() {
+export function BookingWizard({ drip, onClose }: { drip: string; onClose?: () => void }) {
   const now = useMemo(caboNow, []);
-  const [step, setStep] = useState(1);
-  const [k, setK] = useState("");
-  const [error, setError] = useState("");
+  const [step, setStep] = useState(1); // 1 service (preselected), 2 date/time, 3 details, 4 review
+  const [k, setK] = useState(getDrip(drip) ? drip : "");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [cy, setCy] = useState(now.y);
   const [cm, setCm] = useState(now.m);
   const [f, setF] = useState<Form>({ name: "", phone: "", email: "", loc: "", notes: "" });
   const [err, setErr] = useState("");
-
-  // Preselect a drip from "#book-<id>" links and surface checkout errors from "?error=" (keeps the page static)
-  useEffect(() => {
-    const read = () => {
-      const id = location.hash.replace(/^#book-?/, "");
-      if (id && getDrip(id)) { setK(id); setStep(1); document.getElementById("book")?.scrollIntoView({ behavior: "smooth" }); }
-    };
-    read();
-    setError(new URLSearchParams(location.search).get("error") ?? "");
-    window.addEventListener("hashchange", read);
-    return () => window.removeEventListener("hashchange", read);
-  }, []);
 
   const svc = getDrip(k);
   const todayIso = iso(now.y, now.m, now.d);
@@ -72,7 +53,7 @@ export function BookingWizard() {
     if (step === 3) { const e = validate(); if (e) return setErr(e); }
     setErr(""); setStep((s) => Math.min(4, s + 1));
   };
-  const back = () => { setErr(""); setStep((s) => Math.max(1, s - 1)); };
+  const back = () => { setErr(""); if (step <= 1) return onClose?.(); setStep((s) => s - 1); };
 
   const waText = svc
     ? `Hi! I would like to book IV therapy: ${svc.name} (${money(svc.priceUsd)}) on ${dlabel(date)}, ${tlabel(time)} (Cabo time).\nName: ${f.name}\nPhone: ${f.phone}\nEmail: ${f.email}\nLocation: ${f.loc}${f.notes ? `\nNotes: ${f.notes}` : ""}`
@@ -87,28 +68,27 @@ export function BookingWizard() {
   const primary = `${btn} bg-brand text-white hover:bg-brand-dark`;
   const ghost = `${btn} border border-slate-300 bg-white text-slate-700 hover:border-brand`;
   const field = "mt-1 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm outline-none focus:border-brand";
-  const titles = ["Choose your service", "Choose date & time", "Your details", "Review & confirm"];
+  const titles = ["Book online", "Choose date & time", "Your details", "Review & confirm"];
 
   return (
-    <section id="book" aria-labelledby="wiz-h" className="scroll-mt-24 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-      <div className="bg-brand px-6 pb-5 pt-6 text-white">
-        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-teal-100">Book IV therapy online</p>
+    <section aria-labelledby="wiz-h" className="bg-white">
+      <div className="relative bg-brand px-6 pb-5 pt-6 text-white">
+        <p className="pr-10 text-xs font-semibold uppercase tracking-[0.14em] text-teal-100">CMC Pharmacy Cabo · IV therapy</p>
         <h2 id="wiz-h" className="mt-1 text-2xl font-bold">{titles[step - 1]}</h2>
+        {onClose && <button type="button" onClick={onClose} aria-label="Close" className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-white/15 text-xl leading-none hover:bg-white/25">×</button>}
         <div className="mt-4 flex gap-2" aria-hidden>
           {[1, 2, 3, 4].map((i) => <span key={i} className={`h-1 flex-1 rounded-full ${step >= i ? "bg-white" : "bg-white/25"}`} />)}
         </div>
       </div>
 
       <div className="p-6">
-        {error && step === 1 && <p role="alert" className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-700">{ERROR_TEXT[error] ?? ERROR_TEXT.invalid}</p>}
-
         {step === 1 && (
           <>
             <div className="grid gap-2.5">
               {IV_DRIPS.map((o) => (
                 <button key={o.id} type="button" aria-pressed={k === o.id} onClick={() => setK(o.id)}
                   className={`flex w-full items-center justify-between gap-3 rounded-xl border-2 p-4 text-left transition ${k === o.id ? "border-brand bg-brand-soft" : "border-slate-200 hover:border-slate-300"}`}>
-                  <span><b className="block text-[0.95rem]">{o.name}</b><span className="mt-0.5 block text-xs text-slate-500">{o.tagline} · {o.duration}</span></span>
+                  <span><b className="block text-[0.95rem]">{o.name}</b><span className="mt-0.5 block text-xs text-slate-500">{o.duration}</span></span>
                   <span className="whitespace-nowrap font-bold text-brand">{o.from ? "From " : ""}{money(o.priceUsd)}</span>
                 </button>
               ))}
