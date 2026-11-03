@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { allPages } from "@/lib/content";
+import { LOCATIONS } from "@/lib/locations";
 import { categories, products } from "@/lib/products";
 import { SITE } from "@/lib/site";
 
@@ -21,6 +22,8 @@ export default async function sitemap(props: { id: Promise<string> }): Promise<M
       { url: u("/blog"), priority: 0.6, changeFrequency: "weekly" },
       { url: u("/delivery-areas"), priority: 0.8 },
       { url: u("/iv-therapy"), priority: 0.9, changeFrequency: "weekly" },
+      { url: u("/locations"), priority: 0.8 },
+      ...LOCATIONS.map((l) => ({ url: u(`/locations/${l.slug}`), priority: 0.8 })),
       ...allPages().map((p) => ({ url: u(`/${p.slug}`), lastModified: p.date ?? undefined, priority: p.type === "post" ? 0.5 : 0.7 })),
     ];
   }

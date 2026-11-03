@@ -1,0 +1,565 @@
+[
+ {
+  "slug": "plaza-gali",
+  "gbpName": "RMC Pharmacy",
+  "brand": "RMC",
+  "neighborhood": "Centro, Marina",
+  "placeLabel": "Plaza Gali",
+  "addressLine": "Plaza Gali, Blvd. Paseo de la Marina, Loc 47",
+  "postalCode": "23450",
+  "city": "Cabo San Lucas",
+  "region": "B.C.S.",
+  "phone": "+52 624 226 1023",
+  "hours": {
+   "monday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "tuesday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "wednesday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "thursday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "friday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "saturday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "sunday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   }
+  },
+  "geo": {
+   "lat": 22.8783056,
+   "lng": -109.9089587
+  },
+  "mapsUrl": "https://maps.app.goo.gl/hiNCXGKqXwE5JRv2A",
+  "reviewUrl": "https://g.page/r/Cd-qhz6zjhAaEAI/review",
+  "delivers": true,
+  "needsReview": false,
+  "photos": [
+   {
+    "src": "/locations/plaza-gali/05-counter-team.jpg",
+    "width": 1600,
+    "height": 1069,
+    "alt": "Team member at the counter of RMC Pharmacy at Plaza Gali"
+   },
+   {
+    "src": "/locations/plaza-gali/01-storefront.jpg",
+    "width": 1600,
+    "height": 1069,
+    "alt": "Storefront of RMC Pharmacy at Plaza Gali"
+   },
+   {
+    "src": "/locations/plaza-gali/02-street-view.jpg",
+    "width": 1600,
+    "height": 1200,
+    "alt": "RMC Pharmacy seen from the walkway at Plaza Gali"
+   },
+   {
+    "src": "/locations/plaza-gali/03-interior-entrance.jpg",
+    "width": 1600,
+    "height": 1200,
+    "alt": "Inside RMC Pharmacy at Plaza Gali, looking toward the entrance"
+   },
+   {
+    "src": "/locations/plaza-gali/04-interior-shelves.jpg",
+    "width": 1600,
+    "height": 1069,
+    "alt": "Shelves with personal care and sun care products inside RMC Pharmacy at Plaza Gali"
+   },
+   {
+    "src": "/locations/plaza-gali/06-sun-care.jpg",
+    "width": 1600,
+    "height": 1069,
+    "alt": "Sun care products on the shelves at RMC Pharmacy, Plaza Gali"
+   },
+   {
+    "src": "/locations/plaza-gali/07-counter-service.jpg",
+    "width": 1600,
+    "height": 1069,
+    "alt": "Team member serving at the counter of RMC Pharmacy, Plaza Gali"
+   }
+  ],
+  "intro": "RMC Pharmacy at Plaza Gali is a pharmacy and minimarket on Blvd. Paseo de la Marina, in the Centro and Marina area of Cabo San Lucas. You will find us at Loc 47, open every day from 9 am to 6 pm. Our team speaks English and Spanish, so you can ask for what you need in the language you prefer.\n\nCome in for everyday essentials such as sun care, first aid, hydration and personal care, or message us on WhatsApp at +52 624 226 1023 to check what we have before you walk over.\n\nIf you would rather stay where you are, we deliver to hotels and villas in Cabo San Lucas and San José del Cabo, with estimated delivery of up to 70 minutes. You place the order in a WhatsApp chat and pay by card through a secure link.\n\nThis store also connects you with our services: IV therapy at your villa or hotel, doctor consultations by video, and home nursing with our sister brand Cabo Nurse.",
+  "faq": [
+   {
+    "q": "Do you deliver to hotels?",
+    "a": "Yes, to hotels and villas in Cabo San Lucas and San José del Cabo. Estimated delivery up to 70 minutes."
+   },
+   {
+    "q": "Can you deliver to the hotel lobby?",
+    "a": "Yes, we deliver to the lobby of your hotel. Send us the hotel name on WhatsApp."
+   },
+   {
+    "q": "Do you speak English?",
+    "a": "Yes, English and Spanish."
+   },
+   {
+    "q": "Do I need an appointment?",
+    "a": "No, you can walk in. We attend without an appointment."
+   },
+   {
+    "q": "What payment methods do you accept in the store?",
+    "a": "Cash or card, in Mexican pesos or US dollars."
+   },
+   {
+    "q": "How do I pay for a delivery?",
+    "a": "You pay by card through a secure payment link in the WhatsApp chat where you place your order."
+   }
+  ]
+ },
+ {
+  "slug": "plaza-embarcadero",
+  "gbpName": "RMC Pharmacy",
+  "brand": "RMC",
+  "neighborhood": "Centro, Marina",
+  "placeLabel": "Plaza Embarcadero",
+  "addressLine": "Blvd. Paseo de la Marina S/N, Local 15 Plaza Embarcadero",
+  "postalCode": "23450",
+  "city": "Cabo San Lucas",
+  "region": "B.C.S.",
+  "phone": "+52 624 226 1023",
+  "hours": {
+   "monday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "tuesday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "wednesday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "thursday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "friday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "saturday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "sunday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   }
+  },
+  "geo": {
+   "lat": 22.8786485,
+   "lng": -109.908936
+  },
+  "mapsUrl": "https://maps.app.goo.gl/vTE4irdJb2eLEKju6",
+  "reviewUrl": "https://g.page/r/CYk7bBeziXGqEAI/review",
+  "delivers": true,
+  "needsReview": true,
+  "photos": [
+   {
+    "src": "/locations/plaza-embarcadero/01-storefront.jpg",
+    "width": 1360,
+    "height": 1020,
+    "alt": "Storefront of RMC Pharmacy at Plaza Embarcadero"
+   },
+   {
+    "src": "/locations/plaza-embarcadero/02-interior-entrance.jpg",
+    "width": 1360,
+    "height": 1018,
+    "alt": "Inside RMC Pharmacy at Plaza Embarcadero, looking toward the entrance"
+   },
+   {
+    "src": "/locations/plaza-embarcadero/03-display-shelves.jpg",
+    "width": 765,
+    "height": 1020,
+    "alt": "Display shelves inside RMC Pharmacy at Plaza Embarcadero"
+   },
+   {
+    "src": "/locations/plaza-embarcadero/04-entrance.jpg",
+    "width": 1360,
+    "height": 909,
+    "alt": "Entrance of RMC Pharmacy at Plaza Embarcadero"
+   }
+  ],
+  "intro": "Our Plaza Embarcadero store is RMC Pharmacy at Local 15, on Blvd. Paseo de la Marina in Cabo San Lucas. It is a pharmacy and minimarket open every day from 9 am to 6 pm, with service in English and Spanish.\n\nVisit us for everyday essentials, including sun care, first aid, hydration and personal care. If you are not sure we carry something, send a message to +52 624 226 1023 on WhatsApp and we will tell you before you make the trip.\n\nNot in the mood to go out? Order delivery to your hotel or villa anywhere in Cabo San Lucas and San José del Cabo. Estimated delivery is up to 70 minutes. The whole order happens in WhatsApp, and you pay by card with a secure payment link.\n\nBesides the store, you can book IV therapy at your door, a video consultation with a doctor, or a nurse visit through our sister brand Cabo Nurse. Ask us on WhatsApp and we arrange it for the day and place that suit you.",
+  "faq": [
+   {
+    "q": "Do you deliver to hotels?",
+    "a": "Yes, to hotels and villas in Cabo San Lucas and San José del Cabo. Estimated delivery up to 70 minutes."
+   },
+   {
+    "q": "Can you deliver to the hotel lobby?",
+    "a": "Yes, we deliver to the lobby of your hotel. Send us the hotel name on WhatsApp."
+   },
+   {
+    "q": "Do you speak English?",
+    "a": "Yes, English and Spanish."
+   },
+   {
+    "q": "Do I need an appointment?",
+    "a": "No, you can walk in. We attend without an appointment."
+   },
+   {
+    "q": "What payment methods do you accept in the store?",
+    "a": "Cash or card, in Mexican pesos or US dollars."
+   },
+   {
+    "q": "How do I pay for a delivery?",
+    "a": "You pay by card through a secure payment link in the WhatsApp chat where you place your order."
+   }
+  ]
+ },
+ {
+  "slug": "mercado-marina",
+  "gbpName": "RMC Pharmacy",
+  "brand": "RMC",
+  "neighborhood": "Centro, Marina",
+  "placeLabel": "Mercado Marina",
+  "addressLine": "Mercado Marina 11",
+  "postalCode": "23450",
+  "city": "Cabo San Lucas",
+  "region": "B.C.S.",
+  "phone": "+52 624 226 1023",
+  "hours": {
+   "monday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "tuesday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "wednesday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "thursday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "friday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "saturday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "sunday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   }
+  },
+  "geo": {
+   "lat": 22.8790589,
+   "lng": -109.9078648
+  },
+  "mapsUrl": "https://maps.app.goo.gl/hC9a9RiRt451juuG6",
+  "reviewUrl": "https://g.page/r/CXz8ZpnRA7MbEAI/review",
+  "delivers": true,
+  "needsReview": false,
+  "photos": [
+   {
+    "src": "/locations/mercado-marina/02-counter-service.jpg",
+    "width": 1600,
+    "height": 1069,
+    "alt": "Team member at the counter of RMC Pharmacy at Mercado Marina"
+   },
+   {
+    "src": "/locations/mercado-marina/01-storefront.jpg",
+    "width": 1600,
+    "height": 1500,
+    "alt": "Storefront of RMC Pharmacy at Mercado Marina"
+   },
+   {
+    "src": "/locations/mercado-marina/03-team.jpg",
+    "width": 1600,
+    "height": 1069,
+    "alt": "Team member behind the counter at RMC Pharmacy, Mercado Marina"
+   },
+   {
+    "src": "/locations/mercado-marina/04-counter-overview.jpg",
+    "width": 1600,
+    "height": 1276,
+    "alt": "Service counter and shelves at RMC Pharmacy, Mercado Marina"
+   },
+   {
+    "src": "/locations/mercado-marina/05-shelves.jpg",
+    "width": 1600,
+    "height": 1069,
+    "alt": "Shelves with personal care and everyday products at RMC Pharmacy, Mercado Marina"
+   },
+   {
+    "src": "/locations/mercado-marina/06-interior.jpg",
+    "width": 1200,
+    "height": 1600,
+    "alt": "Store interior with shelves and a drinks cooler at RMC Pharmacy, Mercado Marina"
+   }
+  ],
+  "intro": "RMC Pharmacy at Mercado Marina 11 is one of our stores in the Centro and Marina area of Cabo San Lucas. We are a pharmacy and minimarket, open every day from 9 am to 6 pm, and we attend in English and Spanish.\n\nStop by for the everyday things travelers run out of: sun care, first aid, hydration and personal care. You can also write to us on WhatsApp at +52 624 226 1023 and ask about availability before you come.\n\nWe bring the store to you as well. Delivery goes to hotels and villas in Cabo San Lucas and San José del Cabo, with an estimated delivery time of up to 70 minutes. You order in a WhatsApp chat and pay by card through a secure link.\n\nIf you need more than a product, ask about our services: IV therapy at your hotel or villa, video consultations with a doctor, and home nursing with our sister brand Cabo Nurse. Message us and tell us where you are staying.",
+  "faq": [
+   {
+    "q": "Do you deliver to hotels?",
+    "a": "Yes, to hotels and villas in Cabo San Lucas and San José del Cabo. Estimated delivery up to 70 minutes."
+   },
+   {
+    "q": "Can you deliver to the hotel lobby?",
+    "a": "Yes, we deliver to the lobby of your hotel. Send us the hotel name on WhatsApp."
+   },
+   {
+    "q": "Do you speak English?",
+    "a": "Yes, English and Spanish."
+   },
+   {
+    "q": "Do I need an appointment?",
+    "a": "No, you can walk in. We attend without an appointment."
+   },
+   {
+    "q": "What payment methods do you accept in the store?",
+    "a": "Cash or card, in Mexican pesos or US dollars."
+   },
+   {
+    "q": "How do I pay for a delivery?",
+    "a": "You pay by card through a secure payment link in the WhatsApp chat where you place your order."
+   }
+  ]
+ },
+ {
+  "slug": "celeste",
+  "gbpName": "Celeste Pharmacy",
+  "brand": "Celeste",
+  "neighborhood": "Downtown, Centro",
+  "placeLabel": "Blvd. Lázaro Cárdenas",
+  "addressLine": "Blvd. Lázaro Cárdenas, Dep 17",
+  "postalCode": "23450",
+  "city": "Cabo San Lucas",
+  "region": "B.C.S.",
+  "phone": "+52 624 226 1023",
+  "hours": {
+   "monday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "tuesday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "wednesday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "thursday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "friday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "saturday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "sunday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   }
+  },
+  "geo": {
+   "lat": 22.8859589,
+   "lng": -109.9123647
+  },
+  "mapsUrl": "https://maps.app.goo.gl/oKHoed9RCi8RvGTV8",
+  "reviewUrl": "https://g.page/r/CSfj98p78gqZEAI/review",
+  "delivers": true,
+  "needsReview": false,
+  "photos": [
+   {
+    "src": "/locations/celeste/01-storefront.jpg",
+    "width": 1600,
+    "height": 1069,
+    "alt": "Storefront of Celeste Pharmacy"
+   },
+   {
+    "src": "/locations/celeste/02-sign.jpg",
+    "width": 1600,
+    "height": 900,
+    "alt": "Celeste Pharmacy sign above the entrance"
+   },
+   {
+    "src": "/locations/celeste/03-interior-counter.jpg",
+    "width": 1600,
+    "height": 1069,
+    "alt": "Counter and display cases inside Celeste Pharmacy"
+   },
+   {
+    "src": "/locations/celeste/04-personal-care.jpg",
+    "width": 1600,
+    "height": 1069,
+    "alt": "Personal care products on display at Celeste Pharmacy"
+   },
+   {
+    "src": "/locations/celeste/05-interior-wide.jpg",
+    "width": 1600,
+    "height": 1200,
+    "alt": "Inside Celeste Pharmacy"
+   }
+  ],
+  "intro": "Celeste Pharmacy is a pharmacy and minimarket on Blvd. Lázaro Cárdenas, Dep 17, in the downtown (Centro) area of Cabo San Lucas. We are open every day from 9 am to 6 pm and we attend in English and Spanish.\n\nVisit us for everyday essentials, including personal care, sun care, first aid and hydration. If you would like to check what we have before you come, send a message on WhatsApp to +52 624 226 1023.\n\nWe also bring the pharmacy to you. Delivery goes to hotels and villas in Cabo San Lucas and San José del Cabo, with an estimated delivery time of up to 70 minutes. You place your order in a WhatsApp chat and pay by card through a secure payment link.\n\nOur services are available from this store as well: IV therapy at your villa or hotel, doctor consultations by video, and home nursing. Message us on WhatsApp, tell us where you are staying and we arrange it with you.",
+  "faq": [
+   {
+    "q": "Do you deliver to hotels?",
+    "a": "Yes, to hotels and villas in Cabo San Lucas and San José del Cabo. Estimated delivery up to 70 minutes."
+   },
+   {
+    "q": "Can you deliver to the hotel lobby?",
+    "a": "Yes, we deliver to the lobby of your hotel. Send us the hotel name on WhatsApp."
+   },
+   {
+    "q": "Do you speak English?",
+    "a": "Yes, English and Spanish."
+   },
+   {
+    "q": "Do I need an appointment?",
+    "a": "No, you can walk in. We attend without an appointment."
+   },
+   {
+    "q": "What payment methods do you accept in the store?",
+    "a": "Cash or card, in Mexican pesos or US dollars."
+   },
+   {
+    "q": "How do I pay for a delivery?",
+    "a": "You pay by card through a secure payment link in the WhatsApp chat where you place your order."
+   }
+  ]
+ },
+ {
+  "slug": "ocean",
+  "gbpName": "Ocean Pharmacy",
+  "brand": "Ocean",
+  "neighborhood": "Marina",
+  "placeLabel": "Paseo de la Marina",
+  "addressLine": "Blvd. Paseo de la Marina 103, Andador Módulo 103",
+  "postalCode": "23450",
+  "city": "Cabo San Lucas",
+  "region": "B.C.S.",
+  "phone": "+52 624 226 1023",
+  "hours": {
+   "monday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "tuesday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "wednesday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "thursday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "friday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "saturday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   },
+   "sunday": {
+    "opens": "09:00",
+    "closes": "18:00"
+   }
+  },
+  "geo": {
+   "lat": 22.8792611,
+   "lng": -109.9088094
+  },
+  "mapsUrl": "https://maps.app.goo.gl/hUKii4Xvy8FG1Sg78",
+  "reviewUrl": "https://g.page/r/CYFBh9X3v9bqEAI/review",
+  "delivers": true,
+  "needsReview": false,
+  "photos": [
+   {
+    "src": "/locations/ocean/03-team-service.jpg",
+    "width": 1600,
+    "height": 1069,
+    "alt": "Team member serving at the Ocean Pharmacy counter"
+   },
+   {
+    "src": "/locations/ocean/01-kiosk-marina.jpg",
+    "width": 1600,
+    "height": 1069,
+    "alt": "Ocean Pharmacy module on Paseo de la Marina"
+   },
+   {
+    "src": "/locations/ocean/02-kiosk-front.jpg",
+    "width": 1200,
+    "height": 1600,
+    "alt": "Front of the Ocean Pharmacy module with open shelves"
+   },
+   {
+    "src": "/locations/ocean/04-counter-overview.jpg",
+    "width": 1600,
+    "height": 1200,
+    "alt": "Counter and shelves at Ocean Pharmacy"
+   },
+   {
+    "src": "/locations/ocean/05-sun-care-shelves.jpg",
+    "width": 1600,
+    "height": 1069,
+    "alt": "Sun care and everyday products on the shelves at Ocean Pharmacy"
+   },
+   {
+    "src": "/locations/ocean/06-counter-team.jpg",
+    "width": 1600,
+    "height": 1068,
+    "alt": "Team member at the Ocean Pharmacy counter"
+   }
+  ],
+  "intro": "Ocean Pharmacy is a pharmacy and minimarket in a module on Paseo de la Marina, at Andador Módulo 103, in the marina area of Cabo San Lucas. We are open every day from 9 am to 6 pm and we attend in English and Spanish.\n\nStop by for everyday things travelers look for near the marina, such as sun care, first aid, hydration and personal care. You can also write to us on WhatsApp at +52 624 226 1023 and ask about availability before you walk over.\n\nIf you would rather stay on your boat, at your hotel or in your villa, we deliver in Cabo San Lucas and San José del Cabo, with an estimated delivery time of up to 70 minutes. The order happens in a WhatsApp chat, and you pay by card through a secure payment link.\n\nFrom this store you can also book our services: IV therapy at your villa or hotel, doctor consultations by video, and home nursing. Message us and tell us where you are.",
+  "faq": [
+   {
+    "q": "Do you deliver to hotels?",
+    "a": "Yes, to hotels and villas in Cabo San Lucas and San José del Cabo. Estimated delivery up to 70 minutes."
+   },
+   {
+    "q": "Can you deliver to the hotel lobby?",
+    "a": "Yes, we deliver to the lobby of your hotel. Send us the hotel name on WhatsApp."
+   },
+   {
+    "q": "Do you speak English?",
+    "a": "Yes, English and Spanish."
+   },
+   {
+    "q": "Do I need an appointment?",
+    "a": "No, you can walk in. We attend without an appointment."
+   },
+   {
+    "q": "What payment methods do you accept in the store?",
+    "a": "Cash or card, in Mexican pesos or US dollars."
+   },
+   {
+    "q": "How do I pay for a delivery?",
+    "a": "You pay by card through a secure payment link in the WhatsApp chat where you place your order."
+   }
+  ]
+ }
+]

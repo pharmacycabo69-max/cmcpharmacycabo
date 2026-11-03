@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { JsonLd, faqSchema, pharmacySchema, websiteSchema } from "@/lib/seo";
 import { deliveryAreas, posts } from "@/lib/content";
+import { StoreCard } from "@/components/StoreCard";
+import { LOCATIONS } from "@/lib/locations";
 import { topCategories } from "@/lib/products";
 import { photo } from "@/components/PageBanner";
 import { SITE } from "@/lib/site";
@@ -113,6 +115,16 @@ export default function Home() {
           <ul className="mt-8 grid gap-3 sm:grid-cols-2">
             {areas.map((p) => <li key={p.slug}><Link href={`/${p.slug}`} className="block rounded-xl border border-slate-200 bg-white p-4 text-sm font-medium transition hover:border-brand hover:text-brand">{p.title}</Link></li>)}
           </ul>
+        </div>
+      </section>
+
+      <section className="section" aria-labelledby="stores">
+        <div className="flex items-end justify-between gap-4">
+          <h2 id="stores" className="h2">Visit us in Cabo San Lucas</h2>
+          <Link href="/locations" className="text-sm font-medium text-brand">All locations →</Link>
+        </div>
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {LOCATIONS.slice(0, 3).map((l) => <StoreCard key={l.slug} l={l} />)}
         </div>
       </section>
 
