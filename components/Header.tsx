@@ -13,7 +13,7 @@ export function Header() {
           {NAV.map((n) => <Link key={n.href} href={n.href} className="hover:text-brand">{n.label}</Link>)}
         </nav>
         <div className="flex items-center gap-3">
-          <a href={SITE.tel} className="btn btn-primary !py-2 text-sm">
+          <a href={SITE.tel} className="btn btn-primary whitespace-nowrap !px-4 !py-2 text-sm">
             <span className="hidden sm:inline">Call {SITE.phone}</span><span className="sm:hidden">Call 24/7</span>
           </a>
           <details className="relative lg:hidden">

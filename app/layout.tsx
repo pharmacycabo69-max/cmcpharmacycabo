@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { WhatsAppFab } from "@/components/WhatsAppFab";
 import { SITE } from "@/lib/site";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
@@ -24,15 +25,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} h-full`}>
-      <body className="flex min-h-full flex-col pb-16 lg:pb-0">
+      <body className="flex min-h-full flex-col">
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-white focus:p-2">Skip to content</a>
         <Header />
         <main id="main" className="flex-1">{children}</main>
         <Footer />
-        <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-2 border-t border-slate-200 bg-white p-2 lg:hidden">
-          <a href={SITE.tel} className="btn btn-primary !py-2.5">Call 24/7</a>
-          <a href={SITE.whatsapp} target="_blank" rel="noopener" className="btn btn-outline !py-2.5">WhatsApp</a>
-        </div>
+        <WhatsAppFab />
       </body>
     </html>
   );

@@ -7,7 +7,9 @@ import { StoreCard } from "@/components/StoreCard";
 import { LOCATIONS } from "@/lib/locations";
 import { topCategories } from "@/lib/products";
 import { photo } from "@/components/PageBanner";
+import { IconBox, IconBuilding, IconClock, IconDoctor, IconDrip, IconGlobe, IconPill, IconShield, IconStar } from "@/components/Icons";
 import { SITE } from "@/lib/site";
+import { products } from "@/lib/products";
 
 export const metadata: Metadata = {
   title: { absolute: "24/7 Pharmacy in Cabo San Lucas | Hotel Delivery & English-Speaking Doctors" },
@@ -17,10 +19,10 @@ export const metadata: Metadata = {
 };
 
 const SERVICES = [
-  { t: "24/7 pharmacy delivery", d: "Prescriptions, OTC medicine and travel essentials brought to your hotel, resort or villa.", href: "/24-7-pharmacy-delivery-cabo-san-lucas" },
-  { t: "English-speaking doctors", d: "Video consultations and hotel visits with bilingual physicians, available now.", href: "/doctor-consultation" },
-  { t: "IV therapy", d: "Book a licensed nurse for hydration, hangover, immunity and NAD+ drips at your hotel or villa.", href: "/iv-therapy" },
-  { t: "Concierge partnerships", d: "Guest medical support for hotels, resorts and property managers.", href: "/for-concierges" },
+  { icon: IconBox, t: "24/7 pharmacy delivery", d: "Prescriptions, OTC medicine and travel essentials brought to your hotel, resort or villa.", href: "/24-7-pharmacy-delivery-cabo-san-lucas" },
+  { icon: IconDoctor, t: "English-speaking doctors", d: "Video consultations and hotel visits with bilingual physicians, available now.", href: "/doctor-consultation" },
+  { icon: IconDrip, t: "IV therapy", d: "Book a licensed nurse for hydration, hangover, immunity and NAD+ drips at your hotel or villa.", href: "/iv-therapy" },
+  { icon: IconBuilding, t: "Concierge partnerships", d: "Guest medical support for hotels, resorts and property managers.", href: "/for-concierges" },
 ];
 
 const STEPS = [
@@ -45,47 +47,84 @@ const REVIEWS = [
 
 export default function Home() {
   const areas = deliveryAreas().slice(0, 8);
+  const arco = photo("arco");
+  const eyebrow = "text-xs font-bold uppercase tracking-[0.16em] text-brand";
   return (
     <>
       <JsonLd data={[pharmacySchema(), websiteSchema(), faqSchema(FAQ)]} />
 
-      <section className="border-b border-slate-100 bg-brand-soft">
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 md:grid-cols-2 md:py-20">
-          <div>
-            <p className="text-sm font-semibold text-brand">COFEPRIS licensed · LegitScript certified</p>
-            <h1 className="mt-3 text-4xl font-bold leading-[1.1] tracking-tight md:text-5xl">24/7 pharmacy delivery in Cabo San Lucas &amp; San José del Cabo</h1>
-            <p className="mt-5 max-w-xl text-lg text-slate-600">English-speaking pharmacists and doctors. Prescriptions, medicine and health essentials delivered to your hotel or villa, any hour.</p>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <a href={SITE.tel} className="btn btn-primary">Call {SITE.phone}</a>
-              <Link href="/shop" className="btn btn-outline">Browse the shop</Link>
+      {/* Hero */}
+      <section className="relative isolate overflow-hidden">
+        <Image src={arco.src} alt={arco.alt} fill priority sizes="100vw" className="-z-20 object-cover object-[62%_45%]" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-slate-950/90 via-slate-900/65 to-slate-900/15" />
+        <div className="absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-slate-950/40 to-transparent" />
+        <div className="mx-auto max-w-6xl px-4 pb-28 pt-16 md:pb-36 md:pt-24">
+          <div className="max-w-2xl">
+            <div className="flex flex-wrap gap-2 text-xs font-medium text-white">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 ring-1 ring-white/25 backdrop-blur"><IconShield className="h-4 w-4" />COFEPRIS licensed</span>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 ring-1 ring-white/25 backdrop-blur"><IconShield className="h-4 w-4" />LegitScript certified</span>
+              <span className="inline-flex items-center gap-1 rounded-full bg-white/15 px-3 py-1.5 ring-1 ring-white/25 backdrop-blur"><IconStar className="h-3.5 w-3.5 text-amber-300" />{SITE.rating.value.toFixed(1)} · {SITE.rating.count} Google reviews</span>
             </div>
-            <p className="mt-5 text-sm text-slate-500"><span className="font-semibold text-slate-800">★ {SITE.rating.value.toFixed(1)}</span> on Google · {SITE.rating.count} verified reviews</p>
+            <h1 className="mt-6 text-4xl font-extrabold leading-[1.05] tracking-tight text-white md:text-6xl">
+              24/7 pharmacy delivery in <span className="text-teal-300">Cabo San Lucas</span> &amp; San José del Cabo
+            </h1>
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate-200">English-speaking pharmacists and doctors. Prescriptions, medicine and health essentials delivered to your hotel or villa, any hour.</p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href={`${SITE.whatsapp}?text=${encodeURIComponent("Hi! I need a pharmacy delivery in Cabo.")}`} target="_blank" rel="noopener" className="btn !bg-[#25d366] !px-6 !py-3.5 text-[#05301b] shadow-lg shadow-black/20 hover:!bg-[#2ee170]">Order on WhatsApp</a>
+              <a href={SITE.tel} className="btn !px-6 !py-3.5 text-white ring-1 ring-white/40 backdrop-blur hover:bg-white/15">Call {SITE.phone}</a>
+            </div>
           </div>
-          <Image src={photo("arco").src} alt={photo("arco").alt} width={photo("arco").w} height={photo("arco").h} priority sizes="(min-width: 768px) 560px, 100vw" className="aspect-[4/3] w-full rounded-2xl object-cover shadow-lg" />
         </div>
       </section>
 
+      {/* Key facts */}
+      <div className="relative z-10 mx-auto -mt-14 max-w-5xl px-4">
+        <dl className="grid grid-cols-2 divide-slate-100 rounded-2xl bg-white p-2 shadow-xl shadow-slate-900/10 ring-1 ring-slate-100 md:grid-cols-4 md:divide-x">
+          {[
+            [IconClock, "60–90 min", "Typical delivery time"],
+            [IconBox, "24 / 7", "Open every day, all night"],
+            [IconGlobe, "English", "Pharmacists & doctors"],
+            [IconDrip, `${products.length.toLocaleString("en-US")}+`, "Products in the shop"],
+          ].map(([Icon, big, small]) => {
+            const I = Icon as typeof IconClock;
+            return (
+              <div key={big as string} className="flex items-center gap-3 p-4">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand"><I className="h-5 w-5" /></span>
+                <div><dt className="text-lg font-bold leading-tight">{big as string}</dt><dd className="text-xs text-slate-500">{small as string}</dd></div>
+              </div>
+            );
+          })}
+        </dl>
+      </div>
+
+      {/* Services */}
       <section className="section" aria-labelledby="services">
-        <h2 id="services" className="h2">Everything your trip needs, delivered</h2>
-        <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <p className={eyebrow}>What we do</p>
+        <h2 id="services" className="h2 mt-2">Everything your trip needs, delivered</h2>
+        <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {SERVICES.map((s) => (
             <li key={s.t}>
-              <Link href={s.href} className="block h-full rounded-xl border border-slate-200 p-6 transition hover:border-brand">
-                <h3 className="font-semibold">{s.t}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">{s.d}</p>
+              <Link href={s.href} className="group flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-brand hover:shadow-lg">
+                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-brand to-teal-500 text-white shadow-md shadow-teal-900/20"><s.icon className="h-6 w-6" /></span>
+                <h3 className="mt-5 font-semibold">{s.t}</h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{s.d}</p>
+                <span className="mt-4 text-sm font-semibold text-brand">Learn more <span aria-hidden className="inline-block transition group-hover:translate-x-1">→</span></span>
               </Link>
             </li>
           ))}
         </ul>
       </section>
 
-      <section className="bg-slate-50" aria-labelledby="how">
+      {/* How it works */}
+      <section className="bg-gradient-to-b from-brand-soft to-white" aria-labelledby="how">
         <div className="section">
-          <h2 id="how" className="h2">How it works</h2>
-          <ol className="mt-8 grid gap-6 md:grid-cols-3">
+          <p className={eyebrow}>Simple &amp; fast</p>
+          <h2 id="how" className="h2 mt-2">How it works</h2>
+          <ol className="relative mt-10 grid gap-6 md:grid-cols-3">
+            <span aria-hidden className="absolute left-[16.6%] right-[16.6%] top-7 hidden h-px bg-gradient-to-r from-transparent via-teal-300 to-transparent md:block" />
             {STEPS.map((s, i) => (
-              <li key={s.t} className="rounded-xl bg-white p-6 shadow-sm">
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand text-sm font-bold text-white">{i + 1}</span>
+              <li key={s.t} className="relative rounded-2xl bg-white p-6 text-center shadow-sm ring-1 ring-slate-100">
+                <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-brand text-xl font-extrabold text-white shadow-lg shadow-teal-900/20 ring-8 ring-brand-soft">{i + 1}</span>
                 <h3 className="mt-4 font-semibold">{s.t}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">{s.d}</p>
               </li>
@@ -94,75 +133,103 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Shop by category */}
       <section className="section" aria-labelledby="shop">
         <div className="flex items-end justify-between gap-4">
-          <h2 id="shop" className="h2">Shop by category</h2>
-          <Link href="/shop" className="text-sm font-medium text-brand">All products →</Link>
+          <div><p className={eyebrow}>Online shop</p><h2 id="shop" className="h2 mt-2">Shop by category</h2></div>
+          <Link href="/shop" className="text-sm font-semibold text-brand">All products →</Link>
         </div>
         <ul className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
           {topCategories().slice(0, 8).map((c) => (
-            <li key={c.id}><Link href={`/product-category/${c.slug}`} className="block rounded-xl border border-slate-200 p-4 text-sm font-medium transition hover:border-brand hover:text-brand">{c.name}<span className="mt-1 block text-xs font-normal text-slate-400">{c.count} products</span></Link></li>
+            <li key={c.id}>
+              <Link href={`/product-category/${c.slug}`} className="group flex h-full items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 transition hover:border-brand hover:shadow-md">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-soft text-brand"><IconPill className="h-5 w-5" /></span>
+                <span className="text-sm font-semibold leading-tight group-hover:text-brand">{c.name}<span className="mt-0.5 block text-xs font-normal text-slate-400">{c.count} products</span></span>
+              </Link>
+            </li>
           ))}
         </ul>
       </section>
 
-      <section className="bg-slate-50" aria-labelledby="areas">
+      {/* Stores */}
+      <section className="bg-slate-50" aria-labelledby="stores">
         <div className="section">
           <div className="flex items-end justify-between gap-4">
-            <h2 id="areas" className="h2">Delivery to Los Cabos hotels &amp; resorts</h2>
-            <Link href="/delivery-areas" className="text-sm font-medium text-brand">All areas →</Link>
+            <div><p className={eyebrow}>Walk-in pharmacies</p><h2 id="stores" className="h2 mt-2">Visit us in Cabo San Lucas</h2></div>
+            <Link href="/locations" className="text-sm font-semibold text-brand">All locations →</Link>
           </div>
-          <ul className="mt-8 grid gap-3 sm:grid-cols-2">
-            {areas.map((p) => <li key={p.slug}><Link href={`/${p.slug}`} className="block rounded-xl border border-slate-200 bg-white p-4 text-sm font-medium transition hover:border-brand hover:text-brand">{p.title}</Link></li>)}
-          </ul>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {LOCATIONS.slice(0, 3).map((l) => <StoreCard key={l.slug} l={l} />)}
+          </div>
         </div>
       </section>
 
-      <section className="section" aria-labelledby="stores">
+      {/* Delivery areas */}
+      <section className="section" aria-labelledby="areas">
         <div className="flex items-end justify-between gap-4">
-          <h2 id="stores" className="h2">Visit us in Cabo San Lucas</h2>
-          <Link href="/locations" className="text-sm font-medium text-brand">All locations →</Link>
+          <div><p className={eyebrow}>We come to you</p><h2 id="areas" className="h2 mt-2">Delivery to Los Cabos hotels &amp; resorts</h2></div>
+          <Link href="/delivery-areas" className="text-sm font-semibold text-brand">All areas →</Link>
         </div>
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {LOCATIONS.slice(0, 3).map((l) => <StoreCard key={l.slug} l={l} />)}
+        <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+          {areas.map((p) => <li key={p.slug}><Link href={`/${p.slug}`} className="flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white p-4 text-sm font-medium transition hover:border-brand hover:text-brand">{p.title}<span aria-hidden className="text-brand">→</span></Link></li>)}
+        </ul>
+      </section>
+
+      {/* Reviews */}
+      <section className="bg-slate-900 text-white" aria-labelledby="reviews">
+        <div className="section">
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-teal-300">{SITE.rating.value.toFixed(1)} on Google · {SITE.rating.count} reviews</p>
+          <h2 id="reviews" className="h2 mt-2">What travelers say</h2>
+          <div className="mt-8 grid gap-5 md:grid-cols-3">
+            {REVIEWS.map((r) => (
+              <figure key={r.n} className="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
+                <p aria-label="5 out of 5 stars" className="flex gap-0.5 text-amber-300">{[0, 1, 2, 3, 4].map((i) => <IconStar key={i} />)}</p>
+                <blockquote className="mt-4 text-sm leading-relaxed text-slate-300">“{r.q}”</blockquote>
+                <figcaption className="mt-5 text-sm font-semibold">{r.n} <span className="font-normal text-slate-400">· {r.w}</span></figcaption>
+              </figure>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="section" aria-labelledby="reviews">
-        <h2 id="reviews" className="h2">What travelers say</h2>
-        <div className="mt-8 grid gap-5 md:grid-cols-3">
-          {REVIEWS.map((r) => (
-            <figure key={r.n} className="rounded-xl border border-slate-200 p-6">
-              <p aria-label="5 out of 5 stars" className="text-brand">★★★★★</p>
-              <blockquote className="mt-3 text-sm leading-relaxed text-slate-600">“{r.q}”</blockquote>
-              <figcaption className="mt-4 text-sm font-semibold">{r.n} <span className="font-normal text-slate-500">· {r.w}</span></figcaption>
-            </figure>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-3xl px-4 pb-8" aria-labelledby="faq">
+      {/* FAQ */}
+      <section className="mx-auto max-w-3xl px-4 py-16" aria-labelledby="faq">
         <h2 id="faq" className="h2 text-center">Frequently asked questions</h2>
-        <div className="mt-8 divide-y divide-slate-200 rounded-xl border border-slate-200">
+        <div className="mt-8 divide-y divide-slate-200 rounded-2xl border border-slate-200 bg-white shadow-sm">
           {FAQ.map((f) => (
             <details key={f.q} className="group p-5">
-              <summary className="flex cursor-pointer items-center justify-between gap-4 font-medium">{f.q}<span aria-hidden className="text-brand transition group-open:rotate-45">+</span></summary>
+              <summary className="flex cursor-pointer items-center justify-between gap-4 font-medium">{f.q}<span aria-hidden className="text-xl text-brand transition group-open:rotate-45">+</span></summary>
               <p className="mt-3 text-sm leading-relaxed text-slate-600">{f.a}</p>
             </details>
           ))}
         </div>
-        <p className="mt-5 text-center text-sm"><Link href="/faq" className="font-medium text-brand">More answers →</Link></p>
+        <p className="mt-5 text-center text-sm"><Link href="/faq" className="font-semibold text-brand">More answers →</Link></p>
       </section>
 
-      <section className="section" aria-labelledby="blog">
+      {/* Blog */}
+      <section className="mx-auto max-w-6xl px-4 pb-4" aria-labelledby="blog">
         <h2 id="blog" className="h2">From the blog</h2>
         <div className="mt-8 grid gap-5 md:grid-cols-3">
           {posts().slice(0, 3).map((p) => (
-            <article key={p.slug} className="rounded-xl border border-slate-200 p-5 transition hover:border-brand">
+            <article key={p.slug} className="rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-brand hover:shadow-md">
               <h3 className="font-semibold leading-snug"><Link href={`/${p.slug}`} className="hover:text-brand">{p.title}</Link></h3>
               <p className="mt-2 line-clamp-3 text-sm text-slate-600">{p.description}</p>
             </article>
           ))}
+        </div>
+      </section>
+
+      {/* Final call to action */}
+      <section className="mx-auto mt-12 max-w-6xl px-4">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-dark via-brand to-teal-500 px-6 py-12 text-center text-white shadow-xl md:px-12">
+          <div aria-hidden className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-white/10" />
+          <div aria-hidden className="absolute -bottom-20 -left-10 h-48 w-48 rounded-full bg-white/10" />
+          <h2 className="relative text-3xl font-extrabold tracking-tight md:text-4xl">Need a pharmacist right now?</h2>
+          <p className="relative mx-auto mt-3 max-w-xl text-teal-50">English-speaking help 24/7. Call or message us and we’ll bring what you need to your hotel or villa.</p>
+          <div className="relative mt-7 flex flex-wrap justify-center gap-3">
+            <a href={SITE.tel} className="btn !px-6 !py-3.5 bg-white text-brand hover:bg-teal-50">Call {SITE.phone}</a>
+            <a href={SITE.whatsapp} target="_blank" rel="noopener" className="btn !px-6 !py-3.5 !bg-[#25d366] text-[#05301b] hover:!bg-[#2ee170]">WhatsApp us</a>
+          </div>
         </div>
       </section>
     </>
