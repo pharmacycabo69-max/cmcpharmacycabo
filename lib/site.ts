@@ -1,6 +1,6 @@
 export const SITE = {
   name: "CMC Pharmacy Cabo",
-  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://cmcpharmacycabo.com").replace(/\/$/, ""),
+  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.cmcpharmacycabo.com").replace(/\/$/, ""),
   phone: "+52 624 267 3177",
   tel: "tel:+526242673177",
   whatsapp: "https://wa.me/5216242673177",

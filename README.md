@@ -12,7 +12,7 @@ npm run build && npm start
 
 ## Deploy
 
-Import the repo in Vercel (framework preset: Next.js). No env vars required; optionally set `NEXT_PUBLIC_SITE_URL` to the production domain (used for sitemap/canonical URLs).
+Import the repo in Vercel (framework preset: Next.js). Set `NEXT_PUBLIC_SITE_URL=https://www.cmcpharmacycabo.com` (must match the primary domain in Vercel — it drives canonicals, sitemap and robots). Optional: `NEXT_PUBLIC_GA_ID` (GA4, tracks `whatsapp_click` / `phone_click` / `email_click`) and `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` (Search Console meta tag).
 
 ## Layout
 
