@@ -7,12 +7,13 @@ declare global {
   interface Window { gtag?: (...args: unknown[]) => void }
 }
 
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+// GA4 measurement IDs are public (they ship in the page HTML); env var overrides.
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID || (process.env.NEXT_PUBLIC_VERCEL_ENV === "production" ? "G-7CR5LW3KJS" : undefined);
 
 /**
  * GA4 + conversion events for the ways customers actually order:
  * WhatsApp (whatsapp_click), phone (phone_click) and email (email_click).
- * Renders nothing unless NEXT_PUBLIC_GA_ID is set.
+ * Uses NEXT_PUBLIC_GA_ID if set, otherwise the live property on Vercel production only.
  */
 export function Analytics() {
   useEffect(() => {
