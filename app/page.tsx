@@ -61,7 +61,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-4 pb-28 pt-16 md:pb-36 md:pt-24">
           <div className="max-w-2xl">
             <div className="flex flex-wrap gap-2 text-xs font-medium text-white">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 ring-1 ring-white/25 backdrop-blur"><IconShield className="h-4 w-4" />COFEPRIS licensed</span>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 ring-1 ring-white/25 backdrop-blur"><IconShield className="h-4 w-4" />COFEPRIS Auth. {SITE.cofepris}</span>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 ring-1 ring-white/25 backdrop-blur"><IconShield className="h-4 w-4" />LegitScript certified</span>
               <span className="inline-flex items-center gap-1 rounded-full bg-white/15 px-3 py-1.5 ring-1 ring-white/25 backdrop-blur"><IconStar className="h-3.5 w-3.5 text-amber-300" />{SITE.rating.value.toFixed(1)} · {SITE.rating.count} Google reviews</span>
             </div>

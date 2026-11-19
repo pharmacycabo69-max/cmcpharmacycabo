@@ -82,3 +82,26 @@ export function search({ q, cat, page = 1, sort }: { q?: string; cat?: number; p
   const cur = Math.min(Math.max(1, page), pages);
   return { items: list.slice((cur - 1) * PAGE_SIZE, cur * PAGE_SIZE), total, pages, page: cur };
 }
+
+/** Categories named "... Rx" (and their subcategories) hold prescription-only medicines. */
+const RX_CATS = (() => {
+  const ids = new Set(categories.filter((c) => /\bRx\b/.test(c.name)).map((c) => c.id));
+  let grew = true;
+  while (grew) {
+    grew = false;
+    for (const c of categories) if (ids.has(c.parent) && !ids.has(c.id)) { ids.add(c.id); grew = true; }
+  }
+  return ids;
+})();
+
+/** Psychotropics/opioids controlled under Mexican law: original special prescription required. */
+const CONTROLLED = /\b(codein[ea]?|code[ií]na|tramadol|clonazepam|alprazolam|diazepam|lorazepam|bromazepam|zolpidem|oxycodon[ea]?|morphin[ea]?|morfina|fentanyl|buprenorphin[ea]?|tapentadol|methylphenidate|metilfenidato|modafinil|phentermin[ea]?|fentermina)\b/i;
+
+/** Active ingredients that need a prescription in Mexico even when the product sits in a non-Rx category. */
+const RX_NAMES = /\b(semaglut\w*|ozempic|wegovy|rybelsus|tirzepat\w*|mounjaro|zepbound|liraglut\w*|saxenda|victoza|amoxicil\w*|azithromycin|azitromicina|ciprofloxac\w*|levofloxac\w*|clarithromycin|claritromicina|doxycycline|doxiciclina|cephalexin|cefalexina|ceftriaxon\w*|cefuroxim\w*|metronidazol\w*|nitrofuranto\w*|clindamic\w*|sulfamethoxazole|sulfametoxazol|trimethoprim|trimetoprima|penicil\w*|sildenafil|tadalafil|viagra|cialis|prednison\w*|prednisolon\w*|dexametason\w*|dexamethason\w*|metformin\w*|insulin\w*|sertralin\w*|fluoxetin\w*|escitalopram|paroxetin\w*|isotretino\w*|finasterid\w*)\b/i;
+/** Supplies that mention a drug but are sold freely (insulin syringes, pen needles, test strips). */
+const SUPPLIES = /\b(syringes?|jeringas?|needles?|agujas?|lancets?|lancetas?|strips?|tiras?)\b/i;
+
+export const isControlled = (p: { name: string }) => CONTROLLED.test(p.name);
+export const isRx = (p: { name: string; cats: number[] }) =>
+  isControlled(p) || p.cats.some((c) => RX_CATS.has(c)) || (RX_NAMES.test(p.name) && !SUPPLIES.test(p.name));

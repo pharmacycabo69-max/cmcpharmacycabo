@@ -6,7 +6,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { OpenStatus } from "@/components/OpenStatus";
 import { DAYS, DAY_LABEL, formatRange, hoursSummary } from "@/lib/hours";
 import { LOCATIONS, fullAddress, getLocation, locationTitle, telHref, waHref } from "@/lib/locations";
-import { JsonLd, breadcrumbSchema, faqSchema } from "@/lib/seo";
+import { JsonLd, breadcrumbSchema, faqSchema, parentOrg } from "@/lib/seo";
 import { SITE, abs } from "@/lib/site";
 
 export const dynamicParams = false;
@@ -41,14 +41,18 @@ export default async function LocationPage({ params }: Props) {
     geo: { "@type": "GeoCoordinates", latitude: l.geo.lat, longitude: l.geo.lng },
     openingHoursSpecification: DAYS.filter((d) => l.hours[d]).map((d) => ({ "@type": "OpeningHoursSpecification", dayOfWeek: DAY_LABEL[d], opens: l.hours[d]!.opens, closes: l.hours[d]!.closes })),
     hasMap: l.mapsUrl, areaServed: ["Cabo San Lucas", "San José del Cabo"],
+    parentOrganization: parentOrg(),
   };
   return (
     <div className="mx-auto max-w-4xl px-4 py-10">
       <JsonLd data={schema} />
       <JsonLd data={faqSchema(l.faq)} />
       <Breadcrumbs items={[{ name: "Locations", href: "/locations" }, { name: `${l.gbpName} · ${l.placeLabel}`, href: `/locations/${l.slug}` }]} />
-      <h1 className="mt-5 text-3xl font-bold tracking-tight md:text-4xl">{l.gbpName}</h1>
+      <h1 className="mt-5 text-3xl font-bold tracking-tight md:text-4xl">{l.gbpName} <span className="text-slate-500">· {l.placeLabel}</span></h1>
       <p className="mt-1 text-slate-600">{l.neighborhood}, Cabo San Lucas</p>
+      <p className="mt-3 max-w-2xl text-sm text-slate-600">
+        One of {LOCATIONS.length} {SITE.parent} stores in Cabo San Lucas. Need it delivered, day or night? {SITE.name}, {SITE.parent}&apos;s 24/7 delivery and concierge service, brings your order to your hotel or villa: <a href={SITE.tel} className="font-medium text-brand">{SITE.phone}</a>.
+      </p>
 
       <div className="mt-6 grid gap-6 sm:grid-cols-2">
         <div>

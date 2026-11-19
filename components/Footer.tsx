@@ -9,7 +9,8 @@ export function Footer() {
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <p className="font-semibold text-white">{SITE.name}</p>
-          <p className="mt-3 text-sm leading-relaxed text-slate-400">Licensed 24/7 pharmacy and English-speaking doctors serving Cabo San Lucas, San José del Cabo and the Corridor.</p>
+          <p className="mt-3 text-sm leading-relaxed text-slate-400">The 24/7 delivery and concierge service of <Link href="/locations" className="text-slate-300 underline-offset-2 hover:underline">{SITE.parent}</Link>, with English-speaking pharmacists and doctors serving Cabo San Lucas, San José del Cabo and the Corridor.</p>
+          <p className="mt-3 text-xs text-slate-400">COFEPRIS Authorization No. {SITE.cofepris}</p>
           <address className="mt-4 text-sm not-italic leading-relaxed text-slate-400">
             {SITE.street}, {SITE.postalCode} {SITE.locality}, B.C.S., Mexico<br />
             <a href={SITE.tel} className="font-medium text-white">{SITE.phone}</a><br />

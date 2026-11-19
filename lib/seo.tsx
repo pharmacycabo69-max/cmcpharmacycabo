@@ -7,6 +7,15 @@ export function JsonLd({ data }: { data: object | object[] }) {
 }
 
 export const orgId = `${SITE.url}/#pharmacy`;
+export const parentId = `${SITE.url}/#rmc`;
+
+/** RMC Pharmacy runs the stores; CMC Pharmacy Cabo is its 24/7 delivery & concierge service. */
+export const parentOrg = () => ({
+  "@type": "Organization",
+  "@id": parentId,
+  name: SITE.parent,
+  url: abs("/locations"),
+});
 
 export const pharmacySchema = () => ({
   "@context": "https://schema.org",
@@ -14,6 +23,8 @@ export const pharmacySchema = () => ({
   "@id": orgId,
   name: SITE.name,
   url: SITE.url,
+  parentOrganization: parentOrg(),
+  identifier: { "@type": "PropertyValue", propertyID: "COFEPRIS", value: SITE.cofepris },
   logo: abs(SITE.logo),
   image: abs(SITE.logo),
   description: SITE.description,

@@ -15,6 +15,9 @@ export const SITE = {
   description:
     "24/7 pharmacy in Cabo San Lucas & San José del Cabo. English-speaking pharmacists, prescription and OTC delivery to your hotel or villa, and doctors on call.",
   rating: { value: 5.0, count: 89 },
+  /** CMC is the 24/7 delivery & concierge service of RMC Pharmacy, which runs the stores in /locations. */
+  parent: "RMC Pharmacy",
+  cofepris: "098716398",
 };
 
 export const NAV = [

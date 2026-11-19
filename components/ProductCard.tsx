@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { hasPrice, money, type ProductSummary } from "@/lib/products";
+import { hasPrice, isRx, money, type ProductSummary } from "@/lib/products";
 
 export function NoPhoto({ className = "h-full w-full" }: { className?: string }) {
   return (
@@ -25,7 +25,8 @@ export function ProductCard({ p }: { p: ProductSummary }) {
         <h3 className="line-clamp-2 text-sm font-medium text-slate-900 group-hover:text-brand">{p.name}</h3>
         <p className="mt-auto flex items-baseline gap-2">
           <span className="font-semibold text-slate-900">{hasPrice(p) ? money(p.price) : <span className="text-sm font-medium text-brand">Ask for price</span>}</span>
-          {hasPrice(p) && p.onSale && <span className="text-xs text-slate-400 line-through">{money(p.regular)}</span>}
+          {hasPrice(p) && p.onSale && <span className="text-xs text-slate-500 line-through">{money(p.regular)}</span>}
+          {isRx(p) && <span title="Prescription required" className="ml-auto rounded bg-amber-100 px-1.5 py-0.5 text-[11px] font-semibold text-amber-900">℞ Rx</span>}
         </p>
       </div>
     </Link>
