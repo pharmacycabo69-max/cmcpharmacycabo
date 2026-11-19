@@ -12,14 +12,27 @@ export const generateStaticParams = () => products.map((p) => ({ slug: p.slug })
 
 type Props = { params: Promise<{ slug: string }> };
 const text = (html: string) => html.replace(/<[^>]+>/g, " ").replace(/&nbsp;|&amp;/g, " ").replace(/\s+/g, " ").trim();
+/** Cut on a word boundary so titles and snippets are not chopped mid-word. */
+const cut = (s: string, max: number) => (s.length <= max ? s : s.slice(0, max).replace(/\s+\S*$/, "").replace(/[\s,;:(–—-]+$/, ""));
+
+/**
+ * Google shows ~60 characters of a title. Short names get the local keyword and the brand suffix;
+ * long ones are shortened and shown without the suffix.
+ */
+function productTitle(name: string): Metadata["title"] {
+  const local = `${name} in Cabo San Lucas`;
+  if (local.length <= 40) return local;
+  if (name.length <= 40) return name;
+  return { absolute: cut(name, 60) };
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const p = getProduct((await params).slug);
   if (!p) return {};
   const cat = p.categories[0]?.name;
-  const desc = `${p.name}${cat ? ` — ${cat}` : ""}. ${hasPrice(p) ? `${money(p.price)}. ` : ""}Order from CMC Pharmacy Cabo with 24/7 delivery to your hotel or villa in Los Cabos.`.slice(0, 158);
+  const desc = cut(`${p.name}${cat ? ` — ${cat}` : ""}. ${hasPrice(p) ? `${money(p.price)}. ` : ""}Order from CMC Pharmacy Cabo with 24/7 delivery to your hotel or villa in Los Cabos.`, 158);
   return {
-    title: `${p.name} in Cabo San Lucas`,
+    title: productTitle(p.name),
     description: desc,
     alternates: { canonical: `/product/${p.slug}` },
     openGraph: { title: p.name, description: desc, url: `/product/${p.slug}`, images: p.images[0] ? [p.images[0].src] : undefined },
@@ -46,7 +59,8 @@ export default async function Product({ params }: Props) {
   const crumbs = [{ name: "Shop", href: "/shop" }, ...(cat && categoryBySlug(cat.slug) ? [{ name: cat.name, href: `/product-category/${cat.slug}` }] : []), { name: p.name, href: `/product/${p.slug}` }];
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
-      <JsonLd data={ld} />
+      {/* Product rich results require an offer; "ask for price" items only get breadcrumbs */}
+      {hasPrice(p) && <JsonLd data={ld} />}
       <Breadcrumbs items={crumbs} />
       <div className="mt-6 grid gap-10 md:grid-cols-2">
         <div className="space-y-3">

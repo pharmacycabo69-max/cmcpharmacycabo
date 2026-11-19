@@ -15,12 +15,22 @@ export type Product = ProductSummary & {
   attributes: { name: string; terms: string[] }[]; brands: string[];
 };
 
+/** Imported WooCommerce text carries HTML entities ("&#038;", "&amp;"); decode them once at load. */
+export const decode = (s: string) =>
+  s
+    .replace(/&#0*38;|&amp;/g, "&")
+    .replace(/&#0*39;|&#8217;|&apos;/g, "'")
+    .replace(/&quot;|&#0*34;/g, '"')
+    .replace(/&#8211;/g, "–")
+    .replace(/&#8212;/g, "—")
+    .replace(/&nbsp;|&#160;/g, " ");
+
 /** Products with neither a photo nor a price are hidden everywhere (listings, product pages, sitemap). */
 const visible = (p: ProductSummary) => !!p.img || p.price > 0;
-export const products = (indexJson as ProductSummary[]).filter(visible);
+export const products = (indexJson as ProductSummary[]).filter(visible).map((p) => ({ ...p, name: decode(p.name) }));
 
 // Category counts are recomputed from the visible products (each category counts its descendants too)
-const rawCats = catsJson as Category[];
+const rawCats = (catsJson as Category[]).map((c) => ({ ...c, name: decode(c.name) }));
 const parentOf = new Map(rawCats.map((c) => [c.id, c.parent]));
 const counts = new Map<number, number>();
 for (const p of products) {
@@ -38,7 +48,13 @@ export const hasPrice = (p: { price: number }) => p.price > 0;
 export function getProduct(slug: string): Product | null {
   const s = products.find((p) => p.slug === slug);
   if (!s) return null;
-  return JSON.parse(fs.readFileSync(path.join(process.cwd(), "data/products/items", `${s.id}.json`), "utf8"));
+  const p: Product = JSON.parse(fs.readFileSync(path.join(process.cwd(), "data/products/items", `${s.id}.json`), "utf8"));
+  return {
+    ...p,
+    name: decode(p.name),
+    images: p.images.map((i) => ({ ...i, alt: decode(i.alt ?? "") })),
+    categories: p.categories.map((c) => ({ ...c, name: decode(c.name) })),
+  };
 }
 
 export const categoryBySlug = (slug: string) => categories.find((c) => c.slug === slug);

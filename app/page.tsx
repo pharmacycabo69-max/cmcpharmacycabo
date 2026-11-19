@@ -55,7 +55,7 @@ export default function Home() {
 
       {/* Hero */}
       <section className="relative isolate overflow-hidden">
-        <Image src={arco.src} alt={arco.alt} fill priority sizes="100vw" className="-z-20 object-cover object-[62%_45%]" />
+        <Image src={arco.src} alt={arco.alt} fill priority quality={60} sizes="100vw" className="-z-20 object-cover object-[62%_45%]" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-slate-950/90 via-slate-900/65 to-slate-900/15" />
         <div className="absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-slate-950/40 to-transparent" />
         <div className="mx-auto max-w-6xl px-4 pb-28 pt-16 md:pb-36 md:pt-24">
@@ -79,7 +79,7 @@ export default function Home() {
 
       {/* Key facts */}
       <div className="relative z-10 mx-auto -mt-14 max-w-5xl px-4">
-        <dl className="grid grid-cols-2 divide-slate-100 rounded-2xl bg-white p-2 shadow-xl shadow-slate-900/10 ring-1 ring-slate-100 md:grid-cols-4 md:divide-x">
+        <ul className="grid grid-cols-2 divide-slate-100 rounded-2xl bg-white p-2 shadow-xl shadow-slate-900/10 ring-1 ring-slate-100 md:grid-cols-4 md:divide-x">
           {[
             [IconClock, "60–90 min", "Typical delivery time"],
             [IconBox, "24 / 7", "Open every day, all night"],
@@ -88,13 +88,13 @@ export default function Home() {
           ].map(([Icon, big, small]) => {
             const I = Icon as typeof IconClock;
             return (
-              <div key={big as string} className="flex items-center gap-3 p-4">
+              <li key={big as string} className="flex items-center gap-3 p-4">
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand"><I className="h-5 w-5" /></span>
-                <div><dt className="text-lg font-bold leading-tight">{big as string}</dt><dd className="text-xs text-slate-500">{small as string}</dd></div>
-              </div>
+                <p><span className="block text-lg font-bold leading-tight">{big as string}</span><span className="block text-xs text-slate-600">{small as string}</span></p>
+              </li>
             );
           })}
-        </dl>
+        </ul>
       </div>
 
       {/* Services */}
@@ -144,7 +144,7 @@ export default function Home() {
             <li key={c.id}>
               <Link href={`/product-category/${c.slug}`} className="group flex h-full items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 transition hover:border-brand hover:shadow-md">
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-soft text-brand"><IconPill className="h-5 w-5" /></span>
-                <span className="text-sm font-semibold leading-tight group-hover:text-brand">{c.name}<span className="mt-0.5 block text-xs font-normal text-slate-400">{c.count} products</span></span>
+                <span className="text-sm font-semibold leading-tight group-hover:text-brand">{c.name}<span className="mt-0.5 block text-xs font-normal text-slate-500">{c.count} products</span></span>
               </Link>
             </li>
           ))}
@@ -183,7 +183,7 @@ export default function Home() {
           <div className="mt-8 grid gap-5 md:grid-cols-3">
             {REVIEWS.map((r) => (
               <figure key={r.n} className="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
-                <p aria-label="5 out of 5 stars" className="flex gap-0.5 text-amber-300">{[0, 1, 2, 3, 4].map((i) => <IconStar key={i} />)}</p>
+                <p role="img" aria-label="5 out of 5 stars" className="flex gap-0.5 text-amber-300">{[0, 1, 2, 3, 4].map((i) => <IconStar key={i} />)}</p>
                 <blockquote className="mt-4 text-sm leading-relaxed text-slate-300">“{r.q}”</blockquote>
                 <figcaption className="mt-5 text-sm font-semibold">{r.n} <span className="font-normal text-slate-400">· {r.w}</span></figcaption>
               </figure>

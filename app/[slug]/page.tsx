@@ -12,21 +12,42 @@ export const dynamicParams = false;
 export const generateStaticParams = () => allPages().map((p) => ({ slug: p.slug }));
 
 const isArea = (slug: string) => deliveryAreas().some((p) => p.slug === slug);
-const brandless = (t: string) => t.replace(/\s*[|\-–—]\s*CMC Pharmacy Cabo\s*$/i, "").trim();
+/**
+ * Imported SEO titles sometimes repeat the brand ("X | CMC Pharmacy Cabo - CMC Pharmacy CaboCMC Pharmacy Cabo — X"):
+ * keep only what comes before the first brand mention. The layout template appends the brand once.
+ */
+const brandless = (t: string) => (t.split(/\s*CMC Pharmacy Cabo\s*/i)[0] ?? "").replace(/[\s|\-–—:]+$/, "").trim();
+
+/** Clip to ~155 chars on a word boundary so Google shows the whole snippet. */
+const clip = (s: string, max = 155) => (s.length <= max ? s : `${s.slice(0, max).replace(/\s+\S*$/, "").replace(/[\s,;:.–—-]+$/, "")}…`);
+
+/** Pages that shared one generic imported description get their own. */
+const DESCRIPTIONS: Record<string, string> = {
+  "about-us-pharmacy-delivery": "Meet CMC Pharmacy Cabo: a licensed 24/7 pharmacy with English-speaking pharmacists and doctors, delivering to hotels and villas across Los Cabos.",
+  "contact-us": "Contact CMC Pharmacy Cabo 24/7 by WhatsApp, phone or email. English-speaking pharmacists answer in minutes and deliver to your hotel or villa in Los Cabos.",
+  "doctor-consultation": "See a licensed English-speaking doctor in Cabo by video or at your hotel. Get a valid Mexican prescription and have your medication delivered 24/7.",
+  faq: "Answers about ordering medicine in Cabo: prescriptions, delivery times and areas, payment, prices in USD and what tourists can legally buy in Mexico.",
+  "for-concierges": "Hotel and villa concierges: one WhatsApp for 24/7 pharmacy delivery, doctor visits and IV therapy for your guests anywhere in Los Cabos.",
+  "prescription-requirements": "Which medicines need a prescription in Mexico, how to get one from our English-speaking doctors, and what to bring when you order in Cabo.",
+  "privacy-policy": "How CMC Pharmacy Cabo collects, uses and protects your personal and health information when you order, consult a doctor or browse our website.",
+  "returns-and-refunds": "CMC Pharmacy Cabo returns and refunds policy: which products can be returned, time limits, damaged or wrong deliveries and how refunds are issued.",
+};
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const page = getPage((await params).slug);
   if (!page) return {};
   const title = brandless(page.seoTitle) || page.title;
+  const description = clip(DESCRIPTIONS[page.slug] ?? page.description) || undefined;
   return {
-    title,
-    description: page.description || undefined,
+    // Long titles skip the "| CMC Pharmacy Cabo" suffix so they are not cut off in results
+    title: title.length > 45 ? { absolute: title } : title,
+    description,
     alternates: { canonical: `/${page.slug}` },
     openGraph: {
-      title, description: page.description || undefined, url: `/${page.slug}`,
+      title, description, url: `/${page.slug}`,
       type: page.type === "post" ? "article" : "website",
       publishedTime: page.type === "post" ? page.date ?? undefined : undefined,
-      images: page.image ? [page.image] : isArea(page.slug) ? [photo("bay").src] : undefined,
+      images: [page.image ?? (isArea(page.slug) ? photo("bay").src : "/opengraph-image")],
     },
   };
 }
