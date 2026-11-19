@@ -51,6 +51,7 @@ export function getProduct(slug: string): Product | null {
   const p: Product = JSON.parse(fs.readFileSync(path.join(process.cwd(), "data/products/items", `${s.id}.json`), "utf8"));
   return {
     ...p,
+    cats: s.cats, // detail files only carry `categories`; the listing has the ids
     name: decode(p.name),
     images: p.images.map((i) => ({ ...i, alt: decode(i.alt ?? "") })),
     categories: p.categories.map((c) => ({ ...c, name: decode(c.name) })),
@@ -104,4 +105,4 @@ const SUPPLIES = /\b(syringes?|jeringas?|needles?|agujas?|lancets?|lancetas?|str
 
 export const isControlled = (p: { name: string }) => CONTROLLED.test(p.name);
 export const isRx = (p: { name: string; cats: number[] }) =>
-  isControlled(p) || p.cats.some((c) => RX_CATS.has(c)) || (RX_NAMES.test(p.name) && !SUPPLIES.test(p.name));
+  isControlled(p) || (p.cats ?? []).some((c) => RX_CATS.has(c)) || (RX_NAMES.test(p.name) && !SUPPLIES.test(p.name));
