@@ -45,6 +45,9 @@ export const money = (n: number) => `$${n.toLocaleString("en-US", { minimumFract
 /** Products imported without a price are "ask for price", not free. */
 export const hasPrice = (p: { price: number }) => p.price > 0;
 
+/** 0 = photo and price, 1 = photo only, 2 = price only. */
+const listingRank = (p: ProductSummary) => (p.img ? 0 : 2) + (hasPrice(p) ? 0 : 1);
+
 export function getProduct(slug: string): Product | null {
   const s = products.find((p) => p.slug === slug);
   if (!s) return null;
@@ -78,6 +81,8 @@ export function search({ q, cat, page = 1, sort }: { q?: string; cat?: number; p
   if (q) { const t = q.toLowerCase().split(/\s+/).filter(Boolean); list = list.filter((p) => t.every((w) => p.name.toLowerCase().includes(w) || p.sku?.toLowerCase() === w)); }
   if (sort === "price-asc") list = [...list].sort((a, b) => (hasPrice(a) ? a.price : Infinity) - (hasPrice(b) ? b.price : Infinity));
   else if (sort === "price-desc") list = [...list].sort((a, b) => b.price - a.price);
+  // Default order: complete listings first (photo + price), then photo only, then price only (stable within each group)
+  else list = [...list].sort((a, b) => listingRank(a) - listingRank(b));
   const total = list.length;
   const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
   const cur = Math.min(Math.max(1, page), pages);
