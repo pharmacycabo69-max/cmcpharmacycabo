@@ -1,0 +1,13 @@
+[
+  { "id": "allergy", "title": "Allergy & hay fever", "blurb": "Antihistamines and nasal sprays for pollen, dust and seasonal allergies.", "ids": [1158, 1282, 1160, 1372, 1202, 1732] },
+  { "id": "stomach", "title": "Upset stomach & traveler's diarrhea", "blurb": "The most requested items by visitors in their first days in Cabo.", "ids": [2324, 1671, 1670, 1212, 1225, 1674] },
+  { "id": "hydration", "title": "Hydration & hangover", "blurb": "Electrolytes and effervescent relief after sun, tequila or a long flight.", "ids": [1790, 3220, 4408, 5310] },
+  { "id": "pain", "title": "Pain & fever", "blurb": "Ibuprofen, acetaminophen (paracetamol) and migraine relief for adults and kids.", "ids": [4402, 2678, 4162, 1658, 1595] },
+  { "id": "motion", "title": "Motion sickness", "blurb": "For boat tours, whale watching and fishing trips.", "ids": [1794, 1795, 1505, 3180] },
+  { "id": "sun", "title": "Sunscreen & sunburn", "blurb": "High-SPF sunscreen and after-sun care for Cabo's strong sun.", "ids": [5032, 4908, 6775, 8161] },
+  { "id": "bugs", "title": "Mosquito repellent & bites", "blurb": "Repellents for adults and kids, plus itch relief for bites.", "ids": [5114, 5412, 8341, 2508] },
+  { "id": "first-aid", "title": "First aid", "blurb": "Bandages, antibiotic ointment, antiseptics and ready-made kits.", "ids": [4324, 1697, 1701, 4318] },
+  { "id": "antibiotics", "title": "Antibiotics (prescription required)", "blurb": "Antibiotics need a valid prescription in Mexico. Our English-speaking doctors can consult with you.", "ids": [677, 690, 1144, 1831, 731, 1445] },
+  { "id": "weight-loss", "title": "Ozempic, Wegovy & weight loss (prescription required)", "blurb": "GLP-1 medicines are prescription-only and dispensed after a medical consultation.", "ids": [5737, 1215, 503, 6363] },
+  { "id": "ed", "title": "Erectile dysfunction (prescription required)", "blurb": "Generic sildenafil and tadalafil, dispensed with a valid prescription.", "ids": [737, 4004, 1234, 2302] }
+]

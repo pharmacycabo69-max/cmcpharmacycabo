@@ -18,7 +18,7 @@ export function Footer() {
           </address>
         </div>
         <FooterCol title="Services" links={[["/delivery-areas", "Delivery areas"], ["/24-7-pharmacy-delivery-cabo-san-lucas", "24/7 pharmacy delivery"], ["/doctor-consultation", "Doctor consultation"], ["/iv-therapy", "IV therapy"], ["/for-concierges", "For concierges"], ["/prescription-requirements", "Prescription requirements"]]} />
-        <FooterCol title="Shop" links={[["/shop", "All products"], ...cats.map((c) => [`/product-category/${c.slug}`, c.name] as [string, string])]} />
+        <FooterCol title="Shop" links={[["/shop", "All products"], ["/price-list", "Price list"], ...cats.map((c) => [`/product-category/${c.slug}`, c.name] as [string, string])]} />
         <FooterCol title="Company" links={[["/locations", "Our stores"], ["/about-us-pharmacy-delivery", "About us"], ["/blog", "Blog"], ["/faq", "FAQ"], ["/contact-us", "Contact"], ["/privacy-policy", "Privacy policy"]]} />
       </div>
       <p className="border-t border-slate-800 py-5 text-center text-xs text-slate-500">© {new Date().getFullYear()} {SITE.name}. All rights reserved.</p>
