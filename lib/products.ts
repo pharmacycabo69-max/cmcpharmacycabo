@@ -104,10 +104,17 @@ const RX_CATS = (() => {
 const CONTROLLED = /\b(codein[ea]?|code[ií]na|tramadol|clonazepam|alprazolam|diazepam|lorazepam|bromazepam|zolpidem|oxycodon[ea]?|morphin[ea]?|morfina|fentanyl|buprenorphin[ea]?|tapentadol|methylphenidate|metilfenidato|modafinil|phentermin[ea]?|fentermina)\b/i;
 
 /** Active ingredients that need a prescription in Mexico even when the product sits in a non-Rx category. */
-const RX_NAMES = /\b(semaglut\w*|ozempic|wegovy|rybelsus|tirzepat\w*|mounjaro|zepbound|liraglut\w*|saxenda|victoza|amoxicil\w*|azithromycin|azitromicina|ciprofloxac\w*|levofloxac\w*|clarithromycin|claritromicina|doxycycline|doxiciclina|cephalexin|cefalexina|ceftriaxon\w*|cefuroxim\w*|metronidazol\w*|nitrofuranto\w*|clindamic\w*|sulfamethoxazole|sulfametoxazol|trimethoprim|trimetoprima|penicil\w*|sildenafil|tadalafil|viagra|cialis|prednison\w*|prednisolon\w*|dexametason\w*|dexamethason\w*|metformin\w*|insulin\w*|sertralin\w*|fluoxetin\w*|escitalopram|paroxetin\w*|isotretino\w*|finasterid\w*)\b/i;
-/** Supplies that mention a drug but are sold freely (insulin syringes, pen needles, test strips). */
+const RX_NAMES = /\b(semaglut\w*|ozempic|wegovy|rybelsus|tirzepat\w*|mounjaro|zepbound|liraglut\w*|saxenda|victoza|amoxicil\w*|azithromycin|azitromicina|ciprofloxac\w*|levofloxac\w*|clarithromycin|claritromicina|doxycycline|doxiciclina|cephalexin|cefalexina|ceftriaxon\w*|cefuroxim\w*|metronidazol\w*|nitrofuranto\w*|clindamic\w*|sulfamethoxazole|sulfametoxazol|trimethoprim|trimetoprima|penicil\w*|sildenafil|tadalafil|viagra|cialis|prednison\w*|prednisolon\w*|betametason\w*|betamethason\w*|dexametason\w*|dexamethason\w*|metformin\w*|insulin\w*|sertralin\w*|fluoxetin\w*|escitalopram|paroxetin\w*|isotretino\w*|finasterid\w*)\b/i;
+/** Supplies that mention a drug but are sold freely (insulin syringes, pen needles, test strips) — unless a dose is given. */
 const SUPPLIES = /\b(syringes?|jeringas?|needles?|agujas?|lancets?|lancetas?|strips?|tiras?)\b/i;
+const isSupply = (name: string) => SUPPLIES.test(name) && !/\d\s*mg\b/i.test(name);
+/** Over-the-counter in Mexico even when the import filed them under an "... Rx" category. */
+const OTC_NAMES = /\b(loratadin\w*|desloratadin\w*|cetirizin\w*|levocetirizin\w*|fexofenadin\w*|meclizin\w*|meclizina|dimenhydrinat\w*|dimenhidrinato|diphenhydramin\w*|difenhidramina)\b/i;
+const OTC_BLOCKERS = /\b(betamet\w*|dexamet\w*|prednis\w*|ambroxol|codein\w*|pseudoephedrin\w*|pseudoefedrina)\b/i;
+const isOtc = (name: string) => OTC_NAMES.test(name) && !OTC_BLOCKERS.test(name) && !RX_NAMES.test(name);
 
 export const isControlled = (p: { name: string }) => CONTROLLED.test(p.name);
 export const isRx = (p: { name: string; cats: number[] }) =>
-  isControlled(p) || (p.cats ?? []).some((c) => RX_CATS.has(c)) || (RX_NAMES.test(p.name) && !SUPPLIES.test(p.name));
+  isControlled(p) ||
+  (RX_NAMES.test(p.name) && !isSupply(p.name)) ||
+  ((p.cats ?? []).some((c) => RX_CATS.has(c)) && !isOtc(p.name));
