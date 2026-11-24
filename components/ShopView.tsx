@@ -2,7 +2,8 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ProductCard } from "@/components/ProductCard";
 import { categories, search, topCategories, type Category } from "@/lib/products";
-import { JsonLd } from "@/lib/seo";
+import { categoryContent, relatedGuides } from "@/lib/category-content";
+import { JsonLd, faqSchema } from "@/lib/seo";
 import { abs } from "@/lib/site";
 
 type Params = { q?: string; page?: string; sort?: string };
@@ -19,6 +20,9 @@ export function ShopView({ base, params, category }: { base: string; params: Par
   };
   const chips = category ? categories.filter((c) => c.parent === category.id && c.count > 0) : topCategories().slice(0, 20);
   const crumbs = category ? [{ name: "Shop", href: "/shop" }, { name: category.name, href: base }] : [{ name: "Shop", href: "/shop" }];
+  // Editorial content only on the canonical first page (not on search/sort/paginated variants)
+  const content = category && !params.q && !params.sort && res.page === 1 ? categoryContent(category.slug) : undefined;
+  const guides = content ? relatedGuides(content) : [];
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
@@ -26,11 +30,17 @@ export function ShopView({ base, params, category }: { base: string; params: Par
       {category && (
         <JsonLd data={{ "@context": "https://schema.org", "@type": "CollectionPage", name: category.name, url: abs(base), mainEntity: { "@type": "ItemList", itemListElement: res.items.slice(0, 12).map((p, i) => ({ "@type": "ListItem", position: i + 1, url: abs(`/product/${p.slug}`), name: p.name })) } }} />
       )}
-      <h1 className="mt-5 text-3xl font-bold tracking-tight md:text-4xl">{category ? category.name : "Pharmacy & health products in Cabo"}</h1>
+      {content && <JsonLd data={faqSchema(content.faq)} />}
+      <h1 className="mt-5 text-3xl font-bold tracking-tight md:text-4xl">{category ? categoryContent(category.slug)?.h1 ?? category.name : "Pharmacy & health products in Cabo"}</h1>
       <p className="mt-2 text-slate-600">
         {category ? `Shop ${category.name.toLowerCase()} with 24/7 delivery to your hotel or villa in Los Cabos.` : "Medications, vitamins, personal care and health essentials, delivered 24/7 in Cabo San Lucas and San José del Cabo."}{" "}
-        <span className="text-slate-400">{res.total.toLocaleString()} products</span>
+        <span className="text-slate-500">{res.total.toLocaleString()} products</span>
       </p>
+      {content && (
+        <div className="mt-4 max-w-3xl space-y-3 text-[15px] leading-relaxed text-slate-700">
+          {content.intro.map((t) => <p key={t.slice(0, 24)}>{t}</p>)}
+        </div>
+      )}
 
       <form action={base} className="mt-6 flex flex-wrap gap-3" role="search">
         <label className="sr-only" htmlFor="q">Search products</label>
@@ -66,6 +76,31 @@ export function ShopView({ base, params, category }: { base: string; params: Par
           <span className="text-slate-500">Page {res.page} of {res.pages}</span>
           {res.page < res.pages && <Link href={href(res.page + 1)} rel="next" className="btn btn-outline !py-2">Next →</Link>}
         </nav>
+      )}
+
+      {content && (
+        <section className="mt-14 max-w-3xl" aria-labelledby="cat-faq">
+          <h2 id="cat-faq" className="text-xl font-semibold">Frequently asked questions</h2>
+          <div className="mt-4 divide-y divide-slate-200 border-y border-slate-200">
+            {content.faq.map((f) => (
+              <details key={f.q} className="group py-4">
+                <summary className="flex cursor-pointer items-center justify-between gap-4 font-medium">{f.q}<span aria-hidden className="text-brand transition group-open:rotate-45">+</span></summary>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{f.a}</p>
+              </details>
+            ))}
+          </div>
+          <p className="mt-6 text-sm text-slate-600">
+            Prices for the most requested items are on our <Link href="/price-list" className="font-medium text-brand">Cabo pharmacy price list</Link>.
+          </p>
+          {guides.length > 0 && (
+            <>
+              <h2 className="mt-8 text-lg font-semibold">Related guides</h2>
+              <ul className="mt-3 space-y-2 text-sm">
+                {guides.map((g) => <li key={g.href}><Link href={g.href} className="text-brand hover:underline">{g.title}</Link></li>)}
+              </ul>
+            </>
+          )}
+        </section>
       )}
     </div>
   );

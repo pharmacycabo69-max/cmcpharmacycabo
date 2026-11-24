@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ShopView } from "@/components/ShopView";
+import { categoryContent } from "@/lib/category-content";
 import { categoryBySlug } from "@/lib/products";
 
 type SP = { q?: string; page?: string; sort?: string };
@@ -12,9 +13,10 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   const c = categoryBySlug(slugOf((await params).path));
   if (!c) return {};
   const sp = await searchParams;
+  const content = categoryContent(c.slug);
   return {
-    title: `${c.name} in Cabo San Lucas`,
-    description: `Shop ${c.name} at CMC Pharmacy Cabo with 24/7 delivery to hotels, resorts and villas in Los Cabos.`,
+    title: content?.title ?? `${c.name} in Cabo San Lucas`,
+    description: content?.description ?? `Shop ${c.name} at CMC Pharmacy Cabo with 24/7 delivery to hotels, resorts and villas in Los Cabos.`,
     alternates: { canonical: `/product-category/${c.slug}` },
     robots: sp.q || sp.sort ? { index: false, follow: true } : undefined,
   };
