@@ -3,9 +3,10 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { RelatedServices } from "@/components/RelatedServices";
-import { AestheticHero, GlowArt, LipsArt, RejuvenationArt, SyringeArt } from "@/components/Illustrations";
+import { GlowArt, LipsArt, RejuvenationArt, SyringeArt } from "@/components/Illustrations";
 import { JsonLd, faqSchema, orgId } from "@/lib/seo";
 import { SITE, abs } from "@/lib/site";
+import { ServiceHero } from "@/components/ServiceHero";
 
 /**
  * Aesthetic medicine (master data §4.1: exactly four treatments). Visibility rule §3.1 for this brand:
@@ -84,26 +85,16 @@ export default function AestheticMedicine() {
       <JsonLd data={[services, faqSchema(FAQ)]} />
 
       {/* Hero */}
-      <section className="bg-surface">
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 pb-12 pt-8 md:grid-cols-2 md:pb-16">
-          <div>
-            <Breadcrumbs items={[{ name: "Aesthetic medicine", href: "/aesthetic-medicine" }]} />
-            <p className="mt-6 text-xs font-bold uppercase tracking-[0.16em] text-brand">Aesthetic medicine · Cabo San Lucas</p>
-            <h1 className="mt-2 text-4xl font-extrabold leading-[1.1] tracking-tight md:text-5xl">Natural-looking aesthetic treatments in Cabo</h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate-600">
-              Lip fillers, wrinkle-relaxing injections, skin brightening and facial rejuvenation by appointment, after an in-person medical assessment. Our aesthetic medicine division is led by {LEAD}.
-            </p>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <Link href="/book?service=aesthetics" className="btn btn-primary !px-6 !py-3.5">Book an assessment</Link>
-              <a href="#treatments" className="btn btn-outline !px-6 !py-3.5">See treatments &amp; prices</a>
-            </div>
-            <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-slate-600">
-              <li>✓ Medical assessment first</li><li>✓ Total price in writing</li><li>✓ English &amp; Spanish</li>
-            </ul>
-          </div>
-          <AestheticHero className="mx-auto w-full max-w-md drop-shadow-sm" />
-        </div>
-      </section>
+      <ServiceHero
+        crumbs={[{ name: "Aesthetic medicine", href: "/aesthetic-medicine" }]}
+        eyebrow="Aesthetic medicine · Cabo San Lucas"
+        title={<>Natural-looking aesthetic treatments in Cabo</>}
+        lead={<>Lip fillers, botulinum toxin, skin brightening and facial rejuvenation by appointment, after an in-person medical assessment. Our aesthetic medicine division is led by {LEAD}.</>}
+        actions={[{ href: "/book?service=aesthetics", label: "Book an assessment", primary: true }, { href: "#treatments", label: "Treatments & prices" }]}
+        points={["Medical assessment first", "Total price in writing", "No guaranteed results"]}
+        boardTitle="Treatments"
+        board={TREATMENTS.map((t) => ({ label: t.name, note: t.priceNote, price: t.price, href: "#treatments" }))}
+      />
 
       <div className="mx-auto max-w-6xl px-4">
         {/* Treatments */}

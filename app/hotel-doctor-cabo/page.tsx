@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import Image from "next/image";
 import { InsuranceNotice } from "@/components/InsuranceNotice";
 import { RelatedServices } from "@/components/RelatedServices";
 import { JsonLd, faqSchema, orgId } from "@/lib/seo";
 import { SITE, abs } from "@/lib/site";
 import { DOCTOR, MEDICAL_PRICES } from "@/lib/team";
+import { ServiceHero } from "@/components/ServiceHero";
 
 /**
  * Hotel doctor / house calls (master data §2: house call $189 USD, taxes included; D12/D17).
@@ -64,25 +64,15 @@ export default function HotelDoctor() {
     <>
       <JsonLd data={[service, faqSchema(FAQ)]} />
 
-      <section className="bg-surface">
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 pb-12 pt-8 md:grid-cols-2 md:pb-16">
-          <div>
-            <Breadcrumbs items={[{ name: "Doctor consultation", href: "/doctor-consultation" }, { name: "Hotel doctor", href: "/hotel-doctor-cabo" }]} />
-            <p className="mt-6 text-xs font-bold uppercase tracking-[0.16em] text-brand">House calls · Los Cabos</p>
-            <h1 className="mt-2 text-4xl font-extrabold leading-[1.1] tracking-tight md:text-5xl">Hotel doctor &amp; house calls in Cabo San Lucas</h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate-600">An English-speaking doctor comes to your hotel, villa or home in Cabo San Lucas, San José del Cabo and the Corridor. By appointment.</p>
-            <p className="mt-6 flex items-baseline gap-2"><span className="text-5xl font-extrabold text-brand">${MEDICAL_PRICES.hotel}</span><span className="text-slate-500">USD · taxes included</span></p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link href="/book?service=home-doctor" className="btn btn-primary !px-6 !py-3.5">Book a hotel visit</Link>
-              <Link href="/doctor-consultation" className="btn btn-outline !px-6 !py-3.5">Video $59 · Clinic $99</Link>
-            </div>
-          </div>
-          <figure className="relative mx-auto w-full max-w-sm">
-            <Image src={DOCTOR.photo} alt={`${DOCTOR.name}, physician at ${DOCTOR.clinic}`} width={720} height={900} priority sizes="(min-width: 768px) 384px, 90vw" className="aspect-[4/5] w-full rounded-3xl object-cover shadow-xl shadow-navy/15" />
-            <figcaption className="absolute -bottom-4 left-4 right-4 rounded-2xl bg-white p-4 text-sm shadow-lg ring-1 ring-line"><span className="block font-semibold text-navy">{DOCTOR.name}</span><span className="text-slate-600">{DOCTOR.clinic} · English &amp; Spanish</span></figcaption>
-          </figure>
-        </div>
-      </section>
+      <ServiceHero
+        crumbs={[{ name: "Doctor consultation", href: "/doctor-consultation" }, { name: "Hotel doctor", href: "/hotel-doctor-cabo" }]}
+        eyebrow="House calls · Los Cabos"
+        title={<>Hotel doctor &amp; house calls in Cabo San Lucas</>}
+        lead="An English-speaking doctor comes to your hotel, villa or home in Cabo San Lucas, San José del Cabo and the Corridor. Book online; you pay only after we confirm the time."
+        actions={[{ href: "/book?service=home-doctor", label: `Book a hotel visit · $${MEDICAL_PRICES.hotel}`, primary: true }, { href: "/doctor-consultation", label: "Video $59 · Clinic $99" }]}
+        points={["Licensed physician", "English & Spanish", "Prescription when appropriate", "Insurance verification"]}
+        photo={{ src: DOCTOR.photo, alt: `${DOCTOR.name}, physician at ${DOCTOR.clinic}`, caption: `${DOCTOR.name} · ${DOCTOR.clinic}` }}
+      />
 
       <div className="mx-auto max-w-6xl px-4">
         <p className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-900">

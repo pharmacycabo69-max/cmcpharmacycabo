@@ -7,6 +7,7 @@ import { RelatedServices } from "@/components/RelatedServices";
 import { JsonLd, faqSchema, orgId } from "@/lib/seo";
 import { IV, IV_DRIPS, IV_FAQ, IV_PRICE_NOTES } from "@/lib/ivtherapy";
 import { abs } from "@/lib/site";
+import { ServiceHero } from "@/components/ServiceHero";
 
 export const metadata: Metadata = {
   title: { absolute: "IV Therapy Cabo San Lucas at Your Hotel | From $159" },
@@ -41,17 +42,21 @@ export default function IvTherapy() {
         },
       ]} />
 
-      <section className="bg-surface">
-        <div className="mx-auto max-w-4xl px-4 py-12 md:py-16">
-          <Breadcrumbs items={[{ name: "IV therapy", href: "/iv-therapy" }]} />
-          <h1 className="mt-5 text-4xl font-bold leading-[1.1] tracking-tight md:text-5xl">IV therapy in Cabo San Lucas, delivered to your hotel or villa</h1>
-          <p className="mt-5 max-w-2xl text-lg text-slate-600">IV therapy administered by licensed Mexican medical professionals at your hotel, villa or our pharmacy.</p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <a href="#drips" className="btn btn-primary">Choose your drip &amp; book</a>
-            <a href={wa} target="_blank" rel="noopener" className="btn btn-outline">WhatsApp {IV.phoneDisplay}</a>
-          </div>
-        </div>
-      </section>
+      <ServiceHero
+        crumbs={[{ name: "IV therapy", href: "/iv-therapy" }]}
+        eyebrow="IV therapy · Hotel, villa or clinic"
+        title={<>IV therapy in Cabo San Lucas, at your hotel or villa</>}
+        lead="IV therapy administered by licensed medical professionals after a medical assessment. Book online; you pay the deposit only after we confirm your time."
+        actions={[{ href: "#drips", label: "Choose your IV & book", primary: true }, { href: wa, label: `WhatsApp ${IV.phoneDisplay}`, external: true }]}
+        points={["Medical assessment first", "Licensed nurse", "50% deposit after confirmation"]}
+        boardTitle="IV menu · at your hotel or villa"
+        board={[
+          { label: "IV therapy", note: "Hydration, recovery, jet lag and more", price: "$159", href: "/book?service=iv-therapy" },
+          { label: "Multivitamin (Myers)", note: "Classic vitamin and mineral blend", price: "$189", href: "/book?service=iv-therapy&option=myers-cocktail-classic" },
+          { label: "NAD+ therapy", note: "NAD+ with hydration", price: "$279", href: "/book?service=nad" },
+          { label: "Groups of 3 or more", note: "Villas, weddings, events", price: "Quote" },
+        ]}
+      />
 
       <section className="section" aria-labelledby="why">
         <h2 id="why" className="h2">Why IV therapy</h2>

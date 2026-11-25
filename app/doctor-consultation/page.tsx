@@ -7,6 +7,7 @@ import { RelatedServices } from "@/components/RelatedServices";
 import { JsonLd, faqSchema, orgId } from "@/lib/seo";
 import { SITE, abs } from "@/lib/site";
 import { DOCTOR } from "@/lib/team";
+import { ServiceHero } from "@/components/ServiceHero";
 
 /**
  * Medical services (master data §2, D12, D17: USD, taxes included). Replaces the imported page, which showed
@@ -89,13 +90,18 @@ export default function DoctorConsultation() {
     image: abs(DOCTOR.photo),
   };
   return (
-    <div className="mx-auto max-w-5xl px-4 py-10">
+    <>
       <JsonLd data={[offers, faqSchema(FAQ), physician]} />
-      <Breadcrumbs items={[{ name: "Doctor consultation", href: "/doctor-consultation" }]} />
-      <h1 className="mt-5 text-3xl font-bold tracking-tight md:text-4xl">English-speaking doctor in Cabo San Lucas</h1>
-      <p className="mt-4 max-w-2xl text-slate-600">
-        Bilingual general medical consultations by video, at our clinic or at your hotel or villa, by appointment. Prices in US dollars, taxes included.
-      </p>
+      <ServiceHero
+        crumbs={[{ name: "Doctor consultation", href: "/doctor-consultation" }]}
+        eyebrow="English-speaking doctors · Los Cabos"
+        title={<>English-speaking doctor in Cabo San Lucas</>}
+        lead="General medical consultations by video, at our clinic or at your hotel or villa. Book online and pay only after we confirm your time. Prices in USD, taxes included."
+        actions={[{ href: "/book?service=video", label: "Book a doctor", primary: true }, { href: "/international-insurance", label: "Using travel insurance?" }]}
+        boardTitle="Consultations"
+        board={SERVICES.map((x) => ({ label: x.name, note: x.where.split(".")[0], price: `$${x.price}`, href: `/book?service=${x.id}` }))}
+      />
+    <div className="mx-auto max-w-5xl px-4 py-10">
 
       <ul className="mt-8 grid gap-5 md:grid-cols-3">
         {SERVICES.map((s) => (
@@ -159,5 +165,6 @@ export default function DoctorConsultation() {
         </div>
       </section>
     </div>
+    </>
   );
 }

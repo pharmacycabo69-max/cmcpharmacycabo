@@ -33,7 +33,7 @@ export default function TeamPage() {
       <section className="bg-navy-deep text-white">
         <div className="mx-auto grid max-w-[76rem] items-center gap-10 px-4 py-14 md:grid-cols-[1fr_340px]">
           <div>
-            <div className="[&_a]:text-white/70 [&_li]:text-white/70"><Breadcrumbs items={[{ name: "Our team", href: "/team" }]} /></div>
+            <Breadcrumbs items={[{ name: "Our team", href: "/team" }]} tone="dark" />
             <h1 className="mt-6 font-display text-4xl font-extrabold leading-[1.05] tracking-tight md:text-5xl">The people who take care of you in Cabo</h1>
             <p className="mt-4 max-w-xl text-lg text-white/75">A licensed physician for consultations and the pharmacy teams of the {SITE.parent} network, in English and Spanish.</p>
           </div>

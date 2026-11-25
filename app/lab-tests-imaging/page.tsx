@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { RelatedServices } from "@/components/RelatedServices";
-import { LabAreaIcon, LabHero, UltrasoundArt, XrayArt } from "@/components/Illustrations";
+import { LabAreaIcon, UltrasoundArt, XrayArt } from "@/components/Illustrations";
 import { InsuranceNotice } from "@/components/InsuranceNotice";
 import catalog from "@/content/lab-imaging.json";
 import { JsonLd, faqSchema } from "@/lib/seo";
 import { SITE } from "@/lib/site";
+import { ServiceHero } from "@/components/ServiceHero";
 
 /**
  * Lab tests & imaging (owner approved 24 Nov 2026: publish the catalogue without prices, quote on request).
@@ -46,26 +47,20 @@ export default function LabTestsImaging() {
       <JsonLd data={faqSchema(FAQ)} />
 
       {/* Hero */}
-      <section className="bg-surface">
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 pb-12 pt-8 md:grid-cols-2 md:pb-16">
-          <div>
-            <Breadcrumbs items={[{ name: "Lab tests & imaging", href: "/lab-tests-imaging" }]} />
-            <p className="mt-6 text-xs font-bold uppercase tracking-[0.16em] text-brand">Diagnostics · Cabo San Lucas</p>
-            <h1 className="mt-2 text-4xl font-extrabold leading-[1.1] tracking-tight md:text-5xl">Lab tests, X-ray &amp; ultrasound in Cabo</h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate-600">
-              Blood work, urine and stool tests, hormones, cultures, X-rays and ultrasound, coordinated by our medical team with laboratories and imaging centers in Cabo San Lucas. Quote in US dollars before you book.
-            </p>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <Link href="/book?service=lab" className="btn btn-primary !px-6 !py-3.5">Request a quote</Link>
-              <Link href="/doctor-consultation" className="btn btn-outline !px-6 !py-3.5">Need a doctor&apos;s order?</Link>
-            </div>
-            <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-slate-600">
-              <li>✓ {count} lab tests</li><li>✓ X-ray &amp; ultrasound</li><li>✓ English &amp; Spanish</li>
-            </ul>
-          </div>
-          <LabHero className="mx-auto w-full max-w-md drop-shadow-sm" />
-        </div>
-      </section>
+      <ServiceHero
+        crumbs={[{ name: "Lab tests & imaging", href: "/lab-tests-imaging" }]}
+        eyebrow="Diagnostics · Partner laboratories & imaging centers"
+        title={<>Lab tests, X-ray &amp; ultrasound in Cabo</>}
+        lead="Blood work, urine and stool tests, X-rays and ultrasound, coordinated by our medical team with partner providers in Cabo San Lucas. We validate the study and send a quote before anything is charged."
+        actions={[{ href: "/book?service=lab", label: "Request a lab quote", primary: true }, { href: "/book?service=imaging", label: "X-ray or ultrasound quote" }]}
+        points={[`${count} lab tests`, "X-ray & ultrasound", "Quote first", "English & Spanish"]}
+        boardTitle="How it is priced"
+        board={[
+          { label: "Laboratory tests", note: `${count} tests with partner laboratories`, price: "Quote", href: "/book?service=lab" },
+          { label: "X-ray & ultrasound", note: "With a partner imaging center", price: "Quote", href: "/book?service=imaging" },
+          { label: "Not sure which test?", note: "See a doctor by video first", price: "$59", href: "/book?service=video" },
+        ]}
+      />
 
       <div className="mx-auto max-w-6xl px-4">
         {/* Imaging */}
