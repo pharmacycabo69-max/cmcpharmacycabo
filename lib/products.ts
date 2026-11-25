@@ -56,8 +56,14 @@ export const hasPrice = (p: { price: number }) => p.price > 0;
 /** 0 = photo and price, 1 = photo only, 2 = price only. */
 const listingRank = (p: ProductSummary) => (p.img ? 0 : 2) + (hasPrice(p) ? 0 : 1);
 
+/**
+ * A few imported slugs keep WordPress percent-encoding ("%c2%b7"). Next.js decodes route params, so the
+ * route works with the decoded form; links and the sitemap keep the original slug.
+ */
+export const routeSlug = (slug: string) => { try { return decodeURIComponent(slug); } catch { return slug; } };
+
 export function getProduct(slug: string): Product | null {
-  const s = products.find((p) => p.slug === slug);
+  const s = products.find((p) => p.slug === slug || routeSlug(p.slug) === slug);
   if (!s) return null;
   const p: Product = JSON.parse(fs.readFileSync(path.join(process.cwd(), "data/products/items", `${s.id}.json`), "utf8"));
   return {
