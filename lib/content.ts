@@ -22,6 +22,8 @@ export type Page = {
  */
 const clean = (html: string) =>
   html
+    // Old landing pages open by repeating their own title and a "Delivery to …" availability chip
+    .replace(/^s*<p>s*CMC Pharmacy Cabos*—[sS]*?</p>s*(?:Open Nows*·?s*Delivery to [^<]*)?/, "")
     .replace(/^\s*<h6>[\s\S]*?<\/h6>\s*/, "")
     .replace(/\s*<h2>\s*Leave a Reply[\s\S]*$/, "")
     .replace(/\s*<h4>\s*Latest Post[\s\S]*$/, "");
