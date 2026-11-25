@@ -3,7 +3,7 @@ import { BookingFlow } from "@/components/BookingFlow";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
-  title: { absolute: "Book a Doctor, IV Therapy or Tests in Cabo | CMC Pharmacy Cabo" },
+  title: { absolute: "Book a Doctor, IV or Tests in Cabo | CMC Pharmacy Cabo" },
   description: "Book a video consultation ($59), walk-in visit ($99), home doctor ($189), IV therapy ($159) or NAD+ ($279) in Cabo. Pay online only after we confirm your time.",
   alternates: { canonical: "/book" },
 };
