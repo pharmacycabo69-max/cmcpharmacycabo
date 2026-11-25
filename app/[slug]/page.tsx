@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { PageBanner, photo } from "@/components/PageBanner";
+import { AreaStrip } from "@/components/AreaStrip";
+import { PostCover } from "@/components/PostCover";
 import { InsuranceNotice } from "@/components/InsuranceNotice";
 import { Prose } from "@/components/Prose";
-import { allPages, deliveryAreas, getPage, related } from "@/lib/content";
+import { allPages, deliveryAreas, getPage, hotelName, related } from "@/lib/content";
 import { JsonLd, articleSchema } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 
@@ -13,6 +14,17 @@ export const dynamicParams = false;
 export const generateStaticParams = () => allPages().map((p) => ({ slug: p.slug }));
 
 const isArea = (slug: string) => deliveryAreas().some((p) => p.slug === slug);
+/** Article topic → product category it links to (internal linking + a path from reading to buying). */
+const SHOP_LINKS: [RegExp, string, string][] = [
+  [/sunscreen|sunburn|sun-|beach|medano/i, "sun-care", "Sunscreen & sun care"],
+  [/stomach|diarrhea|digest/i, "digestive-gi-care", "Stomach & digestive care"],
+  [/hangover|hydrat|electrolyte/i, "hydration-electrolytes", "Hydration & electrolytes"],
+  [/allerg|antihist|pollen/i, "allergy-otc", "Allergy medicine"],
+  [/insect|bug|bite|mosquito|repellent/i, "insect-repellents", "Insect repellents"],
+  [/pain|headache|migraine/i, "pain-fever-relief", "Pain & fever relief"],
+  [/first-aid|emergency|wound|kit/i, "wound-care-first-aid", "First aid supplies"],
+  [/cold|flu/i, "cold-flu", "Cold & flu medicine"],
+];
 /** Pages that carry the international insurance notice (master data §2.1: home, medical services, FAQ, contact). */
 const INSURANCE_PAGES = new Set(["doctor-consultation", "contact-us", "faq", "about-us-pharmacy-delivery", "for-concierges"]);
 /**
@@ -50,7 +62,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title, description, url: `/${page.slug}`,
       type: page.type === "post" ? "article" : "website",
       publishedTime: page.type === "post" ? page.date ?? undefined : undefined,
-      images: [page.image ?? (isArea(page.slug) ? photo("bay").src : "/opengraph-image")],
+      images: [page.image ?? "/opengraph-image"],
     },
   };
 }
@@ -62,17 +74,38 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const isPost = page.type === "post";
   const more = related(slug);
   const crumbs = isPost ? [{ name: "Blog", href: "/blog" }, { name: page.title, href: `/${slug}` }] : [{ name: page.title, href: `/${slug}` }];
+  const minutes = Math.max(1, Math.round(page.html.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length / 220));
+  const shop = isPost ? SHOP_LINKS.find(([re]) => re.test(slug)) : undefined;
   return (
     <>
-    {isArea(slug) && <PageBanner />}
-    <article className="mx-auto max-w-3xl px-4 py-10">
+    {isArea(slug) && <AreaStrip name={hotelName(page.title)} />}
+    {isPost && (
+      <div className="mx-auto max-w-3xl px-4 pt-8">
+        <div className="aspect-[21/9] overflow-hidden rounded-3xl bg-slate-100">
+          {page.image ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={page.image} alt="" width={1200} height={514} fetchPriority="high" decoding="async" className="h-full w-full object-cover" />
+          ) : (
+            <PostCover slug={slug} className="h-full w-full" />
+          )}
+        </div>
+      </div>
+    )}
+    <article className={`mx-auto max-w-3xl px-4 ${isPost ? "pb-10 pt-6" : "py-10"}`}>
       {isPost && <JsonLd data={articleSchema({ title: page.title, description: page.description, path: `/${slug}`, date: page.date, image: page.image })} />}
       <Breadcrumbs items={crumbs} />
       <h1 className="mt-5 text-3xl font-bold leading-tight tracking-tight md:text-4xl">{page.title}</h1>
       {isPost && page.date && (
-        <p className="mt-3 text-sm text-slate-500"><time dateTime={page.date}>{new Date(page.date).toLocaleDateString("en-US", { dateStyle: "long" })}</time> · {SITE.name}</p>
+        <p className="mt-3 text-sm text-slate-500"><time dateTime={page.date}>{new Date(page.date).toLocaleDateString("en-US", { dateStyle: "long" })}</time> · {minutes} min read · {SITE.name}</p>
       )}
       <div className="mt-8"><Prose html={page.html} /></div>
+
+      {shop && (
+        <Link href={`/product-category/${shop[1]}`} className="group mt-10 flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-brand hover:shadow-md">
+          <span><span className="block text-xs font-bold uppercase tracking-[0.16em] text-brand">Shop</span><span className="mt-1 block font-semibold">{shop[2]} delivered to your hotel</span><span className="mt-0.5 block text-sm text-slate-600">See products and prices in USD.</span></span>
+          <span aria-hidden className="text-xl text-brand transition group-hover:translate-x-1">→</span>
+        </Link>
+      )}
 
       {isArea(slug) && (
         <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6" aria-labelledby="every-hotel">
@@ -107,7 +140,12 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           <h2 id="more" className="text-xl font-semibold">{isPost ? "Keep reading" : "Related pages"}</h2>
           <ul className="mt-4 grid gap-3 sm:grid-cols-3">
             {more.map((p) => (
-              <li key={p.slug}><Link href={`/${p.slug}`} className="block h-full rounded-xl border border-slate-200 p-4 text-sm font-medium transition hover:border-brand hover:text-brand">{p.title}</Link></li>
+              <li key={p.slug}>
+                <Link href={`/${p.slug}`} className="group block h-full overflow-hidden rounded-xl border border-slate-200 text-sm font-medium transition hover:border-brand hover:text-brand">
+                  {isPost && <div className="aspect-[16/7] overflow-hidden"><PostCover slug={p.slug} className="h-full w-full transition duration-500 group-hover:scale-105" /></div>}
+                  <span className="block p-4">{p.title}</span>
+                </Link>
+              </li>
             ))}
           </ul>
         </section>

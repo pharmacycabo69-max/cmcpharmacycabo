@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { PageBanner } from "@/components/PageBanner";
 import { PostCover } from "@/components/PostCover";
 import { RelatedServices } from "@/components/RelatedServices";
 import { posts } from "@/lib/content";
@@ -47,7 +46,6 @@ export default function Blog() {
   return (
     <>
       <JsonLd data={list} />
-      <PageBanner which="arco" />
       <div className="mx-auto max-w-6xl px-4 py-10">
         <Breadcrumbs items={[{ name: "Blog", href: "/blog" }]} />
         <h1 className="mt-5 text-3xl font-bold tracking-tight md:text-5xl">Pharmacy &amp; travel health guides for Cabo</h1>

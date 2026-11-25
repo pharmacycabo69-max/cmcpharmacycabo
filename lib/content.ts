@@ -1,3 +1,6 @@
+import crypto from "node:crypto";
+import fs from "node:fs";
+import path from "node:path";
 import pages from "@/content/pages.json";
 import mergedJson from "@/content/merged-pages.json";
 import { SITE } from "@/lib/site";
@@ -81,12 +84,40 @@ const raw = (pages as Page[]).map((p) => ({
   description: deClaim(p.description),
   html: deClaim(clean(p.html)),
 }));
-const all: Page[] = raw
+const merged: Page[] = raw
   .filter((p) => !MERGED[p.slug])
   .map((p) => {
     const extra = raw.filter((x) => MERGED[x.slug] === p.slug && x.html.length > 0);
     return extra.length ? { ...p, html: [p.html, ...extra.map((x) => x.html)].join("\n") } : p;
   });
+
+/**
+ * The imported posts reuse a handful of photos under different file names (15 posts shared one image) and
+ * some "photos" are 2+ MB PNG renders of people. A post keeps its image only if it is a small JPG/WebP that
+ * exists in /public AND no newer post already uses the same file content; every other post gets a branded
+ * cover (components/PostCover). Fingerprints are computed at build time.
+ */
+const MAX_PHOTO_BYTES = 400_000;
+function photoFingerprint(src: string | null): string | null {
+  if (!src || !/\.(jpe?g|webp)$/i.test(src)) return null;
+  try {
+    const file = path.join(process.cwd(), "public", src.replace(/^\//, ""));
+    if (fs.statSync(file).size > MAX_PHOTO_BYTES) return null;
+    return crypto.createHash("md5").update(fs.readFileSync(file)).digest("hex");
+  } catch {
+    return null;
+  }
+}
+function withUniqueImages(list: Page[]): Page[] {
+  const seen = new Set<string>();
+  const keep = new Map<string, string | null>();
+  for (const p of list.filter((x) => x.type === "post").sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""))) {
+    const h = photoFingerprint(p.image);
+    if (h && !seen.has(h)) { seen.add(h); keep.set(p.slug, p.image); } else keep.set(p.slug, null);
+  }
+  return list.map((p) => (p.type === "post" ? { ...p, image: keep.get(p.slug) ?? null } : p));
+}
+const all: Page[] = withUniqueImages(merged);
 // "shop" is rebuilt natively and the empty duplicate is skipped
 // Rebuilt natively in app/: shop, iv-therapy, doctor-consultation, contact-us, faq
 const HIDDEN = new Set(["", "shop", "iv-therapy", "doctor-consultation", "contact-us", "faq"]);

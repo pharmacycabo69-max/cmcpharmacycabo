@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { IconBox, IconClock, IconGlobe, IconShield } from "@/components/Icons";
-import { PageBanner } from "@/components/PageBanner";
 import { RelatedServices } from "@/components/RelatedServices";
 import { StoreCard } from "@/components/StoreCard";
 import { hoursSummary } from "@/lib/hours";
@@ -43,7 +42,6 @@ export default function Locations() {
   return (
     <>
       <JsonLd data={[list, faqSchema(FAQ)]} />
-      <PageBanner />
       <div className="mx-auto max-w-6xl px-4 py-10">
         <Breadcrumbs items={[{ name: "Locations", href: "/locations" }]} />
         <h1 className="mt-5 text-3xl font-bold tracking-tight md:text-5xl">Pharmacy near me in Cabo San Lucas</h1>

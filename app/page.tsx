@@ -10,6 +10,7 @@ import { photo } from "@/components/PageBanner";
 import { ProductCard } from "@/components/ProductCard";
 import { StoreCard } from "@/components/StoreCard";
 import { deliveryAreas, hotelName, posts } from "@/lib/content";
+import { IV_DRIPS } from "@/lib/ivtherapy";
 import { LOCATIONS } from "@/lib/locations";
 import { products } from "@/lib/products";
 import { JsonLd, faqSchema, pharmacySchema, websiteSchema } from "@/lib/seo";
@@ -213,7 +214,7 @@ export default function Home() {
             <p className="mt-3 text-xs text-teal-100">Groups of 3 or more: $139 per person · At the clinic from $129</p>
             <div className="mt-7"><Link href="/iv-therapy" className="btn bg-white text-brand hover:bg-teal-50">See IV menu &amp; book</Link></div>
           </div>
-          <div className="mx-auto w-full max-w-md overflow-hidden rounded-3xl shadow-2xl shadow-black/20 ring-1 ring-white/20"><IvArt className="h-56 w-full md:h-64" /></div>
+          <div className="relative mx-auto aspect-square w-full max-w-sm overflow-hidden rounded-3xl shadow-2xl shadow-black/20 ring-1 ring-white/20"><Image src={IV_DRIPS[0].image} alt="" fill sizes="(min-width: 768px) 384px, 90vw" className="object-cover" /></div>
         </div>
       </section>
 
