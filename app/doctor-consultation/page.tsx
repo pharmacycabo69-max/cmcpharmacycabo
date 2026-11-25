@@ -7,9 +7,18 @@ import { SITE, abs } from "@/lib/site";
 
 /**
  * Medical services (master data §2, D12, D17: USD, taxes included). Replaces the imported page, which showed
- * placeholder doctor/reviews and a 24/7 "AI doctor". No named professionals until credentials and photos are
- * verified and approved for this brand.
+ * placeholder doctor/reviews and a 24/7 "AI doctor".
+ * Named physician: published on the owner's explicit instruction (24 Nov 2026), data from master data §3.
+ * No photo until an authorized one is supplied.
  */
+const DOCTOR = {
+  name: "Dr. Kevin González Adame",
+  degree: "Médico Cirujano y Partero (Physician and Surgeon)",
+  school: "Instituto Politécnico Nacional (IPN)",
+  license: "14796516",
+  languages: ["English", "Spanish"],
+  clinic: "Cabo Walk-In Clinic",
+};
 export const metadata: Metadata = {
   title: "English-Speaking Doctor in Cabo San Lucas: Video $59, Clinic $99, Hotel Visit $189",
   description:
@@ -73,9 +82,19 @@ export default function DoctorConsultation() {
       item: { "@type": "Service", name: s.name, provider: { "@id": orgId }, areaServed: "Los Cabos", offers: { "@type": "Offer", price: s.price.toFixed(2), priceCurrency: "USD", url: abs("/doctor-consultation") } },
     })),
   };
+  const physician = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: DOCTOR.name,
+    jobTitle: "Physician",
+    knowsLanguage: DOCTOR.languages,
+    alumniOf: { "@type": "CollegeOrUniversity", name: DOCTOR.school },
+    hasCredential: { "@type": "EducationalOccupationalCredential", credentialCategory: "Cédula profesional (Mexico)", identifier: DOCTOR.license },
+    worksFor: { "@type": "MedicalClinic", name: DOCTOR.clinic },
+  };
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
-      <JsonLd data={[offers, faqSchema(FAQ)]} />
+      <JsonLd data={[offers, faqSchema(FAQ), physician]} />
       <Breadcrumbs items={[{ name: "Doctor consultation", href: "/doctor-consultation" }]} />
       <h1 className="mt-5 text-3xl font-bold tracking-tight md:text-4xl">English-speaking doctor in Cabo San Lucas</h1>
       <p className="mt-4 max-w-2xl text-slate-600">
@@ -93,6 +112,19 @@ export default function DoctorConsultation() {
           </li>
         ))}
       </ul>
+
+      <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6" aria-labelledby="doctor">
+        <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand">Your doctor</p>
+        <h2 id="doctor" className="mt-1 text-xl font-semibold">{DOCTOR.name}</h2>
+        <dl className="mt-3 grid gap-x-6 gap-y-2 text-sm sm:grid-cols-2">
+          <div><dt className="text-slate-500">Degree</dt><dd className="font-medium">{DOCTOR.degree}</dd></div>
+          <div><dt className="text-slate-500">University</dt><dd className="font-medium">{DOCTOR.school}</dd></div>
+          <div><dt className="text-slate-500">Mexican professional license (cédula)</dt><dd className="font-medium">{DOCTOR.license}</dd></div>
+          <div><dt className="text-slate-500">Languages</dt><dd className="font-medium">{DOCTOR.languages.join(" & ")}</dd></div>
+          <div className="sm:col-span-2"><dt className="text-slate-500">Clinic</dt><dd className="font-medium">{DOCTOR.clinic} · {SITE.street.split(",")[0]}, Centro, Cabo San Lucas</dd></div>
+        </dl>
+        <p className="mt-3 text-xs text-slate-500">You can verify any Mexican professional license in the public registry of the Secretaría de Educación Pública (SEP).</p>
+      </section>
 
       <p className="mt-6 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-900">
         <strong>Not an emergency service.</strong> For chest pain, trouble breathing, severe bleeding, loss of consciousness or any emergency, call <a href="tel:911" className="font-semibold underline">911</a> or go to the nearest hospital.
