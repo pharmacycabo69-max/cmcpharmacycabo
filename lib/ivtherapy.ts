@@ -5,7 +5,7 @@ export type IvDrip = {
   duration: string; includes: string; benefits: string[]; image: string; alt: string;
 };
 
-export const IV_DRIPS: IvDrip[] = [
+const IV_MENU: IvDrip[] = [
   {
     "id": "hydration-boost",
     "name": "Hydration Boost",
@@ -188,6 +188,49 @@ export const IV_DRIPS: IvDrip[] = [
   }
 ];
 
+/**
+ * Owner-confirmed pricing (24 Nov 2026; RMC repo docs/decisions.md D13–D17), USD with taxes included.
+ * Mobile (hotel/villa/home) prices are what this page books and the checkout charges:
+ *   IV therapy $159 · Multivitamin (Myers) $189 · NAD+ $279.
+ * In-clinic and group prices are shown as information and booked through WhatsApp (IV_PRICE_NOTES).
+ * Special infusions (high-dose vitamin C, iron, custom) need medical and price validation before they are sold,
+ * so they are kept here but not offered. The checkout re-reads this list server-side.
+ */
+const PRICE_IV = 159;
+const PRICE_NAD = 279;
+const PRICE_MULTIVITAMIN = 189;
+const MULTIVITAMIN_IDS = new Set(["myers-cocktail-classic"]);
+export const IV_PRICE_NOTES = {
+  inClinic: "In clinic: IV therapy $129, Multivitamin $154, NAD+ $279.",
+  groups: "Groups of 3 or more: $139 per person.",
+};
+const PENDING_VALIDATION = new Set(["immune-boost"]); // high-dose vitamin C
+/** Descriptive taglines (master data §4.1: no detox/immunity/cure or results claims without clinical evidence). */
+const TAGLINES: Record<string, string> = {
+  "hydration-boost": "Fluids and electrolytes for hot Cabo days.",
+  "hangover-recovery": "Fluids and vitamins after a long night, plus medication only if our medical team indicates it.",
+  "myers-cocktail-classic": "A classic blend of vitamins and minerals.",
+  "beauty-glow": "Glutathione, vitamin C and biotin.",
+  "nad-performance": "NAD+ infusion with hydration.",
+  "b-complex-energy": "B vitamins, amino acids and magnesium.",
+  "athletic-performance": "Vitamins and minerals after active days.",
+  "jet-lag-recovery": "Fluids and B vitamins after a long flight.",
+  "detox-and-reset": "Glutathione, vitamin C and N-acetyl cysteine.",
+};
+export const IV_DRIPS: IvDrip[] = IV_MENU.filter((d) => !PENDING_VALIDATION.has(d.id)).map((d) => ({
+  ...d,
+  priceUsd: d.id === "nad-performance" ? PRICE_NAD : MULTIVITAMIN_IDS.has(d.id) ? PRICE_MULTIVITAMIN : PRICE_IV,
+  from: false,
+  category: d.category === "Longevity" || d.category === "Immunity" ? "Wellness" : d.category,
+  tagline: TAGLINES[d.id] ?? d.tagline,
+  benefits: [
+    "Medical assessment before the session",
+    `Session length about ${d.duration}`,
+    "Administered and monitored by a licensed nurse",
+    "At your hotel, villa or our pharmacy, by appointment",
+  ],
+}));
+
 export const getDrip = (id: string) => IV_DRIPS.find((d) => d.id === id);
 
 export const IV_FAQ: { q: string; a: string }[] = [
@@ -201,7 +244,7 @@ export const IV_FAQ: { q: string; a: string }[] = [
   },
   {
     "q": "How often should I do an IV session?",
-    "a": "It depends on your goals and clinical evaluation. Each formula has a different protocol — from single sessions for specific needs to cycles of 3–4 sessions with monthly maintenance for sustained results."
+    "a": "It depends on your clinical evaluation. Our medical team will tell you whether a session is appropriate for you."
   },
   {
     "q": "Does it hurt?",

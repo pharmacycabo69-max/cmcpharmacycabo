@@ -33,7 +33,7 @@ const STEPS = [
 ];
 
 const FAQ = [
-  { q: "What are your delivery hours?", a: "We deliver every day from 8:00 am to 11:30 pm to hotels, resorts, villas and homes in Cabo San Lucas, San José del Cabo and the Corridor. We confirm the estimated delivery time when you order." },
+  { q: "What are your delivery hours?", a: "We deliver every day from 7:00 am to 11:00 pm to hotels, resorts, villas and homes in Cabo San Lucas, San José del Cabo and the Corridor. Delivery is free on orders of $59 or more, and we confirm the estimated delivery time when you order." },
   { q: "Do you deliver to hotels, resorts and Airbnbs?", a: "Yes. We deliver discreetly to hotels, all-inclusive resorts, villas and vacation rentals across Los Cabos. Some hotels only allow delivery to the front desk; we coordinate with you." },
   { q: "Can I get prescription medication from an English-speaking pharmacy?", a: "Yes. Our team is bilingual and can guide you through Mexican prescription requirements. Prescription-only medicines are dispensed only with a valid prescription." },
   { q: "Do you offer doctor visits?", a: "We coordinate English-speaking doctors by video consultation or by appointment at your hotel or villa. We are not an emergency service: in an emergency, call 911." },
@@ -64,7 +64,7 @@ export default function Home() {
             <h1 className="mt-6 text-4xl font-extrabold leading-[1.05] tracking-tight text-white md:text-6xl">
               Pharmacy delivery in <span className="text-teal-300">Cabo San Lucas</span> &amp; San José del Cabo
             </h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate-200">English-speaking pharmacy team and doctor visits by appointment. Prescriptions, medicine and health essentials delivered to your hotel or villa, every day from 8 am to 11:30 pm.</p>
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate-200">English-speaking pharmacy team and doctor visits by appointment. Prescriptions, medicine and health essentials delivered to your hotel or villa, every day from 7 am to 11 pm.</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href={`${SITE.whatsapp}?text=${encodeURIComponent("Hi! I need a pharmacy delivery in Cabo.")}`} target="_blank" rel="noopener" className="btn !bg-[#25d366] !px-6 !py-3.5 text-[#05301b] shadow-lg shadow-black/20 hover:!bg-[#2ee170]">Order on WhatsApp</a>
               <a href={SITE.tel} className="btn !px-6 !py-3.5 text-white ring-1 ring-white/40 backdrop-blur hover:bg-white/15">Call {SITE.phone}</a>
@@ -77,7 +77,7 @@ export default function Home() {
       <div className="relative z-10 mx-auto -mt-14 max-w-5xl px-4">
         <ul className="grid grid-cols-2 divide-slate-100 rounded-2xl bg-white p-2 shadow-xl shadow-slate-900/10 ring-1 ring-slate-100 md:grid-cols-4 md:divide-x">
           {[
-            [IconClock, "8 am – 11:30 pm", "Delivery, every day"],
+            [IconClock, "7 am – 11 pm", "Delivery, every day"],
             [IconBox, `${LOCATIONS.length} stores`, `${SITE.parent} in Cabo San Lucas`],
             [IconGlobe, "English", "Pharmacists & doctors"],
             [IconDrip, `${products.length.toLocaleString("en-US")}+`, "Products in the shop"],
@@ -211,7 +211,7 @@ export default function Home() {
           <div aria-hidden className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-white/10" />
           <div aria-hidden className="absolute -bottom-20 -left-10 h-48 w-48 rounded-full bg-white/10" />
           <h2 className="relative text-3xl font-extrabold tracking-tight md:text-4xl">Need something from the pharmacy?</h2>
-          <p className="relative mx-auto mt-3 max-w-xl text-teal-50">Message us in English or Spanish. We deliver to your hotel or villa every day, 8 am – 11:30 pm.</p>
+          <p className="relative mx-auto mt-3 max-w-xl text-teal-50">Message us in English or Spanish. We deliver to your hotel or villa every day, 7 am – 11 pm.</p>
           <div className="relative mt-7 flex flex-wrap justify-center gap-3">
             <a href={SITE.tel} className="btn !px-6 !py-3.5 bg-white text-brand hover:bg-teal-50">Call {SITE.phone}</a>
             <a href={SITE.whatsapp} target="_blank" rel="noopener" className="btn !px-6 !py-3.5 !bg-[#25d366] text-[#05301b] hover:!bg-[#2ee170]">WhatsApp us</a>

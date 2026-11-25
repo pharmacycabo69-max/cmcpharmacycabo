@@ -1,5 +1,6 @@
 import pages from "@/content/pages.json";
 import mergedJson from "@/content/merged-pages.json";
+import { SITE } from "@/lib/site";
 
 export type Page = {
   slug: string;
@@ -23,20 +24,23 @@ const clean = (html: string) =>
     .replace(/\s*<h4>\s*Latest Post[\s\S]*$/, "");
 
 /**
- * Imported copy advertises 24/7 / overnight service. Confirmed hours (master data §2): delivery 8:00–23:30
+ * Imported copy advertises 24/7 / overnight service. Confirmed hours (master data §2): delivery 7:00–23:00
  * every day, no 24/7 or immediate availability. These rules rewrite those claims at load time so the original
  * import stays untouched and the change is reversible. Order matters: specific phrases first.
  */
-const HOURS = "8 am–11:30 pm";
+const HOURS = "7 am–11 pm";
+// Used as String.replace replacements, where "$$" is a literal "$" (so "$59" is not read as a group reference)
+const FREE_FROM = `$$${SITE.freeDeliveryFrom}`;
+const FREE_DELIVERY_SENTENCE = `Delivery is free on orders of ${FREE_FROM} or more; for smaller orders we confirm the delivery fee with your total before we go.`;
 const capFirst = (match: string, repl: string) => (/^[A-Z]/.test(match) ? repl[0].toUpperCase() + repl.slice(1) : repl);
 const CLAIMS: [RegExp, string | ((m: string) => string)][] = [
   [/24\s*hours?\s+a\s+day(,?\s*(and\s+)?7\s+days\s+a\s+week)?/gi, `${HOURS}, every day`],
   [/anytime,?\s+day\s+or\s+night/gi, (m) => capFirst(m, `any day, ${HOURS}`)],
-  [/day\s+or\s+night/gi, (m) => capFirst(m, `every day until 11:30 pm`)],
-  [/around[- ]the[- ]clock/gi, (m) => capFirst(m, `every day from 8 am to 11:30 pm`)],
-  [/\bat any hour\b/gi, `every day from 8 am to 11:30 pm`],
+  [/day\s+or\s+night/gi, (m) => capFirst(m, `every day until 11 pm`)],
+  [/around[- ]the[- ]clock/gi, (m) => capFirst(m, `every day from 7 am to 11 pm`)],
+  [/\bat any hour\b/gi, `every day from 7 am to 11 pm`],
   [/\bany hour\b/gi, HOURS],
-  [/\ball night\b/gi, "until 11:30 pm"],
+  [/\ball night\b/gi, "until 11 pm"],
   [/\b(?:24\/7|24-7)\s+(delivery)/gi, (m) => capFirst(m, "daily delivery")],
   // "24/7 pharmacy", "24-Hour Pharmacy Delivery", "24 hour pharmacy" → drop the adjective ("within 24 hours" is untouched)
   [/\b(?:24\/7|24-hours?|24 hour)\s+(?=[A-Za-z])/gi, ""],
@@ -47,6 +51,23 @@ const CLAIMS: [RegExp, string | ((m: string) => string)][] = [
   [/<p>\s*●\s*Live\s*<\/p>/g, ""],
   // WhatsApp: the bot-connected main line (master data §2)
   [/wa\.me\/521?6242673177/g, "wa.me/5216242261023"],
+  // Delivery fees (owner, 24 Nov 2026): free on orders of $59+. Imported copy invents fees/minimums ($5–15, $20–25,
+  // free from $25/$50/$99): any sentence that states a fee, minimum or threshold with an amount becomes the policy.
+  [
+    /[^.!?<>]+[.!]?/g,
+    (sentence) => {
+      const amount = /\$\s?\d|\d+\s?(?:pesos|MXN)\b/i.test(sentence);
+      const fee = /deliver/i.test(sentence) && /fee|charge|cost|pric|free|over|minimum|threshold|waiv|starting/i.test(sentence);
+      const minimum = /minimum (?:order|purchase)/i.test(sentence);
+      return amount && (fee || minimum) ? ` ${FREE_DELIVERY_SENTENCE.replace(/\$\$/g, "$")}` : sentence;
+    },
+  ],
+  [/\bFree (?:for|with|on) orders over [^<.]*?(?:\$\s?\d+|\d+\s?(?:MXN|pesos))(?:\s?USD)?/gi, `Free on orders of ${FREE_FROM}+`],
+  [/\bOn orders over \$\d+(?:\s?USD)?/g, `On orders of ${FREE_FROM}+`],
+  // Invented tables of delivery tiers, delivery times and per-item prices
+  [/<table\b[\s\S]*?<\/table>/gi, (t) => (/delivery/i.test(t) && /\$\s?\d/.test(t) ? "" : t)],
+  [/Free Delivery on Orders \$99\+/g, `Free delivery on orders of ${FREE_FROM}+`],
+  [/\bFree delivery to ([^<.]+)/g, `Free delivery on orders of ${FREE_FROM}+ to $1`],
 ];
 const deClaim = (s: string) => CLAIMS.reduce((acc, [re, to]) => acc.replace(re, to as string), s);
 

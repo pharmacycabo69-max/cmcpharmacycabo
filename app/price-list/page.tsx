@@ -12,7 +12,7 @@ const UPDATED = new Date().toLocaleDateString("en-US", { month: "long", year: "n
 export const metadata: Metadata = {
   title: { absolute: `Cabo Pharmacy Price List ${YEAR} · Medicine Prices in USD` },
   description:
-    "Current prices in US dollars for the medicines visitors buy most in Cabo San Lucas: allergy, stomach, pain, sunscreen, antibiotics, Ozempic and more. Delivery 8 am–11:30 pm daily.",
+    "Current prices in US dollars for the medicines visitors buy most in Cabo San Lucas: allergy, stomach, pain, sunscreen, antibiotics, Ozempic and more. Delivery 7 am–11 pm daily.",
   alternates: { canonical: "/price-list" },
   openGraph: { title: `Cabo Pharmacy Price List ${YEAR}`, url: "/price-list", images: ["/opengraph-image"] },
 };
@@ -32,7 +32,7 @@ const FAQ = [
   },
   {
     q: "How much does pharmacy delivery cost in Cabo?",
-    a: "We confirm the delivery fee with your total before we go. We deliver every day from 8 am to 11:30 pm to hotels, resorts and villas in Cabo San Lucas, San José del Cabo and the Corridor.",
+    a: "Delivery is free on orders of $59 or more. For smaller orders we confirm the delivery fee with your total before we go. We deliver every day from 7 am to 11 pm to hotels, resorts and villas in Cabo San Lucas, San José del Cabo and the Corridor.",
   },
   {
     q: "How fast is delivery?",
@@ -92,7 +92,7 @@ export default function PriceList() {
 
       <aside className="mt-12 rounded-2xl bg-brand-soft p-6 text-center">
         <p className="text-lg font-semibold">Need something that&apos;s not on the list?</p>
-        <p className="mt-1 text-sm text-slate-600">Send us the name of your medicine and we&apos;ll quote it, every day 8 am – 11:30 pm.</p>
+        <p className="mt-1 text-sm text-slate-600">Send us the name of your medicine and we&apos;ll quote it, every day 7 am – 11 pm.</p>
         <div className="mt-4 flex flex-wrap justify-center gap-3">
           <a href={`${SITE.whatsapp}?text=${encodeURIComponent("Hi! Can you give me the price of: ")}`} target="_blank" rel="noopener" className="btn btn-primary">Ask a price on WhatsApp</a>
           <Link href="/shop" className="btn btn-outline">Search the shop</Link>

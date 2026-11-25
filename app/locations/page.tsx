@@ -19,7 +19,7 @@ export default function Locations() {
       <h1 className="mt-5 text-3xl font-bold tracking-tight md:text-4xl">Pharmacy locations in Cabo San Lucas</h1>
       <p className="mt-3 max-w-2xl text-slate-600">Walk in for sun care, first aid, hydration and personal care, or order delivery to your hotel or villa. All stores are open every day and attend in English and Spanish.</p>
       <p className="mt-3 max-w-2xl text-sm text-slate-600">
-        These are the {LOCATIONS.length} stores of <strong>{SITE.parent}</strong>. {SITE.name} is {SITE.parent}&apos;s delivery and concierge service: same pharmacy, delivering every day from 8 am to 11:30 pm. WhatsApp <a href={SITE.whatsapp} className="font-medium text-brand">{SITE.whatsappDisplay}</a>.
+        These are the {LOCATIONS.length} stores of <strong>{SITE.parent}</strong>. {SITE.name} is {SITE.parent}&apos;s delivery and concierge service: same pharmacy, delivering every day from 7 am to 11 pm. WhatsApp <a href={SITE.whatsapp} className="font-medium text-brand">{SITE.whatsappDisplay}</a>.
       </p>
       <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {LOCATIONS.map((l, i) => <StoreCard key={l.slug} l={l} priority={i < 3} />)}

@@ -4,26 +4,26 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { BookDripButton } from "@/components/BookDripButton";
 import { BookingError } from "@/components/BookingError";
 import { JsonLd, faqSchema, orgId } from "@/lib/seo";
-import { IV, IV_DRIPS, IV_FAQ } from "@/lib/ivtherapy";
+import { IV, IV_DRIPS, IV_FAQ, IV_PRICE_NOTES } from "@/lib/ivtherapy";
 import { abs } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "IV Therapy in Cabo San Lucas: Nurse at Your Hotel or Villa",
-  description: "Medical-grade IV drips delivered to your hotel or villa in Cabo San Lucas and San José del Cabo. Hydration, hangover, immunity, NAD+ and more. Book online with a 50% deposit.",
+  description: "Medical-grade IV drips delivered to your hotel or villa in Cabo San Lucas and San José del Cabo. IV therapy $159, Multivitamin $189 and NAD+ $279 at your hotel or villa (USD, taxes included) after a medical assessment. Book online with a 50% deposit.",
   alternates: { canonical: "/iv-therapy" },
   openGraph: { url: "/iv-therapy", images: [IV_DRIPS[0].image] },
 };
 
 const BENEFITS = [
-  ["Sustained energy", "B-complex and amino acids absorbed in minutes, not hours."],
-  ["Immune defense", "High-dose vitamin C and zinc, bypassing the gut."],
-  ["Fast recovery", "Rehydrate from sun, travel or a long night out."],
-  ["Glow & anti-aging", "Glutathione and vitamin C for radiant, even skin."],
+  ["Medical assessment first", "Our team reviews your health history and rules out contraindications before any drip."],
+  ["Licensed professionals", "Administered by a licensed nurse who monitors you during the session."],
+  ["At your hotel or villa", "We come to you across Cabo San Lucas, San José del Cabo and the Corridor, by appointment."],
+  ["Clear pricing", "At your hotel or villa: IV therapy $159, Multivitamin $189, NAD+ $279. USD, taxes included. 50% deposit to book."],
 ];
 const STEPS = [
-  ["Consult", "Free 10-minute phone or in-person consultation with our medical team. We review your goals and rule out any contraindications."],
+  ["Consult", "Short assessment with our medical team by phone or in person. We review your health history and rule out contraindications."],
   ["Drip", "A licensed nurse administers your IV at our pharmacy, your hotel or your villa. 30–90 minutes depending on the formula."],
-  ["Recover", "Most clients feel results right away. Effects of certain drips (NAD+, glutathione) keep building over 24–48 hours."],
+  ["Recover", "Your nurse monitors you during the drip and gives you aftercare guidance. Effects vary from person to person."],
 ];
 const ZONES = ["Cabo San Lucas — Marina, Pedregal, Médano Beach", "San José del Cabo — Hotel Zone, Historic District", "Tourist Corridor — resort delivery", "East Cape — by arrangement"];
 
@@ -44,7 +44,7 @@ export default function IvTherapy() {
         <div className="mx-auto max-w-4xl px-4 py-12 md:py-16">
           <Breadcrumbs items={[{ name: "IV therapy", href: "/iv-therapy" }]} />
           <h1 className="mt-5 text-4xl font-bold leading-[1.1] tracking-tight md:text-5xl">IV therapy in Cabo San Lucas, delivered to your hotel or villa</h1>
-          <p className="mt-5 max-w-2xl text-lg text-slate-600">Medical-grade IV drips for hydration, recovery, immunity and longevity, administered by licensed Mexican medical professionals at your hotel, villa or our pharmacy.</p>
+          <p className="mt-5 max-w-2xl text-lg text-slate-600">IV therapy administered by licensed Mexican medical professionals at your hotel, villa or our pharmacy.</p>
           <div className="mt-7 flex flex-wrap gap-3">
             <a href="#drips" className="btn btn-primary">Choose your drip &amp; book</a>
             <a href={wa} target="_blank" rel="noopener" className="btn btn-outline">WhatsApp {IV.phoneDisplay}</a>
@@ -63,7 +63,7 @@ export default function IvTherapy() {
         <div className="section">
           <BookingError />
           <h2 id="menu" className="h2">Our IV drip menu</h2>
-          <p className="mt-3 max-w-2xl text-slate-600">Ten medical-grade formulas for energy, recovery, immunity, beauty and longevity. Prices in USD. Pick a drip to choose your date and time. A 50% deposit secures your visit.</p>
+          <p className="mt-3 max-w-2xl text-slate-600">At your hotel or villa: $159 per IV therapy, Multivitamin (Myers) $189, NAD+ $279. Prices in USD, taxes included. {IV_PRICE_NOTES.inClinic} {IV_PRICE_NOTES.groups} Pick a drip to choose your date and time. A 50% deposit secures your visit.</p>
           <ul className="mt-8 grid gap-6 md:grid-cols-2">
             {IV_DRIPS.map((d, i) => (
               <li key={d.id} className="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white">

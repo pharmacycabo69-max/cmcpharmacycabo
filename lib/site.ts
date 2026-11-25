@@ -19,10 +19,12 @@ export const SITE = {
   country: "MX",
   logo: "/apple-icon",
   /** Delivery hours confirmed by the owner. Do not advertise 24/7 or immediate availability. */
-  deliveryHours: { opens: "08:00", closes: "23:30", label: "8:00 am – 11:30 pm, every day" },
+  deliveryHours: { opens: "07:00", closes: "23:00", label: "7:00 am – 11:00 pm, every day" },
+  /** Free delivery threshold in USD (owner, 24 Nov 2026). Smaller orders: fee confirmed with the total. */
+  freeDeliveryFrom: 59,
   tagline: "Pharmacy Delivery & English-Speaking Doctors in Los Cabos",
   description:
-    "Pharmacy delivery in Cabo San Lucas & San José del Cabo, every day 8 am–11:30 pm. English-speaking pharmacists, prescription and OTC medicine to your hotel or villa, and doctor visits.",
+    "Pharmacy delivery in Cabo San Lucas & San José del Cabo, every day 7 am–11 pm. English-speaking pharmacists, prescription and OTC medicine to your hotel or villa, and doctor visits.",
   /** Google rating is not verified for this brand; keep null until the owner confirms the profile and figures. */
   rating: null as null | { value: number; count: number },
   /** CMC is the delivery & concierge service of RMC Pharmacy, which runs the stores in /locations. */

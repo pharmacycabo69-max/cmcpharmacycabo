@@ -7,7 +7,12 @@ patient or insurance data, competitor research or business strategy. Those live 
 
 ## Business facts (owner-confirmed, Prompt Maestro V3.1, 24 Nov 2026)
 - Brand: CMC Pharmacy Cabo is the delivery & concierge service of **RMC Pharmacy** (5 stores, `content/locations.json`).
-- **Delivery hours: 8:00 am – 11:30 pm every day.** Never advertise 24/7, "any hour", overnight or immediate availability.
+- **Delivery hours: 7:00 am – 11:00 pm every day** (owner, 24 Nov 2026). Stores: 8:00–18:00 every day.
+  Never advertise 24/7, "any hour", overnight or immediate availability.
+- **Free delivery on orders of $59+** (`SITE.freeDeliveryFrom`); smaller orders: fee confirmed with the total.
+- **IV therapy (USD, taxes included):** at hotel/villa $159, Multivitamin $189, NAD+ $279; in clinic $129 /
+  Multivitamin $154 / NAD+ $279; groups of 3+ $139 per person. **50% deposit** via Stripe. High-dose vitamin C,
+  iron and custom drips are not sold until medically validated (`lib/ivtherapy.ts`).
 - Clinic visits by appointment (clinic 9:00–17:00). Not an emergency service: always point emergencies to **911**.
 - **Main WhatsApp (bot): +52 624 226 1023** → `SITE.whatsapp`. Call line kept: +52 624 267 3177.
 - International insurance (US & Canada) accepted **subject to verification**: use `INSURANCE` in `lib/site.ts` /
@@ -15,8 +20,8 @@ patient or insurance data, competitor research or business strategy. Those live 
   national insurance; never collect policy documents through the website.
 
 ## Do not publish without owner approval
-- IV therapy prices/deposit (`lib/ivtherapy.ts`, Stripe checkout): conflict with master data (IV 159 / NAD+ 279).
-- COFEPRIS/LegitScript seals, Google ratings (`SITE.rating` stays `null`), testimonials, delivery fees or times.
+- Any price change, new IV formula or checkout change (`lib/ivtherapy.ts`, Stripe).
+- COFEPRIS/LegitScript seals, Google ratings (`SITE.rating` stays `null`), testimonials, delivery times.
 - Clinical content without a named reviewing physician.
 
 ## Medical team visibility (master data §3.1)

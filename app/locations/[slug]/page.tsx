@@ -51,7 +51,7 @@ export default async function LocationPage({ params }: Props) {
       <h1 className="mt-5 text-3xl font-bold tracking-tight md:text-4xl">{l.gbpName} <span className="text-slate-500">· {l.placeLabel}</span></h1>
       <p className="mt-1 text-slate-600">{l.neighborhood}, Cabo San Lucas</p>
       <p className="mt-3 max-w-2xl text-sm text-slate-600">
-        One of {LOCATIONS.length} {SITE.parent} stores in Cabo San Lucas. Need it delivered? {SITE.name}, {SITE.parent}&apos;s delivery and concierge service, brings your order to your hotel or villa every day, 8 am – 11:30 pm: <a href={SITE.tel} className="font-medium text-brand">{SITE.phone}</a>.
+        One of {LOCATIONS.length} {SITE.parent} stores in Cabo San Lucas. Need it delivered? {SITE.name}, {SITE.parent}&apos;s delivery and concierge service, brings your order to your hotel or villa every day, 7 am – 11 pm: <a href={SITE.tel} className="font-medium text-brand">{SITE.phone}</a>.
       </p>
 
       <div className="mt-6 grid gap-6 sm:grid-cols-2">
