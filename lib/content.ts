@@ -88,7 +88,8 @@ const all: Page[] = raw
     return extra.length ? { ...p, html: [p.html, ...extra.map((x) => x.html)].join("\n") } : p;
   });
 // "shop" is rebuilt natively and the empty duplicate is skipped
-const HIDDEN = new Set(["", "shop", "iv-therapy"]);
+// Rebuilt natively in app/: shop, iv-therapy, doctor-consultation, contact-us, faq
+const HIDDEN = new Set(["", "shop", "iv-therapy", "doctor-consultation", "contact-us", "faq"]);
 
 export const getPage = (slug: string) => all.find((p) => p.slug === slug && p.html.length > 0);
 export const home = () => all.find((p) => p.slug === "")!;

@@ -74,6 +74,13 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
       )}
       <div className="mt-8"><Prose html={page.html} /></div>
 
+      {/* Master data §13/§14: hotel names must not suggest an affiliation */}
+      {isArea(slug) && (
+        <p className="mt-8 rounded-xl bg-slate-50 p-4 text-xs leading-relaxed text-slate-600">
+          {SITE.name} is an independent pharmacy delivery service and is not affiliated with, endorsed by or part of the hotels or resorts named on this page. Hotel names are used only to describe where we deliver. Some properties only allow deliveries to the front desk or concierge; we coordinate this with you.
+        </p>
+      )}
+
       {INSURANCE_PAGES.has(slug) && <div className="mt-12"><InsuranceNotice compact /></div>}
 
       <aside className="mt-14 rounded-2xl bg-brand-soft p-6 text-center">
