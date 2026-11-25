@@ -61,7 +61,7 @@ export function PostCover({ slug, className = "h-full w-full" }: { slug: string;
     : pattern === 2 ? `radial-gradient(circle at ${spot}, rgba(255,255,255,.55) 0 44px, transparent 45px), radial-gradient(circle at 10% 95%, rgba(255,255,255,.35) 0 54px, transparent 55px)`
     : "linear-gradient(rgba(255,255,255,.35) 1px, transparent 1px) 0 0/22px 22px, linear-gradient(90deg, rgba(255,255,255,.35) 1px, transparent 1px) 0 0/22px 22px";
   return (
-    <div aria-hidden className={`relative overflow-hidden ${className}`} style={{ backgroundImage: `${bg}, linear-gradient(${angle}deg, ${t.from}, ${t.to})`, color: t.ink }}>
+    <div aria-hidden className={`relative overflow-hidden ${className}`} style={{ background: `${bg}, linear-gradient(${angle}deg, ${t.from}, ${t.to})`, color: t.ink }}>
       <svg viewBox="0 0 48 48" className="absolute -bottom-6 -right-6 h-44 w-44 opacity-[0.12]">{t.glyph}</svg>
       <div className="absolute inset-0 flex flex-col justify-between p-5">
         <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/85 shadow-sm"><svg viewBox="0 0 48 48" className="h-7 w-7">{t.glyph}</svg></span>

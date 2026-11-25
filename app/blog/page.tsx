@@ -30,7 +30,7 @@ export default function Blog() {
       <Link href={`/${p.slug}`} tabIndex={-1} aria-hidden className={`block overflow-hidden bg-slate-100 ${big ? "aspect-[16/9] md:aspect-auto md:w-1/2" : "aspect-[16/9]"}`}>
         {p.image ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={p.image} alt="" width={640} height={360} loading="lazy" decoding="async" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+          <img src={p.image} alt="" width={640} height={360} loading={big ? "eager" : "lazy"} fetchPriority={big ? "high" : "auto"} decoding="async" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
         ) : (
           <PostCover slug={p.slug} className="h-full w-full transition duration-500 group-hover:scale-105" />
         )}
