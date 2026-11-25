@@ -9,7 +9,7 @@ export function JsonLd({ data }: { data: object | object[] }) {
 export const orgId = `${SITE.url}/#pharmacy`;
 export const parentId = `${SITE.url}/#rmc`;
 
-/** RMC Pharmacy runs the stores; CMC Pharmacy Cabo is its 24/7 delivery & concierge service. */
+/** RMC Pharmacy runs the stores; CMC Pharmacy Cabo is its delivery & concierge service. */
 export const parentOrg = () => ({
   "@type": "Organization",
   "@id": parentId,
@@ -24,7 +24,6 @@ export const pharmacySchema = () => ({
   name: SITE.name,
   url: SITE.url,
   parentOrganization: parentOrg(),
-  identifier: { "@type": "PropertyValue", propertyID: "COFEPRIS", value: SITE.cofepris },
   logo: abs(SITE.logo),
   image: abs(SITE.logo),
   description: SITE.description,
@@ -44,13 +43,14 @@ export const pharmacySchema = () => ({
     { "@type": "City", name: "San José del Cabo" },
     { "@type": "AdministrativeArea", name: "Los Cabos" },
   ],
+  // Delivery service hours (master data §2); stores have their own hours on /locations
   openingHoursSpecification: {
     "@type": "OpeningHoursSpecification",
     dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-    opens: "00:00",
-    closes: "23:59",
+    opens: SITE.deliveryHours.opens,
+    closes: SITE.deliveryHours.closes,
   },
-  aggregateRating: { "@type": "AggregateRating", ratingValue: SITE.rating.value, reviewCount: SITE.rating.count, bestRating: 5 },
+  // No aggregateRating: self-served ratings are not eligible and the figures are not verified for this brand
 });
 
 export const websiteSchema = () => ({

@@ -193,7 +193,7 @@ export const getDrip = (id: string) => IV_DRIPS.find((d) => d.id === id);
 export const IV_FAQ: { q: string; a: string }[] = [
   {
     "q": "Is IV therapy safe?",
-    "a": "Yes. Every protocol is designed and supervised by our medical director. Infusions are administered by certified nursing staff using pharmaceutical-grade supplies and disposable sterile equipment, under valid Mexican health authority licensing (COFEPRIS)."
+    "a": "Yes. Every protocol is designed and supervised by our medical director. Infusions are administered by certified nursing staff using pharmaceutical-grade supplies and disposable sterile equipment."
   },
   {
     "q": "Do I need a prescription or prior consultation?",
@@ -213,7 +213,7 @@ export const IV_FAQ: { q: string; a: string }[] = [
   },
   {
     "q": "Can you come to my hotel or villa?",
-    "a": "Yes. We offer concierge delivery across Cabo San Lucas, San José del Cabo, and the Tourist Corridor. Most appointments arrive within 60–90 minutes of confirmation. Message us on WhatsApp with your hotel and room number."
+    "a": "Yes. We offer concierge delivery across Cabo San Lucas, San José del Cabo, and the Tourist Corridor. We confirm the appointment time with you after a short medical assessment. Message us on WhatsApp with your hotel and preferred time."
   },
   {
     "q": "How do I pay?",

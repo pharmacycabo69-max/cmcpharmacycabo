@@ -22,10 +22,44 @@ const clean = (html: string) =>
     .replace(/\s*<h2>\s*Leave a Reply[\s\S]*$/, "")
     .replace(/\s*<h4>\s*Latest Post[\s\S]*$/, "");
 
+/**
+ * Imported copy advertises 24/7 / overnight service. Confirmed hours (master data §2): delivery 8:00–23:30
+ * every day, no 24/7 or immediate availability. These rules rewrite those claims at load time so the original
+ * import stays untouched and the change is reversible. Order matters: specific phrases first.
+ */
+const HOURS = "8 am–11:30 pm";
+const capFirst = (match: string, repl: string) => (/^[A-Z]/.test(match) ? repl[0].toUpperCase() + repl.slice(1) : repl);
+const CLAIMS: [RegExp, string | ((m: string) => string)][] = [
+  [/24\s*hours?\s+a\s+day(,?\s*(and\s+)?7\s+days\s+a\s+week)?/gi, `${HOURS}, every day`],
+  [/anytime,?\s+day\s+or\s+night/gi, (m) => capFirst(m, `any day, ${HOURS}`)],
+  [/day\s+or\s+night/gi, (m) => capFirst(m, `every day until 11:30 pm`)],
+  [/around[- ]the[- ]clock/gi, (m) => capFirst(m, `every day from 8 am to 11:30 pm`)],
+  [/\bat any hour\b/gi, `every day from 8 am to 11:30 pm`],
+  [/\bany hour\b/gi, HOURS],
+  [/\ball night\b/gi, "until 11:30 pm"],
+  [/\b(?:24\/7|24-7)\s+(delivery)/gi, (m) => capFirst(m, "daily delivery")],
+  // "24/7 pharmacy", "24-Hour Pharmacy Delivery", "24 hour pharmacy" → drop the adjective ("within 24 hours" is untouched)
+  [/\b(?:24\/7|24-hours?|24 hour)\s+(?=[A-Za-z])/gi, ""],
+  [/\b24\/7\b/g, `daily, ${HOURS}`],
+  [/\bovernight\b/gi, (m) => capFirst(m, "late-evening")],
+  // Static "Open Now · ● Live" availability chips from the old landing pages
+  [/Open Now\s*·?\s*/g, ""],
+  [/<p>\s*●\s*Live\s*<\/p>/g, ""],
+  // WhatsApp: the bot-connected main line (master data §2)
+  [/wa\.me\/521?6242673177/g, "wa.me/5216242261023"],
+];
+const deClaim = (s: string) => CLAIMS.reduce((acc, [re, to]) => acc.replace(re, to as string), s);
+
 /** Duplicate hotel posts → the hotel landing page that absorbs their content (and 301s them, see next.config). */
 export const MERGED: Record<string, string> = Object.fromEntries(Object.entries(mergedJson).filter(([k]) => !k.startsWith("_")));
 
-const raw = (pages as Page[]).map((p) => ({ ...p, html: clean(p.html) }));
+const raw = (pages as Page[]).map((p) => ({
+  ...p,
+  title: deClaim(p.title),
+  seoTitle: deClaim(p.seoTitle),
+  description: deClaim(p.description),
+  html: deClaim(clean(p.html)),
+}));
 const all: Page[] = raw
   .filter((p) => !MERGED[p.slug])
   .map((p) => {

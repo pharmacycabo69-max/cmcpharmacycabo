@@ -14,7 +14,7 @@ export function Logo() {
       <LogoMark />
       <span className="leading-none">
         <span className="block text-[1.05rem] font-bold tracking-tight text-slate-900">CMC Pharmacy</span>
-        <span className="mt-1 block text-[0.62rem] font-semibold uppercase tracking-[0.28em] text-brand">Cabo · 24/7</span>
+        <span className="mt-1 block text-[0.62rem] font-semibold uppercase tracking-[0.28em] text-brand">Cabo San Lucas</span>
       </span>
     </span>
   );

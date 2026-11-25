@@ -14,7 +14,7 @@ export function Header() {
         </nav>
         <div className="flex items-center gap-3">
           <a href={SITE.tel} className="btn btn-primary whitespace-nowrap !px-4 !py-2 text-sm">
-            <span className="hidden sm:inline">Call {SITE.phone}</span><span className="sm:hidden">Call 24/7</span>
+            <span className="hidden sm:inline">Call {SITE.phone}</span><span className="sm:hidden">Call us</span>
           </a>
           <details className="relative lg:hidden">
             <summary aria-label="Menu" className="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-lg border border-slate-200 text-lg">☰</summary>

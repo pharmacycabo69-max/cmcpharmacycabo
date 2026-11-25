@@ -8,41 +8,36 @@ import { LOCATIONS } from "@/lib/locations";
 import { topCategories } from "@/lib/products";
 import { photo } from "@/components/PageBanner";
 import { IconBox, IconBuilding, IconClock, IconDoctor, IconDrip, IconGlobe, IconPill, IconShield, IconStar } from "@/components/Icons";
+import { InsuranceNotice } from "@/components/InsuranceNotice";
 import { SITE } from "@/lib/site";
 import { products } from "@/lib/products";
 
 export const metadata: Metadata = {
-  title: { absolute: "24/7 Pharmacy in Cabo San Lucas | Hotel Delivery & English-Speaking Doctors" },
+  title: { absolute: "Pharmacy Delivery in Cabo San Lucas | English-Speaking Doctors | CMC Pharmacy Cabo" },
   description: SITE.description,
   alternates: { canonical: "/" },
-  openGraph: { title: "24/7 Pharmacy in Cabo San Lucas | CMC Pharmacy Cabo", description: SITE.description, url: "/" },
+  openGraph: { title: "Pharmacy Delivery in Cabo San Lucas | CMC Pharmacy Cabo", description: SITE.description, url: "/" },
 };
 
 const SERVICES = [
-  { icon: IconBox, t: "24/7 pharmacy delivery", d: "Prescriptions, OTC medicine and travel essentials brought to your hotel, resort or villa.", href: "/24-7-pharmacy-delivery-cabo-san-lucas" },
-  { icon: IconDoctor, t: "English-speaking doctors", d: "Video consultations and hotel visits with bilingual physicians, available now.", href: "/doctor-consultation" },
-  { icon: IconDrip, t: "IV therapy", d: "Book a licensed nurse for hydration, hangover, immunity and NAD+ drips at your hotel or villa.", href: "/iv-therapy" },
+  { icon: IconBox, t: "Pharmacy delivery", d: `Prescriptions, OTC medicine and travel essentials brought to your hotel, resort or villa, ${SITE.deliveryHours.label}.`, href: "/24-7-pharmacy-delivery-cabo-san-lucas" },
+  { icon: IconDoctor, t: "English-speaking doctors", d: "Video consultations and visits at your hotel or villa with bilingual physicians, by appointment.", href: "/doctor-consultation" },
+  { icon: IconDrip, t: "IV therapy", d: "IV therapy at your hotel or villa, after a medical assessment, by appointment.", href: "/iv-therapy" },
   { icon: IconBuilding, t: "Concierge partnerships", d: "Guest medical support for hotels, resorts and property managers.", href: "/for-concierges" },
 ];
 
 const STEPS = [
-  { t: "Contact us", d: "Call, WhatsApp or browse the shop. A pharmacist answers 24/7 in English." },
-  { t: "We confirm", d: "We verify your prescription needs and confirm the product, price and delivery time." },
-  { t: "Delivered to you", d: "Discreet delivery to your door, typically within 60–90 minutes." },
+  { t: "Contact us", d: "WhatsApp, call or browse the shop. Our bilingual team answers in English and Spanish." },
+  { t: "We confirm", d: "We check your prescription needs and confirm the product, total price and delivery time before we go." },
+  { t: "Delivered to you", d: `Discreet delivery to your hotel, villa or home, ${SITE.deliveryHours.label}.` },
 ];
 
 const FAQ = [
-  { q: "How fast is pharmacy delivery in Cabo?", a: "Most orders arrive within 60–90 minutes in Cabo San Lucas, San José del Cabo and the Corridor, day or night." },
-  { q: "Do you deliver to hotels, resorts and Airbnbs?", a: "Yes. We deliver discreetly and securely to hotels, all-inclusive resorts, villas and vacation rentals across Los Cabos." },
-  { q: "Is there a 24-hour pharmacy in Cabo San Lucas?", a: "Yes. CMC Pharmacy Cabo is reachable 24/7 by phone and WhatsApp, with a pharmacist always on call." },
-  { q: "Can I get prescription medication from an English-speaking pharmacy?", a: "Yes. Our pharmacists and doctors are bilingual and can guide you through Mexican prescription requirements." },
-  { q: "Do you offer doctor visits or urgent care?", a: "We connect you with English-speaking doctors by video consultation or in-person visits at your hotel or villa." },
-];
-
-const REVIEWS = [
-  { q: "They delivered my prescription to our hotel in Cabo within 45 minutes. English-speaking staff and the pharmacist even called to confirm dosage.", n: "Sarah M.", w: "Vermont, USA" },
-  { q: "Ordered at midnight and had my meds by 8 AM. The team is incredibly professional and speaks perfect English.", n: "John D.", w: "Toronto, Canada" },
-  { q: "As a diabetic traveling from Canada, finding reliable insulin in Cabo was a worry. CMC Pharmacy made it seamless.", n: "Emma R.", w: "Vancouver, Canada" },
+  { q: "What are your delivery hours?", a: "We deliver every day from 8:00 am to 11:30 pm to hotels, resorts, villas and homes in Cabo San Lucas, San José del Cabo and the Corridor. We confirm the estimated delivery time when you order." },
+  { q: "Do you deliver to hotels, resorts and Airbnbs?", a: "Yes. We deliver discreetly to hotels, all-inclusive resorts, villas and vacation rentals across Los Cabos. Some hotels only allow delivery to the front desk; we coordinate with you." },
+  { q: "Can I get prescription medication from an English-speaking pharmacy?", a: "Yes. Our team is bilingual and can guide you through Mexican prescription requirements. Prescription-only medicines are dispensed only with a valid prescription." },
+  { q: "Do you offer doctor visits?", a: "We coordinate English-speaking doctors by video consultation or by appointment at your hotel or villa. We are not an emergency service: in an emergency, call 911." },
+  { q: "Do you accept travel insurance?", a: "We accept international health and travel insurance from the United States and Canada, subject to policy verification and coverage confirmation. Contact our team to verify your eligibility and payment arrangements before receiving medical services." },
 ];
 
 export default function Home() {
@@ -60,15 +55,16 @@ export default function Home() {
         <div className="absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-slate-950/40 to-transparent" />
         <div className="mx-auto max-w-6xl px-4 pb-28 pt-16 md:pb-36 md:pt-24">
           <div className="max-w-2xl">
+            {/* Trust chips: only verifiable facts (no seals or ratings until the owner confirms them) */}
             <div className="flex flex-wrap gap-2 text-xs font-medium text-white">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 ring-1 ring-white/25 backdrop-blur"><IconShield className="h-4 w-4" />COFEPRIS Auth. {SITE.cofepris}</span>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 ring-1 ring-white/25 backdrop-blur"><IconShield className="h-4 w-4" />LegitScript certified</span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-white/15 px-3 py-1.5 ring-1 ring-white/25 backdrop-blur"><IconStar className="h-3.5 w-3.5 text-amber-300" />{SITE.rating.value.toFixed(1)} · {SITE.rating.count} Google reviews</span>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 ring-1 ring-white/25 backdrop-blur"><IconShield className="h-4 w-4" />Part of {SITE.parent} · {LOCATIONS.length} stores in Cabo</span>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 ring-1 ring-white/25 backdrop-blur"><IconGlobe className="h-4 w-4" />English &amp; Spanish</span>
+              {SITE.rating && <span className="inline-flex items-center gap-1 rounded-full bg-white/15 px-3 py-1.5 ring-1 ring-white/25 backdrop-blur"><IconStar className="h-3.5 w-3.5 text-amber-300" />{SITE.rating.value.toFixed(1)} · {SITE.rating.count} Google reviews</span>}
             </div>
             <h1 className="mt-6 text-4xl font-extrabold leading-[1.05] tracking-tight text-white md:text-6xl">
-              24/7 pharmacy delivery in <span className="text-teal-300">Cabo San Lucas</span> &amp; San José del Cabo
+              Pharmacy delivery in <span className="text-teal-300">Cabo San Lucas</span> &amp; San José del Cabo
             </h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate-200">English-speaking pharmacists and doctors. Prescriptions, medicine and health essentials delivered to your hotel or villa, any hour.</p>
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate-200">English-speaking pharmacy team and doctor visits by appointment. Prescriptions, medicine and health essentials delivered to your hotel or villa, every day from 8 am to 11:30 pm.</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href={`${SITE.whatsapp}?text=${encodeURIComponent("Hi! I need a pharmacy delivery in Cabo.")}`} target="_blank" rel="noopener" className="btn !bg-[#25d366] !px-6 !py-3.5 text-[#05301b] shadow-lg shadow-black/20 hover:!bg-[#2ee170]">Order on WhatsApp</a>
               <a href={SITE.tel} className="btn !px-6 !py-3.5 text-white ring-1 ring-white/40 backdrop-blur hover:bg-white/15">Call {SITE.phone}</a>
@@ -81,8 +77,8 @@ export default function Home() {
       <div className="relative z-10 mx-auto -mt-14 max-w-5xl px-4">
         <ul className="grid grid-cols-2 divide-slate-100 rounded-2xl bg-white p-2 shadow-xl shadow-slate-900/10 ring-1 ring-slate-100 md:grid-cols-4 md:divide-x">
           {[
-            [IconClock, "60–90 min", "Typical delivery time"],
-            [IconBox, "24 / 7", "Open every day, all night"],
+            [IconClock, "8 am – 11:30 pm", "Delivery, every day"],
+            [IconBox, `${LOCATIONS.length} stores`, `${SITE.parent} in Cabo San Lucas`],
             [IconGlobe, "English", "Pharmacists & doctors"],
             [IconDrip, `${products.length.toLocaleString("en-US")}+`, "Products in the shop"],
           ].map(([Icon, big, small]) => {
@@ -175,21 +171,11 @@ export default function Home() {
         </ul>
       </section>
 
-      {/* Reviews */}
-      <section className="bg-slate-900 text-white" aria-labelledby="reviews">
-        <div className="section">
-          <p className="text-xs font-bold uppercase tracking-[0.16em] text-teal-300">{SITE.rating.value.toFixed(1)} on Google · {SITE.rating.count} reviews</p>
-          <h2 id="reviews" className="h2 mt-2">What travelers say</h2>
-          <div className="mt-8 grid gap-5 md:grid-cols-3">
-            {REVIEWS.map((r) => (
-              <figure key={r.n} className="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
-                <p role="img" aria-label="5 out of 5 stars" className="flex gap-0.5 text-amber-300">{[0, 1, 2, 3, 4].map((i) => <IconStar key={i} />)}</p>
-                <blockquote className="mt-4 text-sm leading-relaxed text-slate-300">“{r.q}”</blockquote>
-                <figcaption className="mt-5 text-sm font-semibold">{r.n} <span className="font-normal text-slate-400">· {r.w}</span></figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
+      {/* Testimonials removed until authentic, attributable reviews are supplied (master data §8: no invented reviews). */}
+
+      {/* International insurance (master data §2.1) */}
+      <section className="mx-auto max-w-4xl px-4 pt-16" aria-label="International insurance">
+        <InsuranceNotice />
       </section>
 
       {/* FAQ */}
@@ -224,8 +210,8 @@ export default function Home() {
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-dark via-brand to-teal-500 px-6 py-12 text-center text-white shadow-xl md:px-12">
           <div aria-hidden className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-white/10" />
           <div aria-hidden className="absolute -bottom-20 -left-10 h-48 w-48 rounded-full bg-white/10" />
-          <h2 className="relative text-3xl font-extrabold tracking-tight md:text-4xl">Need a pharmacist right now?</h2>
-          <p className="relative mx-auto mt-3 max-w-xl text-teal-50">English-speaking help 24/7. Call or message us and we’ll bring what you need to your hotel or villa.</p>
+          <h2 className="relative text-3xl font-extrabold tracking-tight md:text-4xl">Need something from the pharmacy?</h2>
+          <p className="relative mx-auto mt-3 max-w-xl text-teal-50">Message us in English or Spanish. We deliver to your hotel or villa every day, 8 am – 11:30 pm.</p>
           <div className="relative mt-7 flex flex-wrap justify-center gap-3">
             <a href={SITE.tel} className="btn !px-6 !py-3.5 bg-white text-brand hover:bg-teal-50">Call {SITE.phone}</a>
             <a href={SITE.whatsapp} target="_blank" rel="noopener" className="btn !px-6 !py-3.5 !bg-[#25d366] text-[#05301b] hover:!bg-[#2ee170]">WhatsApp us</a>

@@ -16,7 +16,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   const content = categoryContent(c.slug);
   return {
     title: content?.title ?? `${c.name} in Cabo San Lucas`,
-    description: content?.description ?? `Shop ${c.name} at CMC Pharmacy Cabo with 24/7 delivery to hotels, resorts and villas in Los Cabos.`,
+    description: content?.description ?? `Shop ${c.name} at CMC Pharmacy Cabo with daily delivery to hotels, resorts and villas in Los Cabos.`,
     alternates: { canonical: `/product-category/${c.slug}` },
     robots: sp.q || sp.sort ? { index: false, follow: true } : undefined,
   };

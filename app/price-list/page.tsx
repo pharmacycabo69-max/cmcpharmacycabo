@@ -12,7 +12,7 @@ const UPDATED = new Date().toLocaleDateString("en-US", { month: "long", year: "n
 export const metadata: Metadata = {
   title: { absolute: `Cabo Pharmacy Price List ${YEAR} · Medicine Prices in USD` },
   description:
-    "Current prices in US dollars for the medicines visitors buy most in Cabo San Lucas: allergy, stomach, pain, sunscreen, antibiotics, Ozempic and more. 24/7 delivery.",
+    "Current prices in US dollars for the medicines visitors buy most in Cabo San Lucas: allergy, stomach, pain, sunscreen, antibiotics, Ozempic and more. Delivery 8 am–11:30 pm daily.",
   alternates: { canonical: "/price-list" },
   openGraph: { title: `Cabo Pharmacy Price List ${YEAR}`, url: "/price-list", images: ["/opengraph-image"] },
 };
@@ -32,11 +32,11 @@ const FAQ = [
   },
   {
     q: "How much does pharmacy delivery cost in Cabo?",
-    a: "Delivery is free on orders of $99 or more. For smaller orders we confirm the delivery fee when you order. We deliver 24/7 to hotels, resorts and villas in Cabo San Lucas, San José del Cabo and the Corridor.",
+    a: "We confirm the delivery fee with your total before we go. We deliver every day from 8 am to 11:30 pm to hotels, resorts and villas in Cabo San Lucas, San José del Cabo and the Corridor.",
   },
   {
     q: "How fast is delivery?",
-    a: "Typical delivery time is 60 to 90 minutes, depending on your hotel or villa and the time of day.",
+    a: "We give you an estimated delivery time when you order; it depends on your location and the time of day.",
   },
   {
     q: "What if the medicine I need is not on this list?",
@@ -58,7 +58,7 @@ export default function PriceList() {
       <h1 className="mt-5 text-3xl font-bold tracking-tight md:text-4xl">Cabo pharmacy price list {YEAR}</h1>
       <p className="mt-2 text-sm text-slate-500">Updated {UPDATED} · Prices in US dollars</p>
       <p className="mt-4 max-w-2xl text-slate-600">
-        What medicine costs at {SITE.name}, the 24/7 delivery service of {SITE.parent} in Cabo San Lucas. These are the products visitors ask for most. Tap any item to order it on WhatsApp and we&apos;ll deliver it to your hotel or villa.
+        What medicine costs at {SITE.name}, the delivery service of {SITE.parent} in Cabo San Lucas. These are the products visitors ask for most. Tap any item to order it on WhatsApp and we&apos;ll deliver it to your hotel or villa.
       </p>
 
       <nav aria-label="Price list sections" className="mt-6">
@@ -92,7 +92,7 @@ export default function PriceList() {
 
       <aside className="mt-12 rounded-2xl bg-brand-soft p-6 text-center">
         <p className="text-lg font-semibold">Need something that&apos;s not on the list?</p>
-        <p className="mt-1 text-sm text-slate-600">Send us the name of your medicine and we&apos;ll quote it in minutes, 24/7.</p>
+        <p className="mt-1 text-sm text-slate-600">Send us the name of your medicine and we&apos;ll quote it, every day 8 am – 11:30 pm.</p>
         <div className="mt-4 flex flex-wrap justify-center gap-3">
           <a href={`${SITE.whatsapp}?text=${encodeURIComponent("Hi! Can you give me the price of: ")}`} target="_blank" rel="noopener" className="btn btn-primary">Ask a price on WhatsApp</a>
           <Link href="/shop" className="btn btn-outline">Search the shop</Link>

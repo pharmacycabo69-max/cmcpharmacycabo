@@ -108,7 +108,7 @@ export default function IvTherapy() {
       <section className="mx-auto max-w-3xl px-4 pb-4" aria-labelledby="safety">
         <h2 id="safety" className="h2">Medical-grade, Mexican-licensed, Cabo-trusted</h2>
         <div className="prose-cmc mt-5">
-          <p><strong>All IV therapy services are administered by licensed Mexican medical professionals operating under COFEPRIS regulation.</strong> Each protocol is reviewed by our medical director, formulas use pharmaceutical-grade compounds from licensed Mexican distributors, and equipment is single-use sterile.</p>
+          <p><strong>All IV therapy services are administered by licensed Mexican medical professionals working within Mexican health regulations.</strong> Each protocol is reviewed by our medical director, formulas use pharmaceutical-grade compounds from licensed Mexican distributors, and equipment is single-use sterile.</p>
           <p>A medical consultation is <strong>required</strong> before your first treatment. We screen for contraindications including pregnancy and breastfeeding, advanced chronic kidney disease, decompensated heart failure, known allergies to IV components, hemochromatosis (for iron-containing formulas) and G6PD deficiency (for high-dose vitamin C).</p>
           <p>This service is not a substitute for medical care. If you have an active medical condition, consult your primary healthcare provider before booking. Not for emergencies — call 911.</p>
         </div>

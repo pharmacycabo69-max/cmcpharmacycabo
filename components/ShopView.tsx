@@ -33,7 +33,7 @@ export function ShopView({ base, params, category }: { base: string; params: Par
       {content && <JsonLd data={faqSchema(content.faq)} />}
       <h1 className="mt-5 text-3xl font-bold tracking-tight md:text-4xl">{category ? categoryContent(category.slug)?.h1 ?? category.name : "Pharmacy & health products in Cabo"}</h1>
       <p className="mt-2 text-slate-600">
-        {category ? `Shop ${category.name.toLowerCase()} with 24/7 delivery to your hotel or villa in Los Cabos.` : "Medications, vitamins, personal care and health essentials, delivered 24/7 in Cabo San Lucas and San José del Cabo."}{" "}
+        {category ? `Shop ${category.name.toLowerCase()} with delivery to your hotel or villa in Los Cabos, 8 am – 11:30 pm daily.` : "Medications, vitamins, personal care and health essentials, delivered daily in Cabo San Lucas and San José del Cabo."}{" "}
         <span className="text-slate-500">{res.total.toLocaleString()} products</span>
       </p>
       {content && (

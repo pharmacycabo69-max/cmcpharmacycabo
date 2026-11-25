@@ -7,7 +7,7 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
   const sp = await searchParams;
   return {
     title: "Shop Pharmacy & Health Products in Cabo",
-    description: "Browse medications, vitamins, personal care and health essentials with 24/7 delivery in Cabo San Lucas & San José del Cabo.",
+    description: "Browse medications, vitamins, personal care and health essentials with daily delivery (8 am–11:30 pm) in Cabo San Lucas & San José del Cabo.",
     alternates: { canonical: "/shop" },
     robots: sp.q || sp.sort ? { index: false, follow: true } : undefined,
   };

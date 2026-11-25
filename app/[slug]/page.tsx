@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { PageBanner, photo } from "@/components/PageBanner";
+import { InsuranceNotice } from "@/components/InsuranceNotice";
 import { Prose } from "@/components/Prose";
 import { allPages, deliveryAreas, getPage, related } from "@/lib/content";
 import { JsonLd, articleSchema } from "@/lib/seo";
@@ -12,6 +13,8 @@ export const dynamicParams = false;
 export const generateStaticParams = () => allPages().map((p) => ({ slug: p.slug }));
 
 const isArea = (slug: string) => deliveryAreas().some((p) => p.slug === slug);
+/** Pages that carry the international insurance notice (master data §2.1: home, medical services, FAQ, contact). */
+const INSURANCE_PAGES = new Set(["doctor-consultation", "contact-us", "faq", "about-us-pharmacy-delivery", "for-concierges"]);
 /**
  * Imported SEO titles sometimes repeat the brand ("X | CMC Pharmacy Cabo - CMC Pharmacy CaboCMC Pharmacy Cabo — X"):
  * keep only what comes before the first brand mention. The layout template appends the brand once.
@@ -23,11 +26,11 @@ const clip = (s: string, max = 155) => (s.length <= max ? s : `${s.slice(0, max)
 
 /** Pages that shared one generic imported description get their own. */
 const DESCRIPTIONS: Record<string, string> = {
-  "about-us-pharmacy-delivery": "Meet CMC Pharmacy Cabo: a licensed 24/7 pharmacy with English-speaking pharmacists and doctors, delivering to hotels and villas across Los Cabos.",
-  "contact-us": "Contact CMC Pharmacy Cabo 24/7 by WhatsApp, phone or email. English-speaking pharmacists answer in minutes and deliver to your hotel or villa in Los Cabos.",
-  "doctor-consultation": "See a licensed English-speaking doctor in Cabo by video or at your hotel. Get a valid Mexican prescription and have your medication delivered 24/7.",
+  "about-us-pharmacy-delivery": "Meet CMC Pharmacy Cabo: the delivery and concierge service of RMC Pharmacy, with an English-speaking team and doctor visits by appointment, delivering to hotels and villas across Los Cabos.",
+  "contact-us": "Contact CMC Pharmacy Cabo by WhatsApp, phone or email. Bilingual team, delivery to your hotel or villa in Los Cabos every day 8 am–11:30 pm.",
+  "doctor-consultation": "See a licensed English-speaking doctor in Cabo by video or at your hotel. Get a valid Mexican prescription and have your medication delivered to your hotel.",
   faq: "Answers about ordering medicine in Cabo: prescriptions, delivery times and areas, payment, prices in USD and what tourists can legally buy in Mexico.",
-  "for-concierges": "Hotel and villa concierges: one WhatsApp for 24/7 pharmacy delivery, doctor visits and IV therapy for your guests anywhere in Los Cabos.",
+  "for-concierges": "Hotel and villa concierges: one WhatsApp for pharmacy delivery, doctor visits and IV therapy for your guests anywhere in Los Cabos.",
   "prescription-requirements": "Which medicines need a prescription in Mexico, how to get one from our English-speaking doctors, and what to bring when you order in Cabo.",
   "privacy-policy": "How CMC Pharmacy Cabo collects, uses and protects your personal and health information when you order, consult a doctor or browse our website.",
   "returns-and-refunds": "CMC Pharmacy Cabo returns and refunds policy: which products can be returned, time limits, damaged or wrong deliveries and how refunds are issued.",
@@ -71,9 +74,11 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
       )}
       <div className="mt-8"><Prose html={page.html} /></div>
 
+      {INSURANCE_PAGES.has(slug) && <div className="mt-12"><InsuranceNotice compact /></div>}
+
       <aside className="mt-14 rounded-2xl bg-brand-soft p-6 text-center">
-        <p className="text-lg font-semibold">Need a pharmacist right now?</p>
-        <p className="mt-1 text-sm text-slate-600">24/7 delivery to hotels, resorts and villas across Los Cabos.</p>
+        <p className="text-lg font-semibold">Need something from the pharmacy?</p>
+        <p className="mt-1 text-sm text-slate-600">Delivery to hotels, resorts and villas across Los Cabos, 8 am – 11:30 pm daily.</p>
         <div className="mt-4 flex flex-wrap justify-center gap-3">
           <a href={SITE.tel} className="btn btn-primary">Call {SITE.phone}</a>
           <a href={SITE.whatsapp} target="_blank" rel="noopener" className="btn btn-outline">WhatsApp us</a>
