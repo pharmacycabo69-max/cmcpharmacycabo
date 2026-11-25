@@ -50,6 +50,8 @@ const DESCRIPTIONS: Record<string, string> = {
 
 /** Search titles for pages whose imported title was longer than what Google shows (~60 characters). */
 const TITLES: Record<string, string> = {
+  "overnight-medication-delivery-cabo-san-lucas": "Late-Evening Medication Delivery in Cabo San Lucas",
+  "vitamins-supplements-cabo-san-lucas-cmc-pharmacy": "Which Vitamins to Buy in Cabo San Lucas",
   "about-us-pharmacy-delivery": "About CMC Pharmacy Cabo: Delivery & Concierge Service",
   "allergy-medicine-cabo-san-lucas-delivered-hotel": "Allergy Medicine in Cabo: Options Delivered to Your Hotel",
   "best-pharmacy-in-san-jose-del-cabo-trusted-by-locals-and-tourists-alike": "Pharmacy in San José del Cabo: Guide for Visitors",
@@ -82,7 +84,6 @@ const TITLES: Record<string, string> = {
   "sunburn-relief-in-cabo-san-lucas-what-to-buy-at-a-pharmacy-after-a-day-at-medano-beach": "Sunburn Relief in Cabo: What to Buy at a Pharmacy",
   "sunburn-treatment-cabo-san-lucas-pharmacy-products": "Sunburn Treatment in Cabo: Pharmacy Products",
   "travelers-diarrhea-in-cabo-best-pharmacy-treatment-from-cmc-pharmacy": "Traveler's Diarrhea in Cabo: Pharmacy Treatment",
-  "vitamins-supplements-cabo-san-lucas-cmc-pharmacy": "Vitamins & Supplements in Cabo San Lucas",
   "where-to-buy-ozempic-in-cabo-san-lucas-cmc-pharmacy-has-you-covered": "Ozempic in Cabo San Lucas: Prescription Guide",
   "convenient-otc-medication-delivery-near-you": "OTC Medication Delivery in Los Cabos",
   "easy-prescription-refills-near-you": "Prescription Refills in Los Cabos",

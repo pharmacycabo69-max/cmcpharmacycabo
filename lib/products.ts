@@ -70,6 +70,16 @@ export function getProduct(slug: string): Product | null {
 }
 
 export const categoryBySlug = (slug: string) => categories.find((c) => c.slug === slug);
+
+const sharesName = (c: Category) => categories.some((x) => x.id !== c.id && x.count > 0 && x.name === c.name);
+/** Category name, with its parent when another category is called the same ("Extended Catalog (Makeup)"). */
+export function categoryLabel(c: Category) {
+  const parent = sharesName(c) ? categories.find((x) => x.id === c.parent) : undefined;
+  return parent ? `${c.name} (${parent.name})` : c.name;
+}
+/** Import leftovers and near-empty twins of another category stay browsable but are not offered to search engines. */
+export const isIndexableCategory = (c: Category) =>
+  c.count > 0 && !/^(uncategorized|extended-catalog|medicashop-import)/.test(c.slug) && !(c.count < 4 && sharesName(c));
 export const topCategories = () => categories.filter((c) => c.parent === 0 && c.count > 0 && c.slug !== "uncategorized").sort((a, b) => b.count - a.count);
 
 /** ids of a category and all its descendants */

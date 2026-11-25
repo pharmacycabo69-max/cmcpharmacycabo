@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { allPages } from "@/lib/content";
 import { LOCATIONS } from "@/lib/locations";
-import { categories, products } from "@/lib/products";
+import { categories, isIndexableCategory, products } from "@/lib/products";
 import { SITE } from "@/lib/site";
 
 const CHUNK = 1000;
@@ -34,6 +34,6 @@ export default async function sitemap(props: { id: Promise<string> }): Promise<M
       ...allPages().map((p) => ({ url: u(`/${p.slug}`), lastModified: p.date ?? undefined, priority: p.type === "post" ? 0.5 : 0.7 })),
     ];
   }
-  if (id === 1) return categories.filter((c) => c.count > 0 && c.slug !== "uncategorized").map((c) => ({ url: u(`/product-category/${c.slug}`), priority: 0.6 }));
+  if (id === 1) return categories.filter(isIndexableCategory).map((c) => ({ url: u(`/product-category/${c.slug}`), priority: 0.6 }));
   return products.slice((id - 2) * CHUNK, (id - 1) * CHUNK).map((p) => ({ url: u(`/product/${p.slug}`), priority: 0.4 }));
 }
