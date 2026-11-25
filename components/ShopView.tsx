@@ -6,14 +6,17 @@ import { categoryContent, relatedGuides } from "@/lib/category-content";
 import { JsonLd, faqSchema } from "@/lib/seo";
 import { SITE, abs } from "@/lib/site";
 
-type Params = { q?: string; page?: string; sort?: string };
+type Params = { q?: string; page?: string; sort?: string; type?: string; price?: string };
 
 export function ShopView({ base, params, category }: { base: string; params: Params; category?: Category }) {
-  const res = search({ q: params.q, cat: category?.id, page: Number(params.page) || 1, sort: params.sort });
+  const res = search({ q: params.q, cat: category?.id, page: Number(params.page) || 1, sort: params.sort, type: params.type, price: params.price });
+  const filtered = !!(params.q || params.sort || params.type || params.price);
   const href = (page: number) => {
     const sp = new URLSearchParams();
     if (params.q) sp.set("q", params.q);
     if (params.sort) sp.set("sort", params.sort);
+    if (params.type) sp.set("type", params.type);
+    if (params.price) sp.set("price", params.price);
     if (page > 1) sp.set("page", String(page));
     const qs = sp.toString();
     return qs ? `${base}?${qs}` : base;
@@ -22,7 +25,7 @@ export function ShopView({ base, params, category }: { base: string; params: Par
   const chips = (category ? categories.filter((c) => c.parent === category.id && c.count > 0) : topCategories()).filter(isIndexableCategory).filter((c) => !/^(brands|medicashop|extended)/.test(c.slug)).slice(0, 20);
   const crumbs = category ? [{ name: "Pharmacy", href: "/shop" }, { name: category.name, href: base }] : [{ name: "Pharmacy", href: "/shop" }];
   // Editorial content only on the canonical first page (not on search/sort/paginated variants)
-  const content = category && !params.q && !params.sort && res.page === 1 ? categoryContent(category.slug) : undefined;
+  const content = category && !filtered && res.page === 1 ? categoryContent(category.slug) : undefined;
   const guides = content ? relatedGuides(content) : [];
 
   return (
@@ -52,6 +55,20 @@ export function ShopView({ base, params, category }: { base: string; params: Par
           <option value="price-asc">Price: low to high</option>
           <option value="price-desc">Price: high to low</option>
         </select>
+        <label className="sr-only" htmlFor="type">Type</label>
+        <select id="type" name="type" defaultValue={params.type ?? ""} className="field sm:w-44">
+          <option value="">All products</option>
+          <option value="otc">No prescription</option>
+          <option value="rx">Prescription (℞)</option>
+        </select>
+        <label className="sr-only" htmlFor="price">Price</label>
+        <select id="price" name="price" defaultValue={params.price ?? ""} className="field sm:w-40">
+          <option value="">Any price</option>
+          <option value="under-10">Under $10</option>
+          <option value="10-25">$10 – $25</option>
+          <option value="25-50">$25 – $50</option>
+          <option value="50-plus">$50 and up</option>
+        </select>
         <button className="btn btn-primary">Search</button>
       </form>
 
@@ -79,7 +96,7 @@ export function ShopView({ base, params, category }: { base: string; params: Par
         </nav>
       )}
 
-      {!category && !params.q && !params.sort && res.page === 1 && (
+      {!category && !filtered && res.page === 1 && (
         <section className="mt-14" aria-labelledby="how-order">
           <h2 id="how-order" className="text-xl font-semibold">How to order from our Cabo pharmacy</h2>
           <ol className="mt-5 grid gap-4 md:grid-cols-3">

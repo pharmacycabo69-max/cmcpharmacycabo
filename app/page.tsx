@@ -77,8 +77,8 @@ export default function Home() {
         <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(rgba(255,255,255,.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.045)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(ellipse_at_30%_20%,black,transparent_75%)]" />
         <div aria-hidden className="absolute -left-32 -top-40 -z-10 h-[34rem] w-[34rem] rounded-full bg-brand/30 blur-3xl" />
         <div aria-hidden className="absolute -bottom-48 right-0 -z-10 h-[28rem] w-[28rem] rounded-full bg-teal-400/10 blur-3xl" />
-        <div className="mx-auto grid max-w-[76rem] items-center gap-12 px-4 pb-16 pt-10 lg:grid-cols-[1.15fr_0.85fr] lg:pb-24 lg:pt-16">
-          <div>
+        <div className="mx-auto grid max-w-[76rem] grid-cols-[minmax(0,1fr)] items-center gap-12 px-4 pb-16 pt-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:pb-24 lg:pt-16">
+          <div className="min-w-0">
             <p className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold ring-1 ring-white/15">
               <span className="h-2 w-2 rounded-full bg-emerald-400" aria-hidden />Medical concierge &amp; pharmacy · Los Cabos
             </p>

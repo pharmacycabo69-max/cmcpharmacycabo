@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ShopView } from "@/components/ShopView";
 
-type SP = { q?: string; page?: string; sort?: string };
+type SP = { q?: string; page?: string; sort?: string; type?: string; price?: string };
 
 export async function generateMetadata({ searchParams }: { searchParams: Promise<SP> }): Promise<Metadata> {
   const sp = await searchParams;
@@ -11,7 +11,7 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
     title: { absolute: title },
     description: "Browse medications, vitamins, personal care and health essentials with daily delivery (7 am–11 pm) in Cabo San Lucas & San José del Cabo.",
     alternates: { canonical: page > 1 ? `/shop?page=${page}` : "/shop" },
-    robots: sp.q || sp.sort ? { index: false, follow: true } : undefined,
+    robots: sp.q || sp.sort || sp.type || sp.price ? { index: false, follow: true } : undefined,
   };
 }
 

@@ -115,8 +115,16 @@ const travelRank = (p: ProductSummary) => {
   return i === -1 ? travelSets.length : i;
 };
 
-export function search({ q, cat, page = 1, sort }: { q?: string; cat?: number; page?: number; sort?: string }) {
+/** Shop filters: "otc" / "rx" (prescription), price bands in USD. */
+export type Filters = { type?: string; price?: string };
+const PRICE_BANDS: Record<string, [number, number]> = { "under-10": [0.01, 10], "10-25": [10, 25], "25-50": [25, 50], "50-plus": [50, Infinity] };
+
+export function search({ q, cat, page = 1, sort, type, price }: { q?: string; cat?: number; page?: number; sort?: string } & Filters) {
   let list = products;
+  if (type === "otc") list = list.filter((p) => !isRx(p));
+  else if (type === "rx") list = list.filter((p) => isRx(p));
+  const band = price ? PRICE_BANDS[price] : undefined;
+  if (band) list = list.filter((p) => p.price >= band[0] && p.price < band[1]);
   if (cat) { const ids = categoryIds(cat); list = list.filter((p) => p.cats.some((c) => ids.has(c))); }
   if (q) { const t = q.toLowerCase().split(/\s+/).filter(Boolean); list = list.filter((p) => t.every((w) => p.name.toLowerCase().includes(w) || p.sku?.toLowerCase() === w)); }
   if (sort === "price-asc") list = [...list].sort((a, b) => (hasPrice(a) ? a.price : Infinity) - (hasPrice(b) ? b.price : Infinity));

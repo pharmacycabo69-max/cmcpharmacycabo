@@ -4,7 +4,7 @@ import { ShopView } from "@/components/ShopView";
 import { categoryContent } from "@/lib/category-content";
 import { categoryBySlug, categoryLabel, isIndexableCategory } from "@/lib/products";
 
-type SP = { q?: string; page?: string; sort?: string };
+type SP = { q?: string; page?: string; sort?: string; type?: string; price?: string };
 type Props = { params: Promise<{ path: string[] }>; searchParams: Promise<SP> };
 
 const slugOf = (path: string[]) => decodeURIComponent(path[path.length - 1]);
@@ -24,7 +24,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
     title: title.length > 40 ? { absolute: title } : title,
     description: content?.description ?? `Shop ${categoryLabel(c)} at CMC Pharmacy Cabo with daily delivery to hotels, resorts and villas in Los Cabos.`,
     alternates: { canonical: `/product-category/${c.slug}${page > 1 ? `?page=${page}` : ""}` },
-    robots: sp.q || sp.sort || !isIndexableCategory(c) ? { index: false, follow: true } : undefined,
+    robots: sp.q || sp.sort || sp.type || sp.price || !isIndexableCategory(c) ? { index: false, follow: true } : undefined,
   };
 }
 
