@@ -16,7 +16,8 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   const content = categoryContent(c.slug);
   // Paginated pages are their own indexable URLs; search and sort variants are not indexed
   const page = Math.max(1, Math.floor(Number(sp.page)) || 1);
-  const name = content?.title ?? `${categoryLabel(c)} in Cabo San Lucas`;
+  const full = `${categoryLabel(c)} in Cabo San Lucas`;
+  const name = content?.title ?? (full.length <= 60 ? full : `${categoryLabel(c)} in Cabo`);
   const title = page > 1 ? `${name} – Page ${page}` : name;
   return {
     // "| CMC Pharmacy Cabo" is appended only when the result still fits in 60 characters
