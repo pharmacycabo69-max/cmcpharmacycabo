@@ -21,6 +21,7 @@ function message(s: Sent) {
     ...s.items.map((i) => `• ${i.qty} × ${i.name}${i.price > 0 ? ` (${money(i.price)} each)` : " (price on request)"}${i.rx ? " ℞" : ""}`),
     "",
     `Name: ${c.name}`,
+    `Phone: ${c.phone}`,
     `Delivery: ${c.place}, ${c.area}`,
     `When: ${c.window}`,
   ];

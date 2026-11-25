@@ -93,13 +93,23 @@ export function categoryIds(id: number): Set<number> {
   return ids;
 }
 
+/** Categories travelers ask for most (same as the home page), used to order the main shop page. */
+const TRAVEL_SLUGS = ["sun-care", "digestive-gi-care", "pain-fever-relief", "allergy-otc", "hydration-electrolytes", "insect-repellents", "wound-care-first-aid", "cold-flu", "heartburn-acid-relief"];
+let travelIds: Set<number> | null = null;
+const travelRank = (p: ProductSummary) => {
+  travelIds ??= new Set(TRAVEL_SLUGS.flatMap((slug) => { const c = categoryBySlug(slug); return c ? [...categoryIds(c.id)] : []; }));
+  return p.cats.some((c) => travelIds!.has(c)) ? 0 : 1;
+};
+
 export function search({ q, cat, page = 1, sort }: { q?: string; cat?: number; page?: number; sort?: string }) {
   let list = products;
   if (cat) { const ids = categoryIds(cat); list = list.filter((p) => p.cats.some((c) => ids.has(c))); }
   if (q) { const t = q.toLowerCase().split(/\s+/).filter(Boolean); list = list.filter((p) => t.every((w) => p.name.toLowerCase().includes(w) || p.sku?.toLowerCase() === w)); }
   if (sort === "price-asc") list = [...list].sort((a, b) => (hasPrice(a) ? a.price : Infinity) - (hasPrice(b) ? b.price : Infinity));
   else if (sort === "price-desc") list = [...list].sort((a, b) => b.price - a.price);
-  // Default order: complete listings first (photo + price), then photo only, then price only (stable within each group)
+  // Default order: complete listings first (photo + price), then photo only, then price only (stable within each group).
+  // On the main shop page, what travelers need most (sun care, stomach, pain, allergy…) comes first.
+  else if (!cat && !q) list = [...list].sort((a, b) => listingRank(a) - listingRank(b) || travelRank(a) - travelRank(b));
   else list = [...list].sort((a, b) => listingRank(a) - listingRank(b));
   const total = list.length;
   const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
