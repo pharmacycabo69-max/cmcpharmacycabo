@@ -23,7 +23,9 @@ export const decode = (s: string) =>
     .replace(/&quot;|&#0*34;/g, '"')
     .replace(/&#8211;/g, "–")
     .replace(/&#8212;/g, "—")
-    .replace(/&nbsp;|&#160;/g, " ");
+    .replace(/&nbsp;|&#160;/g, " ")
+    // UTF-8 read as Latin-1 on import ("InducciÃ³n" → "Inducción")
+    .replace(/Ã([-¿])/g, (_, c: string) => String.fromCharCode(0xc0 + c.charCodeAt(0) - 0x80));
 
 /** Imported "photos" that are really the supplier's no-image placeholder (identified by identical file content). */
 const PLACEHOLDER_PHOTOS = new Set([
