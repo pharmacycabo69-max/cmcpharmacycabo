@@ -5,10 +5,12 @@ type SP = { q?: string; page?: string; sort?: string };
 
 export async function generateMetadata({ searchParams }: { searchParams: Promise<SP> }): Promise<Metadata> {
   const sp = await searchParams;
+  const page = Math.max(1, Math.floor(Number(sp.page)) || 1);
+  const title = page > 1 ? `Shop Pharmacy & Health Products in Cabo – Page ${page}` : "Shop Pharmacy & Health Products in Cabo";
   return {
-    title: "Shop Pharmacy & Health Products in Cabo",
+    title: { absolute: title },
     description: "Browse medications, vitamins, personal care and health essentials with daily delivery (7 am–11 pm) in Cabo San Lucas & San José del Cabo.",
-    alternates: { canonical: "/shop" },
+    alternates: { canonical: page > 1 ? `/shop?page=${page}` : "/shop" },
     robots: sp.q || sp.sort ? { index: false, follow: true } : undefined,
   };
 }

@@ -4,7 +4,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { categories, search, topCategories, type Category } from "@/lib/products";
 import { categoryContent, relatedGuides } from "@/lib/category-content";
 import { JsonLd, faqSchema } from "@/lib/seo";
-import { abs } from "@/lib/site";
+import { SITE, abs } from "@/lib/site";
 
 type Params = { q?: string; page?: string; sort?: string };
 
@@ -76,6 +76,27 @@ export function ShopView({ base, params, category }: { base: string; params: Par
           <span className="text-slate-500">Page {res.page} of {res.pages}</span>
           {res.page < res.pages && <Link href={href(res.page + 1)} rel="next" className="btn btn-outline !py-2">Next →</Link>}
         </nav>
+      )}
+
+      {!category && !params.q && !params.sort && res.page === 1 && (
+        <section className="mt-14" aria-labelledby="how-order">
+          <h2 id="how-order" className="text-xl font-semibold">How to order from our Cabo pharmacy</h2>
+          <ol className="mt-5 grid gap-4 md:grid-cols-3">
+            {[
+              ["1. Send your list", "Tap Order on any product, or send us a photo of what you need on WhatsApp, in English or Spanish. Prescription medicines require a valid prescription."],
+              ["2. Confirm the total", `We confirm availability, price and delivery time before we go. Delivery is free on orders of $${SITE.freeDeliveryFrom} or more.`],
+              ["3. Receive it", "We deliver to hotels, resorts, villas and homes in Cabo San Lucas and San José del Cabo, every day from 7 am to 11 pm."],
+            ].map(([t, d]) => (
+              <li key={t} className="rounded-2xl border border-slate-200 bg-white p-5">
+                <h3 className="font-semibold">{t}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{d}</p>
+              </li>
+            ))}
+          </ol>
+          <p className="mt-5 text-sm text-slate-600">
+            Looking for prices? See the <Link href="/price-list" className="font-medium text-brand">Cabo pharmacy price list</Link>. Need a prescription? <Link href="/doctor-consultation" className="font-medium text-brand">See an English-speaking doctor</Link> by appointment, or find <Link href="/locations" className="font-medium text-brand">a pharmacy near you</Link>.
+          </p>
+        </section>
       )}
 
       {content && (

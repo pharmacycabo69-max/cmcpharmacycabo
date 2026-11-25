@@ -52,12 +52,14 @@ const hash = (s: string) => [...s].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >
 export function PostCover({ slug, className = "h-full w-full" }: { slug: string; className?: string }) {
   const t = TOPICS.find((x) => x.re.test(slug)) ?? FALLBACK;
   const h = hash(slug);
-  const angle = [135, 45, 225, 315][h % 4];
-  const pattern = h % 3; // 0 dots, 1 diagonal lines, 2 rings
+  const angle = (h % 24) * 15;
+  const spot = `${20 + (h % 61)}% ${10 + ((h >> 5) % 71)}%`;
+  const pattern = (h >> 3) % 4; // 0 dots, 1 diagonal lines, 2 rings, 3 grid
   const bg =
     pattern === 0 ? "radial-gradient(rgba(255,255,255,.55) 1.6px, transparent 1.7px) 0 0/18px 18px"
     : pattern === 1 ? "repeating-linear-gradient(45deg, rgba(255,255,255,.28) 0 2px, transparent 2px 14px)"
-    : "radial-gradient(circle at 85% 15%, rgba(255,255,255,.5) 0 38px, transparent 39px), radial-gradient(circle at 10% 95%, rgba(255,255,255,.35) 0 54px, transparent 55px)";
+    : pattern === 2 ? `radial-gradient(circle at ${spot}, rgba(255,255,255,.55) 0 44px, transparent 45px), radial-gradient(circle at 10% 95%, rgba(255,255,255,.35) 0 54px, transparent 55px)`
+    : "linear-gradient(rgba(255,255,255,.35) 1px, transparent 1px) 0 0/22px 22px, linear-gradient(90deg, rgba(255,255,255,.35) 1px, transparent 1px) 0 0/22px 22px";
   return (
     <div aria-hidden className={`relative overflow-hidden ${className}`} style={{ backgroundImage: `${bg}, linear-gradient(${angle}deg, ${t.from}, ${t.to})`, color: t.ink }}>
       <svg viewBox="0 0 48 48" className="absolute -bottom-6 -right-6 h-44 w-44 opacity-[0.12]">{t.glyph}</svg>

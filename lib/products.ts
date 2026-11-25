@@ -25,9 +25,17 @@ export const decode = (s: string) =>
     .replace(/&#8212;/g, "—")
     .replace(/&nbsp;|&#160;/g, " ");
 
+/** Imported "photos" that are really the supplier's no-image placeholder (identified by identical file content). */
+const PLACEHOLDER_PHOTOS = new Set([
+  5228, 5729, 8713, 8723, 8729, 8731, 8739, 8749, 8755, 8763, 8777, 8783, 8843, 8845, 8847, 8849, 8851, 8853, 9823, 9825, 9827, 9843, 9871, 9873, 9875, 9877, 9879, 9881, 10013,
+]);
+
 /** Products with neither a photo nor a price are hidden everywhere (listings, product pages, sitemap). */
 const visible = (p: ProductSummary) => !!p.img || p.price > 0;
-export const products = (indexJson as ProductSummary[]).filter(visible).map((p) => ({ ...p, name: decode(p.name) }));
+export const products = (indexJson as ProductSummary[])
+  .map((p) => (PLACEHOLDER_PHOTOS.has(p.id) ? { ...p, img: null } : p))
+  .filter(visible)
+  .map((p) => ({ ...p, name: decode(p.name) }));
 
 // Category counts are recomputed from the visible products (each category counts its descendants too)
 const rawCats = (catsJson as Category[]).map((c) => ({ ...c, name: decode(c.name) }));
@@ -56,7 +64,7 @@ export function getProduct(slug: string): Product | null {
     ...p,
     cats: s.cats, // detail files only carry `categories`; the listing has the ids
     name: decode(p.name),
-    images: p.images.map((i) => ({ ...i, alt: decode(i.alt ?? "") })),
+    images: PLACEHOLDER_PHOTOS.has(s.id) ? [] : p.images.map((i) => ({ ...i, alt: decode(i.alt ?? "") })),
     categories: p.categories.map((c) => ({ ...c, name: decode(c.name) })),
   };
 }

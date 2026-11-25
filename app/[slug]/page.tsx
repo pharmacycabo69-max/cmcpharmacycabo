@@ -48,14 +48,54 @@ const DESCRIPTIONS: Record<string, string> = {
   "returns-and-refunds": "CMC Pharmacy Cabo returns and refunds policy: which products can be returned, time limits, damaged or wrong deliveries and how refunds are issued.",
 };
 
+/** Search titles for pages whose imported title was longer than what Google shows (~60 characters). */
+const TITLES: Record<string, string> = {
+  "about-us-pharmacy-delivery": "About CMC Pharmacy Cabo: Delivery & Concierge Service",
+  "allergy-medicine-cabo-san-lucas-delivered-hotel": "Allergy Medicine in Cabo: Options Delivered to Your Hotel",
+  "best-pharmacy-in-san-jose-del-cabo-trusted-by-locals-and-tourists-alike": "Pharmacy in San José del Cabo: Guide for Visitors",
+  "best-sunscreen-to-buy-in-cabo-san-lucas-reef-safe-options-at-cmc-pharmacy": "Reef-Safe Sunscreen to Buy in Cabo San Lucas",
+  "cabo-san-lucas-pharmacy-open-late-cmc-pharmacy-extended-hours-for-tourists": "Late Pharmacy Delivery in Cabo San Lucas, Until 11 pm",
+  "childrens-pharmacy-cabo-san-lucas-pediatric-medications": "Children's Medicine in Cabo San Lucas, Delivered",
+  "english-speaking-pharmacy-in-cabo-san-lucas-why-tourists-choose-cmc-pharmacy": "English-Speaking Pharmacy in Cabo San Lucas",
+  "first-aid-kit-delivery-san-jose-del-cabo-2": "First Aid Kit Delivery in San José del Cabo",
+  "first-aid-supplies-cabo-san-lucas-pharmacy": "First Aid Supplies in Cabo San Lucas: What to Get",
+  "how-to-buy-prescription-medication-cabo-san-lucas-tourist-guide": "Buying Prescription Medicine in Cabo: Tourist Guide",
+  "insect-repellent-bug-bite-relief-cabo-san-lucas-pharmacy": "Insect Repellent & Bug Bite Relief in Cabo San Lucas",
+  "motion-sickness-cabo-san-lucas-patches-meds-pharmacy": "Motion Sickness in Cabo: Patches and Medicine",
+  "pain-relief-cabo-san-lucas-otc-options-pharmacy": "Pain Relief in Cabo San Lucas: OTC Options",
+  "pharmacy-delivery-pueblo-bonito-sunset-beach-pedregal": "Pharmacy Delivery to Pueblo Bonito Sunset Beach",
+  "pharmacy-near-bahia-hotel-cabo-san-lucas-marina-delivery": "Pharmacy Delivery to Bahia Hotel, Cabo Marina",
+  "pharmacy-near-barcelo-gran-faro-los-cabos-hotel-delivery": "Pharmacy Delivery to Barceló Gran Faro Los Cabos",
+  "pharmacy-near-cabo-azul-resort-fast-delivery-san-jose-del-cabo": "Pharmacy Delivery to Cabo Azul Resort",
+  "pharmacy-near-chileno-bay-resort-auberge-collection-cabo": "Pharmacy Delivery to Chileno Bay Resort",
+  "pharmacy-near-dreams-los-cabos-resort-fast-delivery": "Pharmacy Delivery to Dreams Los Cabos Resort",
+  "pharmacy-near-hacienda-del-mar-los-cabos-cabo-del-sol": "Pharmacy Delivery to Hacienda del Mar Los Cabos",
+  "pharmacy-near-hotel-tesoro-los-cabos-marina-delivery": "Pharmacy Delivery to Hotel Tesoro Los Cabos",
+  "pharmacy-near-las-ventanas-al-paraiso-premium-pharmacy-service": "Pharmacy Delivery to Las Ventanas al Paraíso",
+  "pharmacy-near-montage-los-cabos-resort-luxury-delivery-santa-maria-bay": "Pharmacy Delivery to Montage Los Cabos",
+  "pharmacy-near-sandos-finisterra-los-cabos-fast-delivery": "Pharmacy Delivery to Sandos Finisterra Los Cabos",
+  "pharmacy-near-secrets-puerto-los-cabos-fast-delivery-adults-only": "Pharmacy Delivery to Secrets Puerto Los Cabos",
+  "pharmacy-near-the-cape-hotel-cabo-san-lucas-delivery": "Pharmacy Delivery to The Cape Hotel, Cabo San Lucas",
+  "plan-b-cabo-san-lucas-emergency-contraception": "Plan B in Cabo: Where to Get Emergency Contraception",
+  "skin-care-products-cabo-san-lucas-pharmacy": "Skin Care Products in Cabo San Lucas: What to Buy",
+  "stomach-medicine-cabo-san-lucas-travelers-diarrhea": "Stomach Medicine in Cabo: Traveler's Diarrhea",
+  "sunburn-relief-in-cabo-san-lucas-what-to-buy-at-a-pharmacy-after-a-day-at-medano-beach": "Sunburn Relief in Cabo: What to Buy at a Pharmacy",
+  "sunburn-treatment-cabo-san-lucas-pharmacy-products": "Sunburn Treatment in Cabo: Pharmacy Products",
+  "travelers-diarrhea-in-cabo-best-pharmacy-treatment-from-cmc-pharmacy": "Traveler's Diarrhea in Cabo: Pharmacy Treatment",
+  "vitamins-supplements-cabo-san-lucas-cmc-pharmacy": "Vitamins & Supplements in Cabo San Lucas",
+  "where-to-buy-ozempic-in-cabo-san-lucas-cmc-pharmacy-has-you-covered": "Ozempic in Cabo San Lucas: Prescription Guide",
+  "convenient-otc-medication-delivery-near-you": "OTC Medication Delivery in Los Cabos",
+  "easy-prescription-refills-near-you": "Prescription Refills in Los Cabos",
+};
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const page = getPage((await params).slug);
   if (!page) return {};
-  const title = brandless(page.seoTitle) || page.title;
+  const title = TITLES[page.slug] ?? (brandless(page.seoTitle) || page.title);
   const description = clip(DESCRIPTIONS[page.slug] ?? page.description) || undefined;
   return {
-    // Long titles skip the "| CMC Pharmacy Cabo" suffix so they are not cut off in results
-    title: title.length > 45 ? { absolute: title } : title,
+    // "| CMC Pharmacy Cabo" is appended only when the result still fits in 60 characters
+    title: title.length > 40 ? { absolute: title } : title,
     description,
     alternates: { canonical: `/${page.slug}` },
     openGraph: {
