@@ -17,7 +17,7 @@ type Props = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const l = getLocation((await params).slug);
   if (!l) return {};
-  const description = `${l.gbpName}, ${l.addressLine}. ${hoursSummary(l.hours)}. Call ${l.phone}.${l.delivers ? " Delivery to hotels and villas, estimated up to 70 minutes." : ""}`;
+  const description = `${l.gbpName}, ${l.addressLine}. ${hoursSummary(l.hours)}. Call ${l.phone}.${l.delivers ? " Hotel delivery available." : ""}`;
   return {
     title: { absolute: locationTitle(l) },
     description,

@@ -102,7 +102,7 @@ export default function IvTherapy() {
 
       <section className="section" aria-labelledby="zones">
         <h2 id="zones" className="h2">Hotel &amp; villa delivery across Los Cabos</h2>
-        <p className="mt-3 max-w-2xl text-slate-600">Our nursing team comes to you with pharmaceutical-grade fluids and sterile equipment. Rest in your room, by the pool or on your terrace. Arrival within 60–90 minutes for most Cabo locations.</p>
+        <p className="mt-3 max-w-2xl text-slate-600">Our nursing team comes to you with pharmaceutical-grade fluids and sterile equipment. Rest in your room, by the pool or on your terrace. We confirm the appointment time with you.</p>
         <ul className="mt-6 grid gap-3 sm:grid-cols-2">{ZONES.map((z) => <li key={z} className="rounded-xl border border-slate-200 p-4 text-sm">{z}</li>)}</ul>
       </section>
 
