@@ -96,9 +96,9 @@ export function categoryIds(id: number): Set<number> {
 /** Categories travelers ask for most (same as the home page), used to order the main shop page. */
 const TRAVEL_SLUGS = ["sun-care", "hydration-electrolytes", "digestive-gi-care", "pain-fever-relief", "allergy-otc", "wound-care-first-aid", "cold-flu", "heartburn-acid-relief", "insect-repellents"];
 let travelSets: Set<number>[] | null = null;
-/** Position of the product's first traveler category (0 = sun care) or the list length when it has none. */
 /** Household pest products filed under "insect repellents" by the supplier are not traveler essentials. */
-const HOUSEHOLD_PEST = /(ratones|ratas?|rat[oó]n|mouse|mice|rodentw*|trampas?|cucarachas?|roachw*)/i;
+const HOUSEHOLD_PEST = /\b(ratones|ratas?|rat[oó]n|mouse|mice|rodent\w*|trampas?|cucarachas?|roach\w*)\b/i;
+/** Position of the product's first traveler category (0 = sun care) or the list length when it has none. */
 const travelRank = (p: ProductSummary) => {
   if (HOUSEHOLD_PEST.test(p.name)) return TRAVEL_SLUGS.length;
   travelSets ??= TRAVEL_SLUGS.map((slug) => { const c = categoryBySlug(slug); return c ? categoryIds(c.id) : new Set<number>(); });
