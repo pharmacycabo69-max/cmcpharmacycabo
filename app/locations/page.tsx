@@ -13,14 +13,14 @@ import { SITE, abs } from "@/lib/site";
 export const metadata: Metadata = {
   title: { absolute: "Pharmacy Near Me in Cabo San Lucas: 5 Stores, Open Daily" },
   description:
-    "Looking for a pharmacy near you in Cabo San Lucas? 5 RMC Pharmacy stores open every day 8 am–6 pm in Centro and the Marina, plus hotel delivery 7 am–11 pm.",
+    "Looking for a pharmacy near you in Cabo San Lucas? 5 pharmacies open every day 8 am–6 pm in Centro and the Marina, plus hotel delivery 7 am–11 pm.",
   alternates: { canonical: "/locations" },
   openGraph: { url: "/locations", images: ["/opengraph-image"] },
 };
 
 const FAQ = [
-  { q: "Is there a pharmacy near me in Cabo San Lucas?", a: `Yes. RMC Pharmacy has ${LOCATIONS.length} stores in Cabo San Lucas, in Centro, downtown and the Marina area. They are open every day from 8 am to 6 pm.` },
-  { q: "What are the pharmacy opening hours?", a: "All RMC Pharmacy stores are open every day, 8:00 am to 6:00 pm. If you need something outside those hours, our delivery service brings it to your hotel or villa every day from 7 am to 11 pm." },
+  { q: "Is there a pharmacy near me in Cabo San Lucas?", a: `Yes. The ${SITE.parent} network has ${LOCATIONS.length} pharmacies in Cabo San Lucas, in Centro, downtown and the Marina area (${LOCATIONS.map((l) => l.gbpName).filter((n, i, a) => a.indexOf(n) === i).join(", ")}). They are open every day from 8 am to 6 pm.` },
+  { q: "What are the pharmacy opening hours?", a: "All our pharmacies are open every day, 8:00 am to 6:00 pm. If you need something outside those hours, our delivery service brings it to your hotel or villa every day from 7 am to 11 pm." },
   { q: "Do the pharmacists speak English?", a: "Yes. Our stores and our delivery team attend in English and Spanish." },
   { q: "Can I get prescription medicine?", a: "Prescription-only medicines are dispensed with a valid prescription. If you don't have one, our English-speaking doctors can see you by video or at our clinic." },
   { q: "Do you deliver to my hotel instead?", a: `Yes. ${SITE.name}, the delivery service of ${SITE.parent}, delivers to every hotel, resort, villa and vacation rental in Los Cabos every day from 7 am to 11 pm. Delivery is free on orders of $${SITE.freeDeliveryFrom} or more.` },
@@ -37,7 +37,7 @@ export default function Locations() {
   const list = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "RMC Pharmacy stores in Cabo San Lucas",
+    name: "Pharmacies of the RMC Pharmacy network in Cabo San Lucas",
     itemListElement: LOCATIONS.map((l, i) => ({ "@type": "ListItem", position: i + 1, url: abs(`/locations/${l.slug}`), name: `${l.gbpName} – ${l.placeLabel}` })),
   };
   return (
@@ -48,7 +48,7 @@ export default function Locations() {
         <Breadcrumbs items={[{ name: "Locations", href: "/locations" }]} />
         <h1 className="mt-5 text-3xl font-bold tracking-tight md:text-5xl">Pharmacy near me in Cabo San Lucas</h1>
         <p className="mt-4 max-w-3xl text-lg text-slate-600">
-          Find the nearest of our <strong>{LOCATIONS.length} RMC Pharmacy stores</strong> in Centro and the Marina area, open every day from 8 am to 6 pm with English and Spanish service. Staying outside the center? {SITE.name}, our delivery service, brings your medicine to your hotel or villa every day from 7 am to 11 pm.
+          Find the nearest of our <strong>{LOCATIONS.length} pharmacies</strong> (the {SITE.parent} network) in Centro and the Marina area, open every day from 8 am to 6 pm with English and Spanish service. Staying outside the center? {SITE.name}, our delivery service, brings your medicine to your hotel or villa every day from 7 am to 11 pm.
         </p>
 
         <ul className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">

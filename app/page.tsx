@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { ConciergeArt, DeliveryArt, DoctorArt, IvArt, LabCardArt, LipsArt } from "@/components/Illustrations";
 import { IconBox, IconClock, IconDrip, IconGlobe, IconShield, IconStar } from "@/components/Icons";
 import { InsuranceNotice } from "@/components/InsuranceNotice";
+import { PostCover } from "@/components/PostCover";
 import { photo } from "@/components/PageBanner";
 import { ProductCard } from "@/components/ProductCard";
 import { StoreCard } from "@/components/StoreCard";
@@ -44,7 +45,7 @@ const STEPS = [
 ];
 
 const FAQ = [
-  { q: "Is there a pharmacy near me in Cabo San Lucas?", a: `Yes. RMC Pharmacy has ${LOCATIONS.length} stores in Cabo San Lucas open every day from 8 am to 6 pm, and ${SITE.name}, its delivery service, brings medicine to your hotel, villa or home from 7 am to 11 pm.` },
+  { q: "Is there a pharmacy near me in Cabo San Lucas?", a: `Yes. The ${SITE.parent} network has ${LOCATIONS.length} pharmacies in Cabo San Lucas open every day from 8 am to 6 pm, and ${SITE.name}, its delivery service, brings medicine to your hotel, villa or home from 7 am to 11 pm.` },
   { q: "What are your delivery hours?", a: "We deliver every day from 7:00 am to 11:00 pm to hotels, resorts, villas and homes in Cabo San Lucas, San José del Cabo and the Corridor. Delivery is free on orders of $59 or more, and we confirm the estimated delivery time when you order." },
   { q: "Do you deliver to hotels, resorts and Airbnbs?", a: "Yes — we deliver to every hotel, all-inclusive resort, villa and vacation rental in Cabo San Lucas, San José del Cabo and the Tourist Corridor. Some hotels only allow delivery to the front desk; we coordinate it with you." },
   { q: "Can I get prescription medication from an English-speaking pharmacy?", a: "Yes. Our team is bilingual and can guide you through Mexican prescription requirements. Prescription-only medicines are dispensed only with a valid prescription." },
@@ -59,7 +60,7 @@ export default function Home() {
   const hotels = deliveryAreas();
   const arco = photo("arco");
   const featured = FEATURED_IDS.map((id) => products.find((p) => p.id === id)).filter((p): p is NonNullable<typeof p> => !!p && !!p.img);
-  const blog = posts().filter((p) => p.image).slice(0, 3);
+  const blog = posts().slice(0, 3);
   const eyebrow = "text-xs font-bold uppercase tracking-[0.16em] text-brand";
   const serviceList = {
     "@context": "https://schema.org",
@@ -80,7 +81,7 @@ export default function Home() {
           <div className="max-w-2xl">
             {/* Trust chips: only verifiable facts (no seals or ratings until the owner confirms them) */}
             <div className="flex flex-wrap gap-2 text-xs font-medium text-white">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 ring-1 ring-white/25 backdrop-blur"><IconShield className="h-4 w-4" />Part of {SITE.parent} · {LOCATIONS.length} stores in Cabo</span>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 ring-1 ring-white/25 backdrop-blur"><IconShield className="h-4 w-4" />{SITE.parent} network · {LOCATIONS.length} stores in Cabo</span>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 ring-1 ring-white/25 backdrop-blur"><IconGlobe className="h-4 w-4" />English &amp; Spanish</span>
               {SITE.rating && <span className="inline-flex items-center gap-1 rounded-full bg-white/15 px-3 py-1.5 ring-1 ring-white/25 backdrop-blur"><IconStar className="h-3.5 w-3.5 text-amber-300" />{SITE.rating.value.toFixed(1)} · {SITE.rating.count} Google reviews</span>}
             </div>
@@ -125,7 +126,7 @@ export default function Home() {
           {SERVICES.map((s) => (
             <li key={s.t}>
               <Link href={s.href} className="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:border-brand hover:shadow-xl">
-                <div className="overflow-hidden">{s.art}</div>
+                <div className="overflow-hidden [&>svg]:h-28 sm:[&>svg]:h-36">{s.art}</div>
                 <div className="flex flex-1 flex-col p-6">
                   <span className="self-start rounded-full bg-brand-soft px-3 py-1 text-xs font-bold text-brand">{s.tag}</span>
                   <h3 className="mt-3 text-lg font-semibold leading-snug">{s.t}</h3>
@@ -220,7 +221,7 @@ export default function Home() {
       <section className="bg-slate-50" aria-labelledby="stores">
         <div className="section">
           <div className="flex items-end justify-between gap-4">
-            <div><p className={eyebrow}>Walk-in pharmacies</p><h2 id="stores" className="h2 mt-2">Visit a RMC Pharmacy store in Cabo San Lucas</h2></div>
+            <div><p className={eyebrow}>Walk-in pharmacies</p><h2 id="stores" className="h2 mt-2">Visit one of our pharmacies in Cabo San Lucas</h2></div>
             <Link href="/locations" className="shrink-0 text-sm font-semibold text-brand">All {LOCATIONS.length} stores →</Link>
           </div>
           <p className="mt-3 max-w-2xl text-slate-600">Open every day from 8 am to 6 pm in Centro and the Marina area, with English and Spanish service.</p>
@@ -275,8 +276,12 @@ export default function Home() {
             {blog.map((p) => (
               <article key={p.slug} className="group overflow-hidden rounded-2xl border border-slate-200 bg-white transition hover:border-brand hover:shadow-lg">
                 <Link href={`/${p.slug}`} className="block aspect-[16/9] overflow-hidden bg-slate-100" aria-hidden tabIndex={-1}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={p.image!} alt="" width={640} height={360} loading="lazy" decoding="async" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                  {p.image ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={p.image} alt="" width={640} height={360} loading="lazy" decoding="async" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                  ) : (
+                    <PostCover slug={p.slug} className="h-full w-full transition duration-500 group-hover:scale-105" />
+                  )}
                 </Link>
                 <div className="p-5">
                   <h3 className="font-semibold leading-snug"><Link href={`/${p.slug}`} className="hover:text-brand">{p.title}</Link></h3>

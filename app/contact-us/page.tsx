@@ -20,7 +20,7 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
 
 const HOURS = [
   ["Pharmacy delivery", "Every day, 7:00 am – 11:00 pm"],
-  ["Stores (RMC Pharmacy)", "Every day, 8:00 am – 6:00 pm"],
+  ["Pharmacies (RMC Pharmacy network)", "Every day, 8:00 am – 6:00 pm"],
   ["Clinic & doctor visits", "Every day, 9:00 am – 5:00 pm, by appointment"],
 ];
 
