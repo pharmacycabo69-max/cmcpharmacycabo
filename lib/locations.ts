@@ -32,4 +32,4 @@ export const fullAddress = (l: Location) => `${l.addressLine}, ${l.neighborhood}
 export const telHref = (l: Location) => `tel:${l.phone.replace(/[^\d+]/g, "")}`;
 export const waHref = (l: Location) =>
   `https://wa.me/${l.phone.replace(/\D/g, "").replace(/^52(?!1)/, "521")}?text=${encodeURIComponent(`Hi! I'm near ${l.gbpName} (${l.neighborhood}).`)}`;
-export const locationTitle = (l: Location) => `${l.gbpName} – ${l.placeLabel}, Cabo San Lucas | Pharmacy${l.delivers ? " & Delivery" : ""}`;
+export const locationTitle = (l: Location) => `${l.gbpName}, ${l.placeLabel} – Cabo San Lucas`;
