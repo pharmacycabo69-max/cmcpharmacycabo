@@ -21,6 +21,7 @@ export default async function sitemap(props: { id: Promise<string> }): Promise<M
       { url: u("/shop"), priority: 0.8, changeFrequency: "daily" },
       { url: u("/price-list"), priority: 0.8, changeFrequency: "weekly" },
       { url: u("/doctor-consultation"), priority: 0.9, changeFrequency: "monthly" },
+      { url: u("/hotel-doctor-cabo"), priority: 0.8, changeFrequency: "monthly" },
       { url: u("/contact-us"), priority: 0.6, changeFrequency: "monthly" },
       { url: u("/faq"), priority: 0.6, changeFrequency: "monthly" },
       { url: u("/blog"), priority: 0.6, changeFrequency: "weekly" },

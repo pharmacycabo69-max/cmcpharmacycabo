@@ -3,13 +3,14 @@ import Image from "next/image";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { BookDripButton } from "@/components/BookDripButton";
 import { BookingError } from "@/components/BookingError";
+import { RelatedServices } from "@/components/RelatedServices";
 import { JsonLd, faqSchema, orgId } from "@/lib/seo";
 import { IV, IV_DRIPS, IV_FAQ, IV_PRICE_NOTES } from "@/lib/ivtherapy";
 import { abs } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "IV Therapy in Cabo San Lucas: Nurse at Your Hotel or Villa",
-  description: "Medical-grade IV drips delivered to your hotel or villa in Cabo San Lucas and San José del Cabo. IV therapy $159, Multivitamin $189 and NAD+ $279 at your hotel or villa (USD, taxes included) after a medical assessment. Book online with a 50% deposit.",
+  title: { absolute: "IV Therapy Cabo San Lucas at Your Hotel | From $159" },
+  description: "IV therapy at your hotel or villa in Cabo San Lucas: IV $159, Multivitamin $189, NAD+ $279 (USD, taxes included). Medical assessment first; 50% deposit to book.",
   alternates: { canonical: "/iv-therapy" },
   openGraph: { url: "/iv-therapy", images: [IV_DRIPS[0].image] },
 };
@@ -125,6 +126,7 @@ export default function IvTherapy() {
           ))}
         </div>
       </section>
+      <div className="mx-auto max-w-6xl px-4 pb-14"><RelatedServices current="/iv-therapy" /></div>
     </>
   );
 }

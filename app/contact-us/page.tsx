@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { RelatedServices } from "@/components/RelatedServices";
 import { InsuranceNotice } from "@/components/InsuranceNotice";
 import { LOCATIONS } from "@/lib/locations";
 import { JsonLd, pharmacySchema } from "@/lib/seo";
@@ -8,9 +9,9 @@ import { SITE } from "@/lib/site";
 
 /** Contact (master data §2, §13): WhatsApp, phone, address, hours, stores; no form that collects health data. */
 export const metadata: Metadata = {
-  title: "Contact CMC Pharmacy Cabo: WhatsApp, Phone, Address & Hours",
+  title: { absolute: "Contact CMC Pharmacy Cabo: WhatsApp, Phone & Hours" },
   description:
-    "Contact CMC Pharmacy Cabo by WhatsApp +52 624 226 1023 or phone. Delivery every day 7 am–11 pm, clinic 9 am–5 pm, 5 stores in Cabo San Lucas open 8 am–6 pm.",
+    "Contact CMC Pharmacy Cabo by WhatsApp +52 624 226 1023 or phone. Delivery 7 am–11 pm, clinic 9 am–5 pm, 5 stores open 8 am–6 pm.",
   alternates: { canonical: "/contact-us" },
   openGraph: { url: "/contact-us", images: ["/opengraph-image"] },
 };
@@ -73,6 +74,8 @@ export default function Contact() {
       </section>
 
       <div className="mt-10"><InsuranceNotice compact /></div>
+
+      <RelatedServices current="/contact-us" />
 
       <p className="mt-10 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-900">
         <strong>Medical emergency?</strong> Call <a href="tel:911" className="font-semibold underline">911</a> or go to the nearest hospital. We are not an emergency service.

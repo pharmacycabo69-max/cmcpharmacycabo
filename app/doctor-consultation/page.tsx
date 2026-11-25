@@ -1,30 +1,20 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { InsuranceNotice } from "@/components/InsuranceNotice";
+import { RelatedServices } from "@/components/RelatedServices";
 import { JsonLd, faqSchema, orgId } from "@/lib/seo";
 import { SITE, abs } from "@/lib/site";
+import { DOCTOR } from "@/lib/team";
 
 /**
  * Medical services (master data §2, D12, D17: USD, taxes included). Replaces the imported page, which showed
- * placeholder doctor/reviews and a 24/7 "AI doctor".
- * Named physician: published on the owner's explicit instruction (24 Nov 2026), data from master data §3.
- * Photo supplied and assigned by the owner (public/team/), branded with the CMC strip.
+ * placeholder doctor/reviews and a 24/7 "AI doctor". Team data: lib/team.ts.
  */
-const DOCTOR = {
-  name: "Dr. Kevin González Adame",
-  degree: "Médico Cirujano y Partero (Physician and Surgeon)",
-  school: "Instituto Politécnico Nacional (IPN)",
-  license: "14796516",
-  languages: ["English", "Spanish"],
-  clinic: "Cabo Walk-In Clinic",
-  photo: "/team/dr-kevin-gonzalez-adame.jpg",
-};
 export const metadata: Metadata = {
-  title: "English-Speaking Doctor in Cabo San Lucas: Video $59, Clinic $99, Hotel Visit $189",
+  title: { absolute: "English-Speaking Doctor Cabo San Lucas | Video $59" },
   description:
-    "See an English-speaking doctor in Cabo San Lucas: video consultation $59, clinic visit $99 or a doctor at your hotel or villa for $189 (USD, taxes included), by appointment.",
+    "English-speaking doctor in Cabo San Lucas: video visit $59, clinic visit $99, hotel or villa visit $189 (USD, taxes included). By appointment.",
   alternates: { canonical: "/doctor-consultation" },
   openGraph: { url: "/doctor-consultation", images: ["/opengraph-image"] },
 };
@@ -152,14 +142,7 @@ export default function DoctorConsultation() {
 
       <div className="mt-12"><InsuranceNotice compact /></div>
 
-      <section className="mt-12" aria-labelledby="more">
-        <h2 id="more" className="text-xl font-semibold">Other services</h2>
-        <ul className="mt-3 grid gap-3 text-sm sm:grid-cols-3">
-          <li><Link href="/iv-therapy" className="block rounded-xl border border-slate-200 p-4 font-medium hover:border-brand hover:text-brand">IV therapy at your hotel — from $159</Link></li>
-          <li><Link href="/lab-tests-imaging" className="block rounded-xl border border-slate-200 p-4 font-medium hover:border-brand hover:text-brand">Lab tests &amp; imaging — quote on request</Link></li>
-          <li><Link href="/aesthetic-medicine" className="block rounded-xl border border-slate-200 p-4 font-medium hover:border-brand hover:text-brand">Aesthetic medicine — after assessment</Link></li>
-        </ul>
-      </section>
+      <RelatedServices current="/doctor-consultation" />
 
       <section className="mt-12" aria-labelledby="faq-h">
         <h2 id="faq-h" className="text-xl font-semibold">Frequently asked questions</h2>

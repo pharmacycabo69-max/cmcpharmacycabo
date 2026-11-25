@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { RelatedServices } from "@/components/RelatedServices";
 import { LabAreaIcon, LabHero, UltrasoundArt, XrayArt } from "@/components/Illustrations";
 import { InsuranceNotice } from "@/components/InsuranceNotice";
 import catalog from "@/content/lab-imaging.json";
@@ -13,9 +14,9 @@ import { SITE } from "@/lib/site";
  * Images: original illustrations (components/Illustrations.tsx).
  */
 export const metadata: Metadata = {
-  title: "Lab Tests, X-Ray & Ultrasound in Cabo San Lucas",
+  title: { absolute: "Lab Tests, X-Ray & Ultrasound in Cabo San Lucas" },
   description:
-    "Blood work, urine and stool tests, hormones, cultures, X-rays and ultrasound coordinated by our medical team in Cabo San Lucas. 93 lab tests and 9 imaging studies — ask for a quote on WhatsApp.",
+    "Blood work, urine and stool tests, hormones, X-rays and ultrasound in Cabo San Lucas. 93 lab tests and 9 imaging studies; quote on WhatsApp.",
   alternates: { canonical: "/lab-tests-imaging" },
   openGraph: { url: "/lab-tests-imaging", images: ["/opengraph-image"] },
 };
@@ -140,7 +141,8 @@ export default function LabTestsImaging() {
           <p className="mx-auto mt-2 max-w-xl text-teal-50">Send us the tests you need or a photo of your doctor&apos;s order. Some tests are only available after a medical consultation.</p>
           <a href={quote("lab tests or imaging")} target="_blank" rel="noopener" className="btn mt-6 bg-white !px-6 !py-3.5 text-brand hover:bg-teal-50">Message us</a>
         </section>
-        <p className="pb-4 text-xs text-slate-500">Not an emergency service: in an emergency, call 911.</p>
+        <RelatedServices current="/lab-tests-imaging" />
+        <p className="mt-6 pb-4 text-xs text-slate-500">Not an emergency service: in an emergency, call 911.</p>
       </div>
     </>
   );

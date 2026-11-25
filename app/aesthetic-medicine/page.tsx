@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { RelatedServices } from "@/components/RelatedServices";
 import { AestheticHero, GlowArt, LipsArt, RejuvenationArt, SyringeArt } from "@/components/Illustrations";
 import { JsonLd, faqSchema, orgId } from "@/lib/seo";
 import { SITE, abs } from "@/lib/site";
@@ -15,9 +16,9 @@ import { SITE, abs } from "@/lib/site";
 const LEAD = "Dra. Rosibel Núñez Rojo";
 
 export const metadata: Metadata = {
-  title: "Aesthetic Medicine in Cabo San Lucas: Lip Fillers, Wrinkle Relaxers & Skin Brightening",
+  title: { absolute: "Aesthetic Medicine in Cabo San Lucas | Lip Fillers" },
   description:
-    "Lip fillers from $600, facial wrinkle-relaxing injections from $170 per area, skin brightening from $1,500 and facial rejuvenation, after an in-person medical assessment in Cabo San Lucas.",
+    "Lip fillers from $600, wrinkle-relaxing injections from $170 per area and skin brightening from $1,500 in Cabo San Lucas, after a medical assessment.",
   alternates: { canonical: "/aesthetic-medicine" },
   openGraph: { url: "/aesthetic-medicine", images: ["/opengraph-image"] },
 };
@@ -170,7 +171,8 @@ export default function AestheticMedicine() {
           <p className="mx-auto mt-2 max-w-xl text-rose-50">Tell us the treatment you are interested in and your travel dates. We reply in English or Spanish.</p>
           <a href={book("")} target="_blank" rel="noopener" className="btn mt-6 bg-white !px-6 !py-3.5 text-brand hover:bg-rose-50">Message us on WhatsApp</a>
         </section>
-        <p className="pb-4 text-xs leading-relaxed text-slate-500">
+        <RelatedServices current="/aesthetic-medicine" />
+        <p className="mt-6 pb-4 text-xs leading-relaxed text-slate-500">
           General information, not medical advice. See also <Link href="/doctor-consultation" className="text-brand">doctor consultations</Link> and <Link href="/lab-tests-imaging" className="text-brand">lab tests &amp; imaging</Link>.
         </p>
       </div>

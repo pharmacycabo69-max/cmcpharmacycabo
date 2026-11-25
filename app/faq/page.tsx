@@ -6,9 +6,9 @@ import { INSURANCE, SITE } from "@/lib/site";
 
 /** FAQ rebuilt from owner-confirmed data (master data §2, §2.1, D11–D17). Replaces the imported 24/7 copy. */
 export const metadata: Metadata = {
-  title: "Pharmacy & Doctor FAQ for Visitors to Cabo San Lucas",
+  title: { absolute: "Pharmacy & Doctor FAQ for Visitors to Cabo San Lucas" },
   description:
-    "Delivery hours, free delivery from $59, prescriptions in Mexico, doctor and IV prices, insurance and payments: answers for visitors to Cabo San Lucas and San José del Cabo.",
+    "Delivery hours, free delivery from $59, prescriptions in Mexico, doctor and IV prices, insurance and payments for visitors to Cabo San Lucas.",
   alternates: { canonical: "/faq" },
   openGraph: { url: "/faq", images: ["/opengraph-image"] },
 };

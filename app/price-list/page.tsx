@@ -12,7 +12,7 @@ const UPDATED = new Date().toLocaleDateString("en-US", { month: "long", year: "n
 export const metadata: Metadata = {
   title: { absolute: `Cabo Pharmacy Price List ${YEAR} · Medicine Prices in USD` },
   description:
-    "Current prices in US dollars for the medicines visitors buy most in Cabo San Lucas: allergy, stomach, pain, sunscreen, antibiotics, Ozempic and more. Delivery 7 am–11 pm daily.",
+    "Current USD prices for what visitors buy most in Cabo San Lucas: allergy, stomach, pain, sunscreen, antibiotics, Ozempic and more. Delivery 7 am–11 pm.",
   alternates: { canonical: "/price-list" },
   openGraph: { title: `Cabo Pharmacy Price List ${YEAR}`, url: "/price-list", images: ["/opengraph-image"] },
 };

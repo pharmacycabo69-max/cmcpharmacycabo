@@ -131,3 +131,10 @@ export function related(slug: string, n = 3): Page[] {
     .slice(0, n)
     .map((x) => x.p);
 }
+
+/** Short display name for a hotel landing page ("Pharmacy delivery to Nobu Hotel Los Cabos" → "Nobu Hotel Los Cabos"). */
+export const hotelName = (title: string) =>
+  title
+    .replace(/^\s*Pharmacy\s+(?:delivery\s+to|near)\s+/i, "")
+    .split(/\s*[:–—|]\s*/)[0]
+    .trim();

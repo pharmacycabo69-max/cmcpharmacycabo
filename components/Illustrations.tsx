@@ -198,3 +198,87 @@ export function LabAreaIcon({ area, className = "h-10 w-10" }: { area: string; c
       return <svg {...common}><rect width="48" height="48" rx="12" fill="#f1f5f9" /><path d="M20 12h8v8h8v8h-8v8h-8v-8h-8v-8h8Z" fill={color} /></svg>;
   }
 }
+
+/* ---------- Service cards (home) ---------- */
+
+export function DeliveryArt({ className = "h-36 w-full" }: P) {
+  return (
+    <svg viewBox="0 0 240 140" className={className} aria-hidden="true">
+      <rect x="-200" width="640" height="140" fill="#f0fdfa" />
+      <path d="M20 118h200" stroke="#99f6e4" strokeWidth="3" strokeLinecap="round" strokeDasharray="2 9" />
+      <g stroke="#5eead4" strokeWidth="4" strokeLinecap="round"><path d="M26 58h34M14 74h30M30 90h28" /></g>
+      <rect x="76" y="40" width="92" height="72" rx="10" fill="#fff" stroke="#0f766e" strokeWidth="3" />
+      <path d="M76 62h92" stroke="#0f766e" strokeWidth="3" />
+      <path d="M118 40v22h8V40" fill="#14b8a6" />
+      <path d="M118 84h8v-8h8v-8h-8v-8h-8v8h-8v8h8Z" fill="#0f766e" transform="translate(-4 14)" />
+      <circle cx="196" cy="44" r="22" fill="#fff" stroke="#0f766e" strokeWidth="3" />
+      <path d="M196 32v13l9 6" stroke="#0f766e" strokeWidth="3" fill="none" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function DoctorArt({ className = "h-36 w-full" }: P) {
+  return (
+    <svg viewBox="0 0 240 140" className={className} aria-hidden="true">
+      <rect x="-200" width="640" height="140" fill="#eff6ff" />
+      <circle cx="120" cy="46" r="22" fill="#fde2d4" />
+      <path d="M98 42c4-16 40-16 44 0-10-6-34-6-44 0Z" fill="#1e293b" />
+      <path d="M72 140c0-34 20-58 48-58s48 24 48 58Z" fill="#fff" stroke="#cbd5e1" strokeWidth="2" />
+      <path d="M104 84l16 26 16-26" fill="#0f766e" />
+      <path d="M96 92c-14 6-16 26-6 34M144 92c14 6 16 26 6 34" stroke="#334155" strokeWidth="3.5" fill="none" strokeLinecap="round" />
+      <circle cx="88" cy="128" r="6" fill="#14b8a6" stroke="#334155" strokeWidth="2.5" />
+      <path d="M176 28h22M187 17v22" stroke="#3b82f6" strokeWidth="6" strokeLinecap="round" />
+      <path d="M46 36 50 46 60 50 50 54 46 64 42 54 32 50 42 46Z" fill="#14b8a6" />
+    </svg>
+  );
+}
+
+export function IvArt({ className = "h-36 w-full" }: P) {
+  return (
+    <svg viewBox="0 0 240 140" className={className} aria-hidden="true">
+      <rect x="-200" width="640" height="140" fill="#ecfeff" />
+      <path d="M92 10h56" stroke="#475569" strokeWidth="5" strokeLinecap="round" />
+      <path d="M120 10v8" stroke="#475569" strokeWidth="4" />
+      <path d="M98 22h44a8 8 0 0 1 8 8v46a30 30 0 0 1-30 30h-0a30 30 0 0 1-30-30V30a8 8 0 0 1 8-8Z" fill="#fff" stroke="#0f766e" strokeWidth="3" />
+      <path d="M92 60h56v16a28 28 0 0 1-56 0Z" fill="#5eead4" fillOpacity="0.75" />
+      {[44, 52].map((y) => <line key={y} x1="92" y1={y} x2="100" y2={y} stroke="#0f766e" strokeWidth="2" />)}
+      <rect x="114" y="104" width="12" height="16" rx="3" fill="#0f766e" />
+      <circle cx="120" cy="112" r="2.5" fill="#5eead4" />
+      <path d="M120 120v10c0 8 20 8 28 4s14-12 16-20" stroke="#0f766e" strokeWidth="3" fill="none" strokeLinecap="round" />
+      <path d="M190 40 194 50 204 54 194 58 190 68 186 58 176 54 186 50Z" fill="#14b8a6" />
+    </svg>
+  );
+}
+
+export function ConciergeArt({ className = "h-36 w-full" }: P) {
+  return (
+    <svg viewBox="0 0 240 140" className={className} aria-hidden="true">
+      <rect x="-200" width="640" height="140" fill="#fffbeb" />
+      <rect x="28" y="44" width="70" height="76" rx="6" fill="#fff" stroke="#d97706" strokeWidth="3" />
+      {[0, 1, 2].map((r) => [0, 1, 2].map((c) => <rect key={`${r}${c}`} x={38 + c * 20} y={54 + r * 22} width="10" height="12" rx="2" fill="#fde68a" />))}
+      <rect x="110" y="104" width="108" height="16" rx="5" fill="#d97706" />
+      <path d="M142 104c0-20 8-30 22-30s22 10 22 30Z" fill="#fff" stroke="#0f766e" strokeWidth="3" />
+      <circle cx="164" cy="70" r="5" fill="#0f766e" />
+      <path d="M164 58v7" stroke="#0f766e" strokeWidth="3" strokeLinecap="round" />
+      <path d="M124 104h80" stroke="#92400e" strokeWidth="3" />
+      <path d="M200 40 204 50 214 54 204 58 200 68 196 58 186 54 196 50Z" fill="#14b8a6" />
+    </svg>
+  );
+}
+
+export function LabCardArt({ className = "h-36 w-full" }: P) {
+  return (
+    <svg viewBox="0 0 240 140" className={className} aria-hidden="true">
+      <rect x="-200" width="640" height="140" fill="#faf5ff" />
+      <rect x="56" y="98" width="128" height="14" rx="5" fill="#7e22ce" />
+      {[["#ef4444", 62], ["#f59e0b", 50], ["#a855f7", 66], ["#14b8a6", 56], ["#3b82f6", 60]].map(([c, h], i) => (
+        <g key={i}>
+          <rect x={64 + i * 24} y={98 - (h as number)} width="16" height={h as number} rx="8" fill="#fff" stroke="#94a3b8" strokeWidth="2" />
+          <rect x={67 + i * 24} y={98 - (h as number) * 0.6} width="10" height={(h as number) * 0.6 - 3} rx="5" fill={c as string} />
+          <rect x={62 + i * 24} y={94 - (h as number)} width="20" height="8" rx="3" fill={c as string} />
+        </g>
+      ))}
+      <path d="M200 22c0 12-8 20-16 20s-16-8-16-20c0-10 10-20 16-30 6 10 16 20 16 30Z" fill="#ef4444" transform="translate(0 14) scale(.9)" />
+    </svg>
+  );
+}
