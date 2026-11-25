@@ -56,7 +56,7 @@ export default async function PayPage({ params, searchParams }: { params: Promis
             </div>
           )}
         </div>
-        <p className="mt-6 text-xs leading-relaxed text-slate-500">Pay only after our team has confirmed your appointment on WhatsApp. {svc.payNow < 1 ? "The balance is paid after the service. " : ""}Questions about cancellations or changes: <a href={wa} className="font-semibold text-brand">message us</a> before paying. Not an emergency service: call 911.</p>
+        <p className="mt-6 text-xs leading-relaxed text-slate-500">Pay only after our team has confirmed your appointment on WhatsApp. {payable && svc.payNow < 1 ? "The balance is paid after the service. " : ""}Questions about cancellations or changes: <a href={wa} className="font-semibold text-brand">message us</a> before paying. Not an emergency service: call 911.</p>
       </div>
     </div>
   );

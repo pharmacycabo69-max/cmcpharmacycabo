@@ -47,8 +47,8 @@ export const NAV = [
   { href: "/iv-therapy", label: "IV Therapy" },
 ];
 export const MORE_SERVICES: { title: string; links: [string, string][] }[] = [
-  { title: "Medical care", links: [["/hotel-doctor-cabo", "Doctor at your hotel"], ["/lab-tests-imaging", "Lab tests, X-ray & ultrasound"], ["/aesthetic-medicine", "Aesthetic medicine"], ["/prescription-requirements", "Prescriptions in Mexico"]] },
-  { title: "Pharmacy", links: [["/price-list", "Price list"], ["/delivery-areas", "Hotels & delivery areas"], ["/locations", "Our 5 pharmacies"], ["/for-concierges", "For hotels & concierges"]] },
+  { title: "Medical care", links: [["/services", "All services & prices"], ["/book", "Book care online"], ["/hotel-doctor-cabo", "Doctor at your hotel"], ["/lab-tests-imaging", "Lab tests, X-ray & ultrasound"], ["/aesthetic-medicine", "Aesthetic medicine"], ["/prescription-requirements", "Prescriptions in Mexico"]] },
+  { title: "Pharmacy", links: [["/price-list", "Price list"], ["/delivery-areas", "Hotels & delivery areas"], ["/locations", "Our 5 pharmacies"], ["/team", "Our doctor & team"], ["/for-concierges", "For hotels & concierges"]] },
   { title: "Help", links: [["/faq", "FAQ"], ["/blog", "Travel health guides"], ["/contact-us", "Contact"], ["/es", "Español"]] },
 ];
 

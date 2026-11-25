@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import type { ComponentType } from "react";
-import { HeroSearch } from "@/components/HeroSearch";
-import { IconArrow, IconBuilding, IconCard, IconDrip, IconFlask, IconGlobe, IconPill, IconShield, IconSparkle, IconStethoscope } from "@/components/Icons";
+import { ConciergeConsole } from "@/components/ConciergeConsole";
+import { IconArrow, IconBuilding, IconCard, IconDrip, IconFlask, IconPill, IconShield, IconSparkle, IconStethoscope } from "@/components/Icons";
 import { PostCover } from "@/components/PostCover";
 import { ProductCard } from "@/components/ProductCard";
 import { StoreCard } from "@/components/StoreCard";
@@ -72,35 +72,43 @@ export default function Home() {
     <>
       <JsonLd data={[pharmacySchema(), websiteSchema(), faqSchema(FAQ), serviceList]} />
 
-      {/* 1. Hero: search + two primary actions */}
-      <section className="relative overflow-hidden bg-surface">
-        <div className="mx-auto grid max-w-[76rem] items-center gap-10 px-4 pb-14 pt-10 lg:grid-cols-[1.05fr_1fr] lg:gap-14 lg:pb-20 lg:pt-14">
+      {/* 1. Hero: concierge console (search + every service) and two primary actions */}
+      <section className="relative isolate overflow-hidden bg-navy-deep text-white">
+        <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(rgba(255,255,255,.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.045)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(ellipse_at_30%_20%,black,transparent_75%)]" />
+        <div aria-hidden className="absolute -left-32 -top-40 -z-10 h-[34rem] w-[34rem] rounded-full bg-brand/30 blur-3xl" />
+        <div aria-hidden className="absolute -bottom-48 right-0 -z-10 h-[28rem] w-[28rem] rounded-full bg-teal-400/10 blur-3xl" />
+        <div className="mx-auto grid max-w-[76rem] items-center gap-12 px-4 pb-16 pt-10 lg:grid-cols-[1.15fr_0.85fr] lg:pb-24 lg:pt-16">
           <div>
-            <p className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-navy ring-1 ring-line">
-              <span className="h-2 w-2 rounded-full bg-emerald-500" aria-hidden />Pharmacists on WhatsApp {SITE.deliveryHours.label.replace(", every day", " daily")}
+            <p className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold ring-1 ring-white/15">
+              <span className="h-2 w-2 rounded-full bg-emerald-400" aria-hidden />Medical concierge &amp; pharmacy · Los Cabos
             </p>
-            <h1 className="mt-5 font-display text-[2.6rem] font-extrabold leading-[1.02] tracking-tight text-navy sm:text-6xl">How can we help you today?</h1>
-            <p className="mt-4 max-w-xl text-lg leading-relaxed text-slate-600">Medical care and pharmacy delivery in Los Cabos. English-speaking pharmacists and doctors, to your hotel, villa or home.</p>
-            <HeroSearch />
+            <h1 className="mt-5 font-display text-[2.5rem] font-extrabold leading-[1.02] tracking-tight sm:text-6xl">How can we help you <span className="bg-gradient-to-r from-teal-300 to-cyan-200 bg-clip-text text-transparent">today?</span></h1>
+            <p className="mt-4 max-w-xl text-lg leading-relaxed text-white/75">Medical care and pharmacy delivery in Los Cabos: medicine to your room, a doctor by video, at the clinic or at your hotel, IV therapy and tests, in English or Spanish.</p>
+            <ConciergeConsole />
             <div className="mt-5 flex flex-col gap-3 sm:flex-row">
               <Link href="/request" className="btn btn-primary !py-3.5">Request medication availability</Link>
-              <Link href="/book" className="btn btn-navy !py-3.5">Book medical care</Link>
+              <Link href="/book" className="btn !py-3.5 bg-white text-navy hover:bg-teal-50">Book medical care</Link>
             </div>
-            <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-slate-600">
-              <li className="flex items-center gap-1.5"><IconShield className="h-4 w-4 text-brand" />Part of {SITE.parent} · {LOCATIONS.length} pharmacies</li>
-              <li className="flex items-center gap-1.5"><IconGlobe className="h-4 w-4 text-brand" />English &amp; Spanish</li>
-              <li className="flex items-center gap-1.5"><IconBuilding className="h-4 w-4 text-brand" />Free delivery from ${SITE.freeDeliveryFrom}</li>
-            </ul>
           </div>
-          <div className="relative">
-            <div className="relative aspect-[4/3.4] overflow-hidden rounded-[2rem] shadow-2xl shadow-navy/20 lg:aspect-[4/4.2]">
-              <Image src="/locations/ocean/06-counter-team.jpg" alt="Pharmacist at the counter of our Ocean pharmacy at the Cabo San Lucas marina" fill priority sizes="(min-width: 1024px) 560px, 100vw" className="object-cover object-[62%_50%]" />
-              <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-navy/60 to-transparent" aria-hidden />
-              <p className="absolute bottom-4 left-4 right-4 text-sm font-medium text-white">Our pharmacy team at the Cabo San Lucas marina</p>
+          <div className="relative mx-auto mb-6 w-full max-w-md lg:max-w-none">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] ring-1 ring-white/15">
+              <Image src="/locations/ocean/06-counter-team.jpg" alt="Pharmacist at the counter of our Ocean pharmacy at the Cabo San Lucas marina" fill priority sizes="(min-width: 1024px) 460px, 90vw" className="object-cover object-[62%_50%]" />
+              <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-navy-deep/90 to-transparent" aria-hidden />
+              <p className="absolute bottom-16 left-5 right-5 text-sm text-white/85">Our pharmacy team at the Cabo San Lucas marina · {SITE.parent} network, {LOCATIONS.length} pharmacies</p>
             </div>
-            <div className="absolute -left-3 top-6 hidden w-60 rounded-2xl bg-white p-4 shadow-xl shadow-navy/15 ring-1 ring-line sm:block lg:-left-10">
-              <p className="text-xs font-semibold uppercase tracking-wider text-brand">Every order</p>
-              <p className="mt-1 text-sm font-semibold text-navy">Reviewed by a pharmacist before we charge or deliver</p>
+            <div className="absolute -left-4 top-8 hidden w-60 rounded-2xl bg-white p-4 text-navy shadow-2xl shadow-black/30 sm:block lg:-left-12">
+              <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-brand"><IconShield className="h-4 w-4" />Every order</p>
+              <p className="mt-1 text-sm font-semibold">Reviewed by a pharmacist before we charge or deliver</p>
+            </div>
+            <div className="absolute -right-3 top-1/2 hidden w-56 rounded-2xl bg-white/95 p-4 text-navy shadow-2xl shadow-black/30 backdrop-blur sm:block lg:-right-8">
+              <Image src={DOCTOR.photo} alt="" width={48} height={48} className="h-10 w-10 rounded-full object-cover" />
+              <p className="mt-2 text-sm font-semibold">{DOCTOR.name}</p>
+              <p className="text-xs text-slate-500">Physician · license {DOCTOR.license}</p>
+            </div>
+            <div className="absolute -bottom-6 left-6 right-6 grid grid-cols-3 divide-x divide-line rounded-2xl bg-white text-center text-navy shadow-2xl shadow-black/30">
+              {[[`$${MEDICAL_PRICES.video}`, "Video doctor"], ["7am–11pm", "Delivery, daily"], [`$${SITE.freeDeliveryFrom}+`, "Free delivery"]].map(([a, b]) => (
+                <p key={b} className="px-2 py-3"><span className="block font-display text-lg font-extrabold">{a}</span><span className="text-[11px] text-slate-500">{b}</span></p>
+              ))}
             </div>
           </div>
         </div>

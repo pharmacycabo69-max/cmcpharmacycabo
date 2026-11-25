@@ -33,6 +33,8 @@ export default async function sitemap(props: { id: Promise<string> }): Promise<M
       { url: u("/international-insurance"), priority: 0.7, changeFrequency: "monthly" },
       { url: u("/es"), priority: 0.8, changeFrequency: "weekly" },
       { url: u("/book"), priority: 0.8, changeFrequency: "monthly" },
+      { url: u("/services"), priority: 0.9, changeFrequency: "monthly" },
+      { url: u("/team"), priority: 0.6, changeFrequency: "monthly" },
       ...LOCATIONS.map((l) => ({ url: u(`/locations/${l.slug}`), priority: 0.8 })),
       ...allPages().map((p) => ({ url: u(`/${p.slug}`), lastModified: p.date ?? undefined, priority: p.type === "post" ? 0.5 : 0.7 })),
     ];

@@ -17,9 +17,9 @@ export function Footer() {
           </dl>
           <address className="mt-4 text-sm not-italic leading-relaxed text-white/60">{SITE.street}, {SITE.postalCode} {SITE.locality}, B.C.S., Mexico</address>
         </div>
-        <FooterCol title="Care" links={[["/doctor-consultation", "Doctor consultation"], ["/hotel-doctor-cabo", "Doctor at your hotel"], ["/iv-therapy", "IV therapy"], ["/lab-tests-imaging", "Lab tests & imaging"], ["/aesthetic-medicine", "Aesthetic medicine"], ["/international-insurance", "International insurance"]]} />
+        <FooterCol title="Care" links={[["/services", "All services & prices"], ["/book", "Book care online"], ["/doctor-consultation", "Doctor consultation"], ["/hotel-doctor-cabo", "Doctor at your hotel"], ["/iv-therapy", "IV therapy"], ["/lab-tests-imaging", "Lab tests & imaging"], ["/aesthetic-medicine", "Aesthetic medicine"], ["/international-insurance", "International insurance"]]} />
         <FooterCol title="Pharmacy" links={[["/shop", "Shop the catalog"], ["/request", "My request"], ["/price-list", "Price list"], ["/prescription-requirements", "Prescriptions in Mexico"], ["/delivery-areas", "Hotels & delivery areas"], ["/for-concierges", "For hotels & concierges"]]} />
-        <FooterCol title="Company" links={[["/locations", "Our pharmacies"], ["/about-us-pharmacy-delivery", "About us"], ["/blog", "Travel health guides"], ["/faq", "FAQ"], ["/contact-us", "Contact"], ["/es", "Español"]]} />
+        <FooterCol title="Company" links={[["/locations", "Our pharmacies"], ["/about-us-pharmacy-delivery", "About us"], ["/team", "Our team"], ["/blog", "Travel health guides"], ["/faq", "FAQ"], ["/contact-us", "Contact"], ["/es", "Español"]]} />
       </div>
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-[76rem] flex-col gap-2 px-4 py-6 text-xs text-white/50 md:flex-row md:items-center md:justify-between">
