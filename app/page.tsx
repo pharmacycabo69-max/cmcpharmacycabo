@@ -22,7 +22,9 @@ export const metadata: Metadata = {
 const SERVICES = [
   { icon: IconBox, t: "Pharmacy delivery", d: `Prescriptions, OTC medicine and travel essentials brought to your hotel, resort or villa, ${SITE.deliveryHours.label}.`, href: "/24-7-pharmacy-delivery-cabo-san-lucas" },
   { icon: IconDoctor, t: "English-speaking doctors", d: "Video consultations and visits at your hotel or villa with bilingual physicians, by appointment.", href: "/doctor-consultation" },
-  { icon: IconDrip, t: "IV therapy", d: "IV therapy at your hotel or villa, after a medical assessment, by appointment.", href: "/iv-therapy" },
+  { icon: IconDrip, t: "IV therapy", d: "IV therapy at your hotel or villa from $159, after a medical assessment, by appointment.", href: "/iv-therapy" },
+  { icon: IconPill, t: "Lab tests & imaging", d: "Blood work, urine and stool tests, X-rays and ultrasound coordinated by our medical team. Quote on request.", href: "/lab-tests-imaging" },
+  { icon: IconStar, t: "Aesthetic medicine", d: "Lip fillers, wrinkle-relaxing injections, skin brightening and facial rejuvenation, after an assessment.", href: "/aesthetic-medicine" },
   { icon: IconBuilding, t: "Concierge partnerships", d: "Guest medical support for hotels, resorts and property managers.", href: "/for-concierges" },
 ];
 
@@ -97,7 +99,7 @@ export default function Home() {
       <section className="section" aria-labelledby="services">
         <p className={eyebrow}>What we do</p>
         <h2 id="services" className="h2 mt-2">Everything your trip needs, delivered</h2>
-        <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map((s) => (
             <li key={s.t}>
               <Link href={s.href} className="group flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-brand hover:shadow-lg">

@@ -1,0 +1,159 @@
+{
+    "_comment":  "Public list for CMC (owner approved 24 Nov 2026: publish without prices). Source: rmcpharmacy.com docs/master/CATALOG_LAB_RADIOLOGY_DRAFT.json (PR #22). Excluded until medical review: tumor markers, HIV/STI/hepatitis B-C, pregnancy tests; imaging: mobile imaging and ECG (not confirmed).",
+    "lab":  [
+                {
+                    "area":  "Hematology",
+                    "tests":  [
+                                  "Complete blood count (CBC)",
+                                  "Platelet count",
+                                  "Reticulocyte count",
+                                  "Erythrocyte sedimentation rate (ESR)",
+                                  "Blood type and Rh",
+                                  "LE cells",
+                                  "Nasal smear eosinophils",
+                                  "Direct Coombs test",
+                                  "Indirect Coombs test"
+                              ]
+                },
+                {
+                    "area":  "Clinical chemistry",
+                    "tests":  [
+                                  "Fasting glucose",
+                                  "Glucose challenge 50 g",
+                                  "Glucose tolerance test",
+                                  "Hemoglobin A1c (HbA1c)",
+                                  "Urea / BUN",
+                                  "Creatinine",
+                                  "Cholesterol",
+                                  "Triglycerides",
+                                  "Uric acid",
+                                  "Basic chemistry (3 analytes)",
+                                  "Blood chemistry (6 analytes)",
+                                  "Blood chemistry + lipids (9 analytes)",
+                                  "Lipid panel",
+                                  "Amylase",
+                                  "Lipase",
+                                  "Bilirubin panel",
+                                  "Liver enzymes (AST, ALT)",
+                                  "GGT",
+                                  "Alkaline phosphatase",
+                                  "Total acid phosphatase",
+                                  "Prostatic acid phosphatase",
+                                  "Total protein (albumin, globulins)",
+                                  "Lactate dehydrogenase (LDH)",
+                                  "Total CK",
+                                  "CK-MB",
+                                  "Troponin",
+                                  "Serum iron"
+                              ]
+                },
+                {
+                    "area":  "Electrolytes",
+                    "tests":  [
+                                  "Chloride",
+                                  "Sodium",
+                                  "Potassium",
+                                  "Magnesium",
+                                  "Phosphorus",
+                                  "Calcium",
+                                  "Lithium level"
+                              ]
+                },
+                {
+                    "area":  "Coagulation",
+                    "tests":  [
+                                  "Prothrombin time (PT)",
+                                  "Partial thromboplastin time (PTT)",
+                                  "Clotting time",
+                                  "Bleeding time",
+                                  "INR"
+                              ]
+                },
+                {
+                    "area":  "Hormones \u0026 thyroid",
+                    "tests":  [
+                                  "Gynecological hormone panel",
+                                  "FSH",
+                                  "LH",
+                                  "Progesterone",
+                                  "Estradiol",
+                                  "Prolactin",
+                                  "Thyroid panel",
+                                  "TSH",
+                                  "Total T3",
+                                  "Free T3",
+                                  "Total T4",
+                                  "Free T4",
+                                  "Total testosterone",
+                                  "Free testosterone",
+                                  "DHEA",
+                                  "DHEA-S"
+                              ]
+                },
+                {
+                    "area":  "Immunology \u0026 serology",
+                    "tests":  [
+                                  "Antistreptolysin O (ASO)",
+                                  "Rheumatoid factor",
+                                  "C-reactive protein (CRP)",
+                                  "Total IgE",
+                                  "Febrile agglutinins",
+                                  "Rose Bengal test",
+                                  "Hepatitis A antibodies",
+                                  "Helicobacter pylori IgG/IgM"
+                              ]
+                },
+                {
+                    "area":  "Urinalysis",
+                    "tests":  [
+                                  "Urinalysis",
+                                  "24-hour urine protein",
+                                  "24-hour creatinine clearance"
+                              ]
+                },
+                {
+                    "area":  "Stool tests",
+                    "tests":  [
+                                  "Stool analysis",
+                                  "Rotavirus",
+                                  "Stool ova and parasites x1",
+                                  "Stool ova and parasites x3",
+                                  "Fresh stool amoeba test",
+                                  "Fecal leukocytes",
+                                  "Fecal occult blood",
+                                  "Reducing sugars",
+                                  "Perianal scraping"
+                              ]
+                },
+                {
+                    "area":  "Cultures (bacteriology)",
+                    "tests":  [
+                                  "Throat culture",
+                                  "Cervicovaginal culture",
+                                  "Semen culture",
+                                  "Urethral culture",
+                                  "Urine culture",
+                                  "Stool culture",
+                                  "AFB smear (sputum or urine)"
+                              ]
+                },
+                {
+                    "area":  "Other tests",
+                    "tests":  [
+                                  "Semen analysis",
+                                  "Sperm preparation"
+                              ]
+                }
+            ],
+    "imaging":  [
+                    "Chest X-ray",
+                    "Extremity X-ray (hand, wrist, elbow, shoulder, knee, ankle, foot)",
+                    "Spine X-ray (cervical, thoracic, lumbar)",
+                    "Abdominal ultrasound",
+                    "Renal ultrasound",
+                    "Pelvic ultrasound",
+                    "Musculoskeletal ultrasound",
+                    "Thyroid ultrasound",
+                    "Doppler ultrasound (region to specify)"
+                ]
+}

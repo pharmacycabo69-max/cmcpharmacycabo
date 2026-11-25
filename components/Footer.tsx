@@ -17,7 +17,7 @@ export function Footer() {
             <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
           </address>
         </div>
-        <FooterCol title="Services" links={[["/delivery-areas", "Delivery areas"], ["/24-7-pharmacy-delivery-cabo-san-lucas", "Pharmacy delivery"], ["/doctor-consultation", "Doctor consultation"], ["/iv-therapy", "IV therapy"], ["/for-concierges", "For concierges"], ["/prescription-requirements", "Prescription requirements"]]} />
+        <FooterCol title="Services" links={[["/delivery-areas", "Delivery areas"], ["/24-7-pharmacy-delivery-cabo-san-lucas", "Pharmacy delivery"], ["/doctor-consultation", "Doctor consultation"], ["/iv-therapy", "IV therapy"], ["/lab-tests-imaging", "Lab tests & imaging"], ["/aesthetic-medicine", "Aesthetic medicine"], ["/for-concierges", "For concierges"], ["/prescription-requirements", "Prescription requirements"]]} />
         <FooterCol title="Shop" links={[["/shop", "All products"], ["/price-list", "Price list"], ...cats.map((c) => [`/product-category/${c.slug}`, c.name] as [string, string])]} />
         <FooterCol title="Company" links={[["/locations", "Our stores"], ["/about-us-pharmacy-delivery", "About us"], ["/blog", "Blog"], ["/faq", "FAQ"], ["/contact-us", "Contact"], ["/privacy-policy", "Privacy policy"]]} />
       </div>
