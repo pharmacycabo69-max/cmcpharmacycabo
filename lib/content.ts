@@ -21,12 +21,25 @@ export type Page = {
  * and the comment form + "Latest Post" list at the bottom.
  */
 const clean = (html: string) =>
-  html
-    // Old landing pages open by repeating their own title and a "Delivery to …" availability chip
-    .replace(/^\s*<p>\s*CMC Pharmacy Cabo\s*—[\s\S]*?<\/p>\s*(?:Open Now\s*·?\s*Delivery to [^<]*)?/, "")
+  tidyLanding(html)
     .replace(/^\s*<h6>[\s\S]*?<\/h6>\s*/, "")
     .replace(/\s*<h2>\s*Leave a Reply[\s\S]*$/, "")
     .replace(/\s*<h4>\s*Latest Post[\s\S]*$/, "");
+
+/**
+ * The oldest hotel landing pages were flattened on import: their own title repeated, availability chips, buttons
+ * and labels run together as loose text. Keep the paragraphs and service blocks; the page header
+ * (components/AreaStrip) already provides the order button.
+ */
+const LANDING = /^\s*<p>\s*CMC Pharmacy Cabo\s*—[\s\S]*?<\/p>\s*(?:Open Now\s*·?\s*Delivery to [^<]*)?/;
+function tidyLanding(html: string) {
+  if (!LANDING.test(html)) return html;
+  return html
+    .replace(LANDING, "")
+    .replace(/\s*<a href="(?:https:\/\/wa\.me|tel:)[^"]*">[\s\S]*?<\/a>/g, "")
+    .replace(/\s*Licensed Pharmacy[^<]*?What do you need today\?\s*(?:<p>\s*●\s*Live\s*<\/p>)?/, " <h2>What do you need today?</h2>")
+    .replace(/<strong>Free delivery to ([^<]*)<\/strong>[^<]*/, (_, place: string) => `<p><strong>Free delivery to ${place.trim()}</strong> on orders of $${SITE.freeDeliveryFrom} or more.</p>`);
+}
 
 /**
  * Imported copy advertises 24/7 / overnight service. Confirmed hours (master data §2): delivery 7:00–23:00
@@ -72,7 +85,7 @@ const CLAIMS: [RegExp, string | ((m: string) => string)][] = [
   // Invented tables of delivery tiers, delivery times and per-item prices
   [/<table\b[\s\S]*?<\/table>/gi, (t) => (/delivery/i.test(t) && /\$\s?\d/.test(t) ? "" : t)],
   [/Free Delivery on Orders \$99\+/g, `Free delivery on orders of ${FREE_FROM}+`],
-  [/\bFree delivery to ([^<.]+)/g, `Free delivery on orders of ${FREE_FROM}+ to $1`],
+  [/\bFree delivery to ([^<.]+)(?!<\/strong> on orders)(?![^<.])/g, `Free delivery on orders of ${FREE_FROM}+ to $1`],
 ];
 const deClaim = (s: string) => CLAIMS.reduce((acc, [re, to]) => acc.replace(re, to as string), s);
 
