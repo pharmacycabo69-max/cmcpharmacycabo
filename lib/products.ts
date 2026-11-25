@@ -30,12 +30,18 @@ const PLACEHOLDER_PHOTOS = new Set([
   5228, 5729, 8713, 8723, 8729, 8731, 8739, 8749, 8755, 8763, 8777, 8783, 8843, 8845, 8847, 8849, 8851, 8853, 9823, 9825, 9827, 9843, 9871, 9873, 9875, 9877, 9879, 9881, 10013,
 ]);
 
+/**
+ * 4 imported slugs keep WordPress percent-encoding ("…-folato-%c2%b7-150-caps") and never resolved (404, also in
+ * production). They become plain ASCII slugs; the broken encoded URLs had no working page to preserve.
+ */
+const cleanSlug = (slug: string) => (/%[0-9a-f]{2}/i.test(slug) ? slug.replace(/(%[0-9a-f]{2})+/gi, "-").replace(/-+/g, "-").replace(/^-|-$/g, "") : slug);
+
 /** Products with neither a photo nor a price are hidden everywhere (listings, product pages, sitemap). */
 const visible = (p: ProductSummary) => !!p.img || p.price > 0;
 export const products = (indexJson as ProductSummary[])
   .map((p) => (PLACEHOLDER_PHOTOS.has(p.id) ? { ...p, img: null } : p))
   .filter(visible)
-  .map((p) => ({ ...p, name: decode(p.name) }));
+  .map((p) => ({ ...p, slug: cleanSlug(p.slug), name: decode(p.name) }));
 
 // Category counts are recomputed from the visible products (each category counts its descendants too)
 const rawCats = (catsJson as Category[]).map((c) => ({ ...c, name: decode(c.name) }));
@@ -56,19 +62,14 @@ export const hasPrice = (p: { price: number }) => p.price > 0;
 /** 0 = photo and price, 1 = photo only, 2 = price only. */
 const listingRank = (p: ProductSummary) => (p.img ? 0 : 2) + (hasPrice(p) ? 0 : 1);
 
-/**
- * A few imported slugs keep WordPress percent-encoding ("%c2%b7"). Next.js decodes route params, so the
- * route works with the decoded form; links and the sitemap keep the original slug.
- */
-export const routeSlug = (slug: string) => { try { return decodeURIComponent(slug); } catch { return slug; } };
-
 export function getProduct(slug: string): Product | null {
-  const s = products.find((p) => p.slug === slug || routeSlug(p.slug) === slug);
+  const s = products.find((p) => p.slug === slug);
   if (!s) return null;
   const p: Product = JSON.parse(fs.readFileSync(path.join(process.cwd(), "data/products/items", `${s.id}.json`), "utf8"));
   return {
     ...p,
     cats: s.cats, // detail files only carry `categories`; the listing has the ids
+    slug: s.slug, // cleaned slug (see cleanSlug)
     name: decode(p.name),
     images: PLACEHOLDER_PHOTOS.has(s.id) ? [] : p.images.map((i) => ({ ...i, alt: decode(i.alt ?? "") })),
     categories: p.categories.map((c) => ({ ...c, name: decode(c.name) })),

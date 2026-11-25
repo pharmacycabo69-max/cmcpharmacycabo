@@ -4,12 +4,12 @@ import { notFound } from "next/navigation";
 import { AddToRequest } from "@/components/AddToRequest";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { NoPhoto, ProductCard } from "@/components/ProductCard";
-import { categoryBySlug, getProduct, routeSlug, hasPrice, isControlled, isRx, money, products } from "@/lib/products";
+import { categoryBySlug, getProduct, hasPrice, isControlled, isRx, money, products } from "@/lib/products";
 import { JsonLd, orgId } from "@/lib/seo";
 import { SITE, abs } from "@/lib/site";
 
 export const dynamicParams = false;
-export const generateStaticParams = () => products.map((p) => ({ slug: routeSlug(p.slug) }));
+export const generateStaticParams = () => products.map((p) => ({ slug: p.slug }));
 
 type Props = { params: Promise<{ slug: string }> };
 const text = (html: string) => html.replace(/<[^>]+>/g, " ").replace(/&nbsp;|&amp;/g, " ").replace(/\s+/g, " ").trim();
