@@ -40,15 +40,16 @@ export const INSURANCE = {
   href: `https://wa.me/5216242261023?text=${encodeURIComponent("Hi! I'd like to verify my international insurance before a medical service.")}`,
 };
 
+/** Main navigation (V4 §5.1): Pharmacy, Doctors, IV Therapy, More services, Insurance. */
 export const NAV = [
-  { href: "/shop", label: "Shop" },
-  { href: "/price-list", label: "Prices" },
-  { href: "/locations", label: "Locations" },
-  { href: "/delivery-areas", label: "Delivery areas" },
+  { href: "/shop", label: "Pharmacy" },
   { href: "/doctor-consultation", label: "Doctors" },
-  { href: "/iv-therapy", label: "IV therapy" },
-  { href: "/blog", label: "Blog" },
-  { href: "/faq", label: "FAQ" },
+  { href: "/iv-therapy", label: "IV Therapy" },
+];
+export const MORE_SERVICES: { title: string; links: [string, string][] }[] = [
+  { title: "Medical care", links: [["/hotel-doctor-cabo", "Doctor at your hotel"], ["/lab-tests-imaging", "Lab tests, X-ray & ultrasound"], ["/aesthetic-medicine", "Aesthetic medicine"], ["/prescription-requirements", "Prescriptions in Mexico"]] },
+  { title: "Pharmacy", links: [["/price-list", "Price list"], ["/delivery-areas", "Hotels & delivery areas"], ["/locations", "Our 5 pharmacies"], ["/for-concierges", "For hotels & concierges"]] },
+  { title: "Help", links: [["/faq", "FAQ"], ["/blog", "Travel health guides"], ["/contact-us", "Contact"], ["/es", "Español"]] },
 ];
 
 export const abs = (path: string) => `${SITE.url}${path === "/" ? "" : path}`;

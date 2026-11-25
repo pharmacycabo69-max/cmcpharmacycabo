@@ -1,24 +1,37 @@
-import { IconChat, IconPhone } from "@/components/Icons";
+import Link from "next/link";
+import { IconChat } from "@/components/Icons";
 import { SITE } from "@/lib/site";
 
-/** Floating contact buttons, visible on every page. Pure HTML/CSS: no client JavaScript. */
+/**
+ * Contact shortcuts. Mobile: a slim action bar (Order, Book, WhatsApp) that sits below the content
+ * (the body gets matching bottom padding), so it never covers text or navigation. Desktop: one WhatsApp pill.
+ */
 export function WhatsAppFab() {
-  const href = `${SITE.whatsapp}?text=${encodeURIComponent("Hi! I need help from the pharmacy in Cabo.")}`;
+  const href = `${SITE.whatsapp}?text=${encodeURIComponent("Hi! I need help from CMC Pharmacy Cabo.")}`;
   return (
     <>
-      <a href={SITE.tel} aria-label={`Call ${SITE.phone}`}
-        className="fixed bottom-5 left-4 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-white text-brand shadow-lg ring-1 ring-slate-200 transition hover:scale-105 lg:hidden">
-        <IconPhone className="h-5 w-5" />
-      </a>
-      <a href={href} target="_blank" rel="noopener" aria-label="Message our pharmacy on WhatsApp"
-        className="group fixed bottom-5 right-4 z-50 flex items-center gap-3 rounded-full bg-[#25d366] p-3.5 text-[#05301b] shadow-xl shadow-emerald-900/25 ring-4 ring-white/70 transition hover:scale-105 hover:bg-[#2ee170] sm:right-6 sm:pl-4 sm:pr-5">
-        <span className="relative flex h-7 w-7 items-center justify-center">
-          <span className="absolute inline-flex h-full w-full rounded-full bg-white/60 opacity-70 motion-safe:animate-ping" aria-hidden="true" />
-          <IconChat className="relative h-7 w-7" />
-        </span>
-        <span className="hidden leading-tight sm:block">
-          <span className="block text-sm font-bold">Message our pharmacy</span>
-          <span className="flex items-center gap-1.5 text-[11px] font-medium text-[#05301b]/80"><span className="h-1.5 w-1.5 rounded-full bg-[#0b7a3e]" />English &amp; Spanish</span>
+      <nav aria-label="Quick actions" className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur lg:hidden">
+        <div className="mx-auto grid max-w-lg grid-cols-3 gap-2 px-3 py-2">
+          <Link href="/shop" className="flex h-12 flex-col items-center justify-center rounded-xl text-[11px] font-semibold text-navy hover:bg-surface">
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M10.5 20.5a4.95 4.95 0 0 1-7-7l10-10a4.95 4.95 0 0 1 7 7l-10 10zM8.5 8.5l7 7" /></svg>
+            Order medicine
+          </Link>
+          <Link href="/doctor-consultation" className="flex h-12 flex-col items-center justify-center rounded-xl text-[11px] font-semibold text-navy hover:bg-surface">
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden><rect x="4" y="5" width="16" height="15" rx="2" /><path d="M8 3v4M16 3v4M4 10h16M12 13v4M10 15h4" /></svg>
+            Book a doctor
+          </Link>
+          <a href={href} target="_blank" rel="noopener" className="flex h-12 flex-col items-center justify-center rounded-xl bg-[#25d366] text-[11px] font-bold text-[#05301b]">
+            <IconChat className="h-5 w-5" />
+            WhatsApp
+          </a>
+        </div>
+      </nav>
+      <a href={href} target="_blank" rel="noopener" aria-label="Message us on WhatsApp"
+        className="fixed bottom-6 right-6 z-40 hidden items-center gap-3 rounded-full bg-[#25d366] py-3 pl-4 pr-5 text-[#05301b] shadow-xl shadow-emerald-900/20 transition hover:-translate-y-0.5 hover:bg-[#2ee170] lg:flex">
+        <IconChat className="h-6 w-6" />
+        <span className="leading-tight">
+          <span className="block text-sm font-bold">WhatsApp us</span>
+          <span className="block text-[11px] font-medium opacity-80">English &amp; Spanish · {SITE.whatsappDisplay}</span>
         </span>
       </a>
     </>

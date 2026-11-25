@@ -1,27 +1,32 @@
 import Link from "next/link";
+import { LogoMark } from "@/components/Logo";
 import { SITE } from "@/lib/site";
-import { topCategories } from "@/lib/products";
 
 export function Footer() {
-  const cats = topCategories().slice(0, 8);
   return (
-    <footer className="mt-16 border-t border-slate-800 bg-slate-900">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:grid-cols-2 lg:grid-cols-4">
+    <footer className="mt-20 bg-navy-deep pb-20 text-white/70 lg:pb-0">
+      <div className="mx-auto grid max-w-[76rem] gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
-          <p className="font-semibold text-white">{SITE.name}</p>
-          <p className="mt-3 text-sm leading-relaxed text-slate-400">The delivery and concierge service of <Link href="/locations" className="text-slate-300 underline-offset-2 hover:underline">{SITE.parent}</Link>, with English-speaking pharmacists and doctors serving Cabo San Lucas, San José del Cabo and the Corridor.</p>
-          <p className="mt-3 text-xs text-slate-400">Delivery every day, {SITE.deliveryHours.label.replace(", every day", "")}</p>
-          <address className="mt-4 text-sm not-italic leading-relaxed text-slate-400">
-            {SITE.street}, {SITE.postalCode} {SITE.locality}, B.C.S., Mexico<br />
-            <a href={SITE.tel} className="font-medium text-white">{SITE.phone}</a><br />
-            <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
-          </address>
+          <p className="flex items-center gap-2.5 font-display text-lg font-bold text-white"><LogoMark className="h-8 w-8" />{SITE.name}</p>
+          <p className="mt-4 max-w-sm text-sm leading-relaxed">The delivery and concierge service of <Link href="/locations" className="text-white underline-offset-2 hover:underline">{SITE.parent}</Link>: English-speaking pharmacists and doctors for visitors and residents of Cabo San Lucas, San José del Cabo and the Corridor.</p>
+          <dl className="mt-5 space-y-1.5 text-sm">
+            <div className="flex gap-2"><dt className="text-white/50">Delivery</dt><dd>{SITE.deliveryHours.label}</dd></div>
+            <div className="flex gap-2"><dt className="text-white/50">WhatsApp</dt><dd><a href={SITE.whatsapp} className="text-white">{SITE.whatsappDisplay}</a></dd></div>
+            <div className="flex gap-2"><dt className="text-white/50">Phone</dt><dd><a href={SITE.tel} className="text-white">{SITE.phone}</a></dd></div>
+            <div className="flex gap-2"><dt className="text-white/50">Email</dt><dd><a href={`mailto:${SITE.email}`} className="text-white">{SITE.email}</a></dd></div>
+          </dl>
+          <address className="mt-4 text-sm not-italic leading-relaxed text-white/60">{SITE.street}, {SITE.postalCode} {SITE.locality}, B.C.S., Mexico</address>
         </div>
-        <FooterCol title="Services" links={[["/delivery-areas", "Delivery areas"], ["/24-7-pharmacy-delivery-cabo-san-lucas", "Pharmacy delivery"], ["/doctor-consultation", "Doctor consultation"], ["/hotel-doctor-cabo", "Hotel doctor"], ["/iv-therapy", "IV therapy"], ["/lab-tests-imaging", "Lab tests & imaging"], ["/aesthetic-medicine", "Aesthetic medicine"], ["/for-concierges", "For concierges"], ["/prescription-requirements", "Prescription requirements"]]} />
-        <FooterCol title="Shop" links={[["/shop", "All products"], ["/price-list", "Price list"], ...cats.map((c) => [`/product-category/${c.slug}`, c.name] as [string, string])]} />
-        <FooterCol title="Company" links={[["/locations", "Our stores"], ["/about-us-pharmacy-delivery", "About us"], ["/blog", "Blog"], ["/faq", "FAQ"], ["/contact-us", "Contact"], ["/privacy-policy", "Privacy policy"]]} />
+        <FooterCol title="Care" links={[["/doctor-consultation", "Doctor consultation"], ["/hotel-doctor-cabo", "Doctor at your hotel"], ["/iv-therapy", "IV therapy"], ["/lab-tests-imaging", "Lab tests & imaging"], ["/aesthetic-medicine", "Aesthetic medicine"], ["/international-insurance", "International insurance"]]} />
+        <FooterCol title="Pharmacy" links={[["/shop", "Shop the catalog"], ["/request", "My request"], ["/price-list", "Price list"], ["/prescription-requirements", "Prescriptions in Mexico"], ["/delivery-areas", "Hotels & delivery areas"], ["/for-concierges", "For hotels & concierges"]]} />
+        <FooterCol title="Company" links={[["/locations", "Our pharmacies"], ["/about-us-pharmacy-delivery", "About us"], ["/blog", "Travel health guides"], ["/faq", "FAQ"], ["/contact-us", "Contact"], ["/es", "Español"]]} />
       </div>
-      <p className="border-t border-slate-800 py-5 text-center text-xs text-slate-500">© {new Date().getFullYear()} {SITE.name}. All rights reserved.</p>
+      <div className="border-t border-white/10">
+        <div className="mx-auto flex max-w-[76rem] flex-col gap-2 px-4 py-6 text-xs text-white/50 md:flex-row md:items-center md:justify-between">
+          <p>© {new Date().getFullYear()} {SITE.name}. We are not an emergency service: in an emergency, call <a href="tel:911" className="font-semibold text-white">911</a>.</p>
+          <p className="flex gap-4"><Link href="/privacy-policy" className="hover:text-white">Privacy policy</Link><Link href="/returns-and-refunds" className="hover:text-white">Returns &amp; refunds</Link></p>
+        </div>
+      </div>
     </footer>
   );
 }
@@ -29,9 +34,9 @@ export function Footer() {
 function FooterCol({ title, links }: { title: string; links: [string, string][] }) {
   return (
     <div>
-      <p className="font-semibold text-white">{title}</p>
-      <ul className="mt-3 space-y-2 text-sm text-slate-400">
-        {links.map(([href, label]) => <li key={href}><Link href={href} className="hover:text-teal-300">{label}</Link></li>)}
+      <p className="text-sm font-semibold text-white">{title}</p>
+      <ul className="mt-4 space-y-2.5 text-sm">
+        {links.map(([href, label]) => <li key={href}><Link href={href} className="hover:text-white">{label}</Link></li>)}
       </ul>
     </div>
   );

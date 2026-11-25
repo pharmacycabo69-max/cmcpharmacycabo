@@ -1,31 +1,59 @@
 @import "tailwindcss";
 
+/*
+ * CMC Pharmacy Cabo design system (V4, 25 Nov 2026)
+ * navy #123E55 (trust, headings, dark surfaces) · teal #087F83 (actions, brand) · surface #F3F7F8 · sand #F4EEE6 (Cabo warmth)
+ * Contrast: teal on white 4.9:1, navy on white 11:1, white on teal 4.9:1 (WCAG AA).
+ */
 @theme inline {
-  --color-brand: #0f766e;
-  --color-brand-dark: #115e59;
-  --color-brand-soft: #f0fdfa;
+  --color-brand: #087f83;
+  --color-brand-dark: #066a6d;
+  --color-brand-soft: #e8f4f4;
+  --color-navy: #123e55;
+  --color-navy-deep: #0c2c3d;
+  --color-surface: #f3f7f8;
+  --color-sand: #f4eee6;
+  --color-line: #dde7ea;
   --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-display: var(--font-heading), var(--font-inter), system-ui, sans-serif;
 }
 
 html { scroll-behavior: smooth; }
-body { background: #fff; color: #0f172a; font-family: var(--font-inter), system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
+body { background: #fff; color: #10202b; font-family: var(--font-inter), system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+h1, h2, h3, .font-display { font-family: var(--font-heading), var(--font-inter), system-ui, sans-serif; letter-spacing: -0.02em; }
 :focus-visible { outline: 2px solid var(--color-brand); outline-offset: 2px; }
 summary::-webkit-details-marker { display: none; }
+summary { list-style: none; }
 
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; border-radius: .6rem; padding: .75rem 1.25rem; font-weight: 600; font-size: .95rem; transition: background .15s, border-color .15s; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; border-radius: .75rem; padding: .8rem 1.3rem; font-weight: 600; font-size: .95rem; line-height: 1.2; transition: background .15s, border-color .15s, color .15s, transform .15s; }
+.btn:active { transform: translateY(1px); }
 .btn-primary { background: var(--color-brand); color: #fff; }
 .btn-primary:hover { background: var(--color-brand-dark); }
-.btn-outline { border: 1px solid #cbd5e1; color: #0f172a; background: #fff; }
+.btn-navy { background: var(--color-navy); color: #fff; }
+.btn-navy:hover { background: var(--color-navy-deep); }
+.btn-outline { border: 1px solid #c9d6db; color: var(--color-navy); background: #fff; }
 .btn-outline:hover { border-color: var(--color-brand); color: var(--color-brand); }
+.btn-wa { background: #25d366; color: #05301b; }
+.btn-wa:hover { background: #2ee170; }
 
-.section { margin-inline: auto; max-width: 72rem; padding: 4rem 1rem; }
-.h2 { font-size: 1.75rem; font-weight: 700; letter-spacing: -.01em; line-height: 1.2; }
+.section { margin-inline: auto; max-width: 76rem; padding: 4.5rem 1rem; }
+.h2 { font-family: var(--font-heading), var(--font-inter), system-ui, sans-serif; font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.25rem); font-weight: 700; letter-spacing: -.025em; line-height: 1.15; color: var(--color-navy); }
+.eyebrow { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .16em; color: var(--color-brand); }
+.card { border: 1px solid var(--color-line); background: #fff; border-radius: 1.1rem; }
+.card-hover { transition: border-color .2s, box-shadow .2s, transform .2s; }
+.card-hover:hover { border-color: #9cc9cb; box-shadow: 0 10px 30px -12px rgb(18 62 85 / .25); transform: translateY(-2px); }
+.field { width: 100%; border-radius: .7rem; border: 1px solid #c9d6db; background: #fff; padding: .7rem .9rem; font-size: 1rem; outline: none; }
+.field:focus { border-color: var(--color-brand); box-shadow: 0 0 0 3px rgb(8 127 131 / .15); }
 
 /* Content imported from the previous site */
 .prose-cmc { line-height: 1.8; color: #334155; font-size: 1.05rem; }
 .prose-cmc > * + * { margin-top: 1.1rem; }
-.prose-cmc h2 { font-size: 1.6rem; font-weight: 700; color: #0f172a; margin-top: 2.4rem; line-height: 1.25; letter-spacing: -.01em; }
-.prose-cmc h3 { font-size: 1.25rem; font-weight: 600; color: #0f172a; margin-top: 1.9rem; }
+.prose-cmc h2 { font-size: 1.6rem; font-weight: 700; color: var(--color-navy); margin-top: 2.4rem; line-height: 1.25; }
+.prose-cmc h3 { font-size: 1.25rem; font-weight: 600; color: var(--color-navy); margin-top: 1.9rem; }
 .prose-cmc h4, .prose-cmc h5, .prose-cmc h6 { font-weight: 600; color: var(--color-brand); margin-top: 1.5rem; font-size: 1rem; }
 .prose-cmc a { color: var(--color-brand); text-decoration: underline; text-underline-offset: 3px; }
 .prose-cmc ul { list-style: disc; padding-left: 1.4rem; }

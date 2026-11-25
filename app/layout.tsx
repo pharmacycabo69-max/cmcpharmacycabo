@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Manrope } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -8,8 +8,9 @@ import { Analytics } from "@/components/Analytics";
 import { SITE } from "@/lib/site";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
+const heading = Manrope({ variable: "--font-heading", subsets: ["latin"], weight: ["600", "700", "800"], display: "swap" });
 
-export const viewport: Viewport = { themeColor: "#0f766e", width: "device-width", initialScale: 1 };
+export const viewport: Viewport = { themeColor: "#123e55", width: "device-width", initialScale: 1 };
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} h-full`}>
+    <html lang="en" className={`${inter.variable} ${heading.variable} h-full`}>
       <body className="flex min-h-full flex-col">
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-white focus:p-2">Skip to content</a>
         <Header />

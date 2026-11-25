@@ -30,6 +30,8 @@ export default async function sitemap(props: { id: Promise<string> }): Promise<M
       { url: u("/lab-tests-imaging"), priority: 0.7, changeFrequency: "monthly" },
       { url: u("/aesthetic-medicine"), priority: 0.7, changeFrequency: "monthly" },
       { url: u("/locations"), priority: 0.8 },
+      { url: u("/international-insurance"), priority: 0.7, changeFrequency: "monthly" },
+      { url: u("/es"), priority: 0.8, changeFrequency: "weekly" },
       ...LOCATIONS.map((l) => ({ url: u(`/locations/${l.slug}`), priority: 0.8 })),
       ...allPages().map((p) => ({ url: u(`/${p.slug}`), lastModified: p.date ?? undefined, priority: p.type === "post" ? 0.5 : 0.7 })),
     ];

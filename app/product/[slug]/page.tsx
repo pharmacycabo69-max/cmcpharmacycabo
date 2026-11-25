@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { AddToRequest } from "@/components/AddToRequest";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { NoPhoto, ProductCard } from "@/components/ProductCard";
 import { categoryBySlug, getProduct, hasPrice, isControlled, isRx, money, products } from "@/lib/products";
@@ -58,7 +59,6 @@ export default async function Product({ params }: Props) {
     brand: p.brands[0] ? { "@type": "Brand", name: p.brands[0] } : undefined,
     offers: !hasPrice(p) ? undefined : {
       "@type": "Offer", url: abs(`/product/${p.slug}`), price: p.price.toFixed(2), priceCurrency: "USD",
-      availability: p.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
       itemCondition: "https://schema.org/NewCondition", seller: { "@id": orgId },
     },
   };
@@ -79,12 +79,12 @@ export default async function Product({ params }: Props) {
           ))}
         </div>
         <div>
-          <h1 className="text-2xl font-bold leading-snug tracking-tight md:text-3xl">{p.name}</h1>
+          <h1 className="font-display text-2xl font-bold leading-snug tracking-tight text-navy md:text-3xl">{p.name}</h1>
           <p className="mt-4 flex items-baseline gap-3">
             <span className="text-3xl font-semibold">{hasPrice(p) ? money(p.price) : <span className="text-2xl text-brand">Ask for price</span>}</span>
             {hasPrice(p) && p.onSale && <span className="text-slate-400 line-through">{money(p.regular)}</span>}
           </p>
-          <p className="mt-2 text-sm text-slate-500">{p.sku && <>SKU {p.sku} · </>}<span className={p.inStock ? "text-brand" : "text-red-600"}>{p.inStock ? "In stock" : "Out of stock"}</span></p>
+          <p className="mt-2 text-sm text-slate-500">{p.sku && <>SKU {p.sku} · </>}Availability confirmed by a pharmacist before delivery</p>
           {rx ? (
             <>
               <div className="mt-5 rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950">
@@ -96,20 +96,24 @@ export default async function Product({ params }: Props) {
                 </p>
               </div>
               <div className="mt-5 flex flex-wrap gap-3">
-                <a href={`${SITE.whatsapp}?text=${msg}`} target="_blank" rel="noopener" className="btn btn-primary">Send prescription on WhatsApp</a>
+                {controlled ? (
+                  <a href={`${SITE.whatsapp}?text=${msg}`} target="_blank" rel="noopener" className="btn btn-primary">Ask a pharmacist</a>
+                ) : (
+                  <AddToRequest item={{ id: p.id, slug: p.slug, name: p.name, price: p.price, img: p.img, rx: true }} />
+                )}
                 <Link href="/doctor-consultation" className="btn btn-outline">No prescription? See a doctor</Link>
               </div>
             </>
           ) : (
-            <div className="mt-6 flex flex-wrap gap-3">
-              <a href={`${SITE.whatsapp}?text=${msg}`} target="_blank" rel="noopener" className="btn btn-primary">{hasPrice(p) ? "Order on WhatsApp" : "Ask price on WhatsApp"}</a>
-              <a href={SITE.tel} className="btn btn-outline">Call {SITE.phone}</a>
+            <div className="mt-6 space-y-3">
+              <AddToRequest item={{ id: p.id, slug: p.slug, name: p.name, price: p.price, img: p.img, rx: false }} />
+              <p className="text-sm text-slate-600">Prefer to chat? <a href={`${SITE.whatsapp}?text=${msg}`} target="_blank" rel="noopener" className="font-semibold text-brand hover:underline">{hasPrice(p) ? "Order on WhatsApp" : "Ask the price on WhatsApp"}</a> or call <a href={SITE.tel} className="font-semibold text-brand hover:underline">{SITE.phone}</a>.</p>
             </div>
           )}
           <ul className="mt-5 space-y-1 text-sm text-slate-600">
             <li>✓ Delivery to hotels, resorts and villas, 7 am – 11 pm daily</li>
             <li>✓ Free delivery on orders of ${SITE.freeDeliveryFrom}+</li>
-            <li>✓ Total price and delivery time confirmed before we go</li>
+            <li>✓ No online payment: total and delivery time confirmed first</li>
             <li>✓ English &amp; Spanish support on WhatsApp</li>
           </ul>
           {p.attributes.length > 0 && (

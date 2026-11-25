@@ -12,3 +12,9 @@ export const IconShield = ({ className = "h-6 w-6" }: P) => <svg {...base} class
 export const IconGlobe = ({ className = "h-6 w-6" }: P) => <svg {...base} className={className}><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.500 5.700 12 3z" /></svg>;
 export const IconPill = ({ className = "h-6 w-6" }: P) => <svg {...base} className={className}><path d="M10.5 20.5a4.95 4.95 0 01-7-7l10-10a4.95 4.95 0 017 7l-10 10zM8.5 8.5l7 7" /></svg>;
 export const IconStar = ({ className = "h-4 w-4" }: P) => <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.500 9.400l6.600-.9L12 2.500z" /></svg>;
+export const IconFlask = ({ className = "h-6 w-6" }: P) => <svg {...base} className={className}><path d="M9 3h6M10 3v6l-5.5 9.5A1.7 1.7 0 006 21h12a1.7 1.7 0 001.5-2.5L14 9V3" /><path d="M7.5 15h9" /></svg>;
+export const IconCard = ({ className = "h-6 w-6" }: P) => <svg {...base} className={className}><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 10h18M7 15h4" /></svg>;
+export const IconSparkle = ({ className = "h-6 w-6" }: P) => <svg {...base} className={className}><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3zM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z" /></svg>;
+export const IconStethoscope = ({ className = "h-6 w-6" }: P) => <svg {...base} className={className}><path d="M6 3v6a4 4 0 008 0V3M10 13v2a5 5 0 0010 0v-2" /><circle cx="20" cy="11" r="2" /></svg>;
+export const IconArrow = ({ className = "h-4 w-4" }: P) => <svg {...base} className={className}><path d="M5 12h14M13 6l6 6-6 6" /></svg>;
+export const IconSearch = ({ className = "h-5 w-5" }: P) => <svg {...base} className={className}><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" /></svg>;

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ProductCard } from "@/components/ProductCard";
-import { categories, search, topCategories, type Category } from "@/lib/products";
+import { categories, isIndexableCategory, search, topCategories, type Category } from "@/lib/products";
 import { categoryContent, relatedGuides } from "@/lib/category-content";
 import { JsonLd, faqSchema } from "@/lib/seo";
 import { SITE, abs } from "@/lib/site";
@@ -18,7 +18,8 @@ export function ShopView({ base, params, category }: { base: string; params: Par
     const qs = sp.toString();
     return qs ? `${base}?${qs}` : base;
   };
-  const chips = category ? categories.filter((c) => c.parent === category.id && c.count > 0) : topCategories().slice(0, 20);
+  // Shoppable categories only: supplier taxonomy (brands, import buckets, extended catalog) stays out of navigation (V4 §5)
+  const chips = (category ? categories.filter((c) => c.parent === category.id && c.count > 0) : topCategories()).filter(isIndexableCategory).filter((c) => !/^(brands|medicashop|extended)/.test(c.slug)).slice(0, 20);
   const crumbs = category ? [{ name: "Shop", href: "/shop" }, { name: category.name, href: base }] : [{ name: "Shop", href: "/shop" }];
   // Editorial content only on the canonical first page (not on search/sort/paginated variants)
   const content = category && !params.q && !params.sort && res.page === 1 ? categoryContent(category.slug) : undefined;
@@ -31,10 +32,10 @@ export function ShopView({ base, params, category }: { base: string; params: Par
         <JsonLd data={{ "@context": "https://schema.org", "@type": "CollectionPage", name: category.name, url: abs(base), mainEntity: { "@type": "ItemList", itemListElement: res.items.slice(0, 12).map((p, i) => ({ "@type": "ListItem", position: i + 1, url: abs(`/product/${p.slug}`), name: p.name })) } }} />
       )}
       {content && <JsonLd data={faqSchema(content.faq)} />}
-      <h1 className="mt-5 text-3xl font-bold tracking-tight md:text-4xl">{category ? categoryContent(category.slug)?.h1 ?? category.name : "Pharmacy & health products in Cabo"}</h1>
+      <h1 className="mt-5 font-display text-3xl font-bold tracking-tight text-navy md:text-4xl">{category ? categoryContent(category.slug)?.h1 ?? category.name : "Pharmacy & health products in Cabo"}</h1>
       <p className="mt-2 text-slate-600">
         {category ? `Shop ${category.name.toLowerCase()} with delivery to your hotel or villa in Los Cabos, 7 am – 11 pm daily.` : "Medications, vitamins, personal care and health essentials, delivered daily in Cabo San Lucas and San José del Cabo."}{" "}
-        <span className="text-slate-500">{res.total.toLocaleString()} products</span>
+        <span className="text-slate-500">{res.total.toLocaleString()} items in the catalog · availability confirmed by a pharmacist</span>
       </p>
       {content && (
         <div className="mt-4 max-w-3xl space-y-3 text-[15px] leading-relaxed text-slate-700">
@@ -42,11 +43,11 @@ export function ShopView({ base, params, category }: { base: string; params: Par
         </div>
       )}
 
-      <form action={base} className="mt-6 flex flex-wrap gap-3" role="search">
+      <form action={base} className="mt-6 grid gap-3 sm:flex" role="search">
         <label className="sr-only" htmlFor="q">Search products</label>
-        <input id="q" name="q" defaultValue={params.q} placeholder="Search products…" className="min-w-0 flex-1 rounded-lg border border-slate-300 px-4 py-2.5 text-sm outline-none focus:border-brand" />
+        <input id="q" name="q" defaultValue={params.q} placeholder="Search products…" className="field min-w-0 sm:flex-1" />
         <label className="sr-only" htmlFor="sort">Sort</label>
-        <select id="sort" name="sort" defaultValue={params.sort ?? ""} className="rounded-lg border border-slate-300 bg-white px-3 text-sm">
+        <select id="sort" name="sort" defaultValue={params.sort ?? ""} className="field sm:w-52">
           <option value="">Default order</option>
           <option value="price-asc">Price: low to high</option>
           <option value="price-desc">Price: high to low</option>
@@ -57,7 +58,7 @@ export function ShopView({ base, params, category }: { base: string; params: Par
       {chips.length > 0 && (
         <ul className="mt-5 flex flex-wrap gap-2">
           {chips.map((c) => (
-            <li key={c.id}><Link href={`/product-category/${c.slug}`} className="inline-block rounded-full border border-slate-200 px-3 py-1 text-xs text-slate-600 hover:border-brand hover:text-brand">{c.name} <span className="text-slate-400">({c.count})</span></Link></li>
+            <li key={c.id}><Link href={`/product-category/${c.slug}`} className="inline-block rounded-full border border-line bg-white px-3 py-1.5 text-xs font-medium text-navy hover:border-brand hover:text-brand">{c.name} <span className="text-slate-400">({c.count})</span></Link></li>
           ))}
         </ul>
       )}
