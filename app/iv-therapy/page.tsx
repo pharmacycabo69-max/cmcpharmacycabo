@@ -12,7 +12,7 @@ import { ServiceHero } from "@/components/ServiceHero";
 export const metadata: Metadata = {
   title: { absolute: "IV Therapy Cabo San Lucas at Your Hotel | From $159" },
   description: "IV therapy at your hotel or villa in Cabo San Lucas: IV $159, Multivitamin $189, NAD+ $279 (USD, taxes included). Medical assessment first; 50% deposit once your time is confirmed.",
-  alternates: { canonical: "/iv-therapy" },
+  alternates: { canonical: "/iv-therapy", languages: { en: "/iv-therapy", es: "/es/sueroterapia" } },
   openGraph: { url: "/iv-therapy", images: [IV_DRIPS[0].image] },
 };
 

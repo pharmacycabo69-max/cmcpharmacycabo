@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { JsonLd, breadcrumbSchema, type Crumb } from "@/lib/seo";
 
-export function Breadcrumbs({ items, tone = "light" }: { items: Crumb[]; tone?: "light" | "dark" }) {
+export function Breadcrumbs({ items, tone = "light", home = "Home" }: { items: Crumb[]; tone?: "light" | "dark"; home?: string }) {
   const dark = tone === "dark";
-  const all = [{ name: "Home", href: "/" }, ...items];
+  const all = [{ name: home, href: home === "Inicio" ? "/es" : "/" }, ...items];
   return (
     <>
       <JsonLd data={breadcrumbSchema(all)} />

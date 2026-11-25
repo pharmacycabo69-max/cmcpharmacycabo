@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   title: { absolute: "English-Speaking Doctor Cabo San Lucas | Video $59" },
   description:
     "English-speaking doctor in Cabo San Lucas: video visit $59, clinic visit $99, hotel or villa visit $189 (USD, taxes included). By appointment.",
-  alternates: { canonical: "/doctor-consultation" },
+  alternates: { canonical: "/doctor-consultation", languages: { en: "/doctor-consultation", es: "/es/medico" } },
   openGraph: { url: "/doctor-consultation", images: ["/opengraph-image"] },
 };
 
@@ -98,8 +98,8 @@ export default function DoctorConsultation() {
         title={<>English-speaking doctor in Cabo San Lucas</>}
         lead="General medical consultations by video, at our clinic or at your hotel or villa. Book online and pay only after we confirm your time. Prices in USD, taxes included."
         actions={[{ href: "/book?service=video", label: "Book a doctor", primary: true }, { href: "/international-insurance", label: "Using travel insurance?" }]}
-        boardTitle="Consultations"
-        board={SERVICES.map((x) => ({ label: x.name, note: x.where.split(".")[0], price: `$${x.price}`, href: `/book?service=${x.id}` }))}
+        points={["Video $59", "Clinic $99", "Hotel or villa $189", "English & Spanish"]}
+        photo={{ src: DOCTOR.photo, alt: `${DOCTOR.name}, physician at ${DOCTOR.clinic}`, caption: `${DOCTOR.name} · license ${DOCTOR.license}` }}
       />
     <div className="mx-auto max-w-5xl px-4 py-10">
 

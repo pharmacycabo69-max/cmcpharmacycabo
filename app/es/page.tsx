@@ -17,9 +17,9 @@ export const metadata: Metadata = {
 
 const INTENTS = [
   { icon: IconPill, t: "Necesito medicamentos", d: "Arma tu solicitud; un farmacéutico confirma disponibilidad y total.", href: "/shop" },
-  { icon: IconStethoscope, t: "Necesito un médico", d: `Video $${MEDICAL_PRICES.video}, clínica $${MEDICAL_PRICES.clinic}, en tu hotel $${MEDICAL_PRICES.hotel} USD.`, href: "/doctor-consultation" },
-  { icon: IconDrip, t: "Necesito sueroterapia", d: "En tu hotel o villa, después de una valoración médica.", href: "/iv-therapy" },
-  { icon: IconFlask, t: "Necesito un estudio", d: "Laboratorio, rayos X y ultrasonido, coordinados por nuestros médicos.", href: "/lab-tests-imaging" },
+  { icon: IconStethoscope, t: "Necesito un médico", d: `Video $${MEDICAL_PRICES.video}, clínica $${MEDICAL_PRICES.clinic}, en tu hotel $${MEDICAL_PRICES.hotel} USD.`, href: "/es/medico" },
+  { icon: IconDrip, t: "Necesito sueroterapia", d: "En tu hotel o villa, después de una valoración médica.", href: "/es/sueroterapia" },
+  { icon: IconFlask, t: "Necesito un estudio", d: "Laboratorio, rayos X y ultrasonido, coordinados por nuestros médicos.", href: "/es/laboratorio" },
   { icon: IconCard, t: "Tengo seguro de viaje", d: "Pólizas de EE. UU. y Canadá, verificadas antes de la consulta.", href: "/international-insurance" },
   { icon: IconSparkle, t: "Medicina estética", d: "Labios, toxina botulínica, rejuvenecimiento y luminosidad facial.", href: "/aesthetic-medicine" },
 ];
@@ -91,7 +91,7 @@ export default function Inicio() {
               <li key={String(k)} className="card p-4 text-center"><p className="font-display text-2xl font-extrabold text-brand">${v}</p><p className="text-sm text-slate-600">{k}</p></li>
             ))}
           </ul>
-          <Link href="/doctor-consultation" className="mt-6 inline-flex items-center gap-1.5 font-semibold text-brand">Reservar una consulta<IconArrow /></Link>
+          <Link href="/es/medico" className="mt-6 inline-flex items-center gap-1.5 font-semibold text-brand">Ver opciones y reservar<IconArrow /></Link>
         </div>
       </section>
 

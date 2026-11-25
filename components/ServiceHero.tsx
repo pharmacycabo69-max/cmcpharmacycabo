@@ -11,9 +11,9 @@ export type PriceRow = { label: string; price: string; href?: string; note?: str
  * Shared hero for service pages (same visual language as the home page): deep navy, subtle grid, one H1,
  * clear prices and two actions. The right side is either a real photo or a price board — never stock imagery.
  */
-export function ServiceHero({ crumbs, eyebrow, title, lead, actions, points = [], photo, board, boardTitle }: {
+export function ServiceHero({ crumbs, eyebrow, title, lead, actions, points = [], photo, board, boardTitle, lang = "en" }: {
   crumbs: Crumb[]; eyebrow: string; title: ReactNode; lead: ReactNode; actions: Action[]; points?: string[];
-  photo?: { src: string; alt: string; caption?: string }; board?: PriceRow[]; boardTitle?: string;
+  photo?: { src: string; alt: string; caption?: string }; board?: PriceRow[]; boardTitle?: string; lang?: "en" | "es";
 }) {
   return (
     <section className="relative isolate overflow-hidden bg-navy-deep text-white">
@@ -21,7 +21,7 @@ export function ServiceHero({ crumbs, eyebrow, title, lead, actions, points = []
       <div aria-hidden className="absolute -left-40 -top-40 -z-10 h-[30rem] w-[30rem] rounded-full bg-brand/30 blur-3xl" />
       <div className="mx-auto grid max-w-[76rem] grid-cols-[minmax(0,1fr)] items-center gap-10 px-4 pb-14 pt-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:pb-20">
         <div className="min-w-0">
-          <Breadcrumbs items={crumbs} tone="dark" />
+          <Breadcrumbs items={crumbs} tone="dark" home={lang === "es" ? "Inicio" : "Home"} />
           <p className="mt-6 text-xs font-bold uppercase tracking-[0.16em] text-teal-300">{eyebrow}</p>
           <h1 className="mt-2 font-display text-4xl font-extrabold leading-[1.05] tracking-tight md:text-5xl">{title}</h1>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/75">{lead}</p>
@@ -46,7 +46,7 @@ export function ServiceHero({ crumbs, eyebrow, title, lead, actions, points = []
           </figure>
         ) : board ? (
           <div className="overflow-hidden rounded-3xl bg-white text-navy shadow-2xl shadow-black/30">
-            <p className="border-b border-line px-6 py-4 text-xs font-bold uppercase tracking-[0.16em] text-brand">{boardTitle ?? "Prices"}</p>
+            <p className="border-b border-line px-6 py-4 text-xs font-bold uppercase tracking-[0.16em] text-brand">{boardTitle ?? (lang === "es" ? "Precios" : "Prices")}</p>
             <ul className="divide-y divide-line">
               {board.map((r) => {
                 const body = (
@@ -58,7 +58,7 @@ export function ServiceHero({ crumbs, eyebrow, title, lead, actions, points = []
                 return <li key={r.label}>{r.href ? <Link href={r.href} className="flex items-center justify-between gap-4 px-6 py-4 transition hover:bg-surface">{body}</Link> : <div className="flex items-center justify-between gap-4 px-6 py-4">{body}</div>}</li>;
               })}
             </ul>
-            <p className="bg-surface px-6 py-3 text-xs text-slate-500">USD, taxes included. Not an emergency service: call 911.</p>
+            <p className="bg-surface px-6 py-3 text-xs text-slate-500">{lang === "es" ? "USD con impuestos incluidos. No es un servicio de urgencias: llama al 911." : "USD, taxes included. Not an emergency service: call 911."}</p>
           </div>
         ) : null}
       </div>

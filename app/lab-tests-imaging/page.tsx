@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   title: { absolute: "Lab Tests, X-Ray & Ultrasound in Cabo San Lucas" },
   description:
     "Blood work, urine and stool tests, hormones, X-rays and ultrasound in Cabo San Lucas. 93 lab tests and 9 imaging studies; quote on WhatsApp.",
-  alternates: { canonical: "/lab-tests-imaging" },
+  alternates: { canonical: "/lab-tests-imaging", languages: { en: "/lab-tests-imaging", es: "/es/laboratorio" } },
   openGraph: { url: "/lab-tests-imaging", images: ["/opengraph-image"] },
 };
 
