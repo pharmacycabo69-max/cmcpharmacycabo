@@ -20,7 +20,7 @@ export function ShopView({ base, params, category }: { base: string; params: Par
   };
   // Shoppable categories only: supplier taxonomy (brands, import buckets, extended catalog) stays out of navigation (V4 §5)
   const chips = (category ? categories.filter((c) => c.parent === category.id && c.count > 0) : topCategories()).filter(isIndexableCategory).filter((c) => !/^(brands|medicashop|extended)/.test(c.slug)).slice(0, 20);
-  const crumbs = category ? [{ name: "Shop", href: "/shop" }, { name: category.name, href: base }] : [{ name: "Shop", href: "/shop" }];
+  const crumbs = category ? [{ name: "Pharmacy", href: "/shop" }, { name: category.name, href: base }] : [{ name: "Pharmacy", href: "/shop" }];
   // Editorial content only on the canonical first page (not on search/sort/paginated variants)
   const content = category && !params.q && !params.sort && res.page === 1 ? categoryContent(category.slug) : undefined;
   const guides = content ? relatedGuides(content) : [];
@@ -56,9 +56,9 @@ export function ShopView({ base, params, category }: { base: string; params: Par
       </form>
 
       {chips.length > 0 && (
-        <ul className="mt-5 flex flex-wrap gap-2">
+        <ul className="-mx-4 mt-5 flex gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0" aria-label="Categories">
           {chips.map((c) => (
-            <li key={c.id}><Link href={`/product-category/${c.slug}`} className="inline-block rounded-full border border-line bg-white px-3 py-1.5 text-xs font-medium text-navy hover:border-brand hover:text-brand">{c.name} <span className="text-slate-400">({c.count})</span></Link></li>
+            <li key={c.id} className="shrink-0"><Link href={`/product-category/${c.slug}`} className="inline-block whitespace-nowrap rounded-full border border-line bg-white px-3 py-1.5 text-xs font-medium text-navy hover:border-brand hover:text-brand">{c.name} <span className="text-slate-400">({c.count})</span></Link></li>
           ))}
         </ul>
       )}

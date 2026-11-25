@@ -62,7 +62,7 @@ export default async function Product({ params }: Props) {
       itemCondition: "https://schema.org/NewCondition", seller: { "@id": orgId },
     },
   };
-  const crumbs = [{ name: "Shop", href: "/shop" }, ...(cat && categoryBySlug(cat.slug) ? [{ name: cat.name, href: `/product-category/${cat.slug}` }] : []), { name: p.name, href: `/product/${p.slug}` }];
+  const crumbs = [{ name: "Pharmacy", href: "/shop" }, ...(cat && categoryBySlug(cat.slug) ? [{ name: cat.name, href: `/product-category/${cat.slug}` }] : []), { name: p.name, href: `/product/${p.slug}` }];
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
       {/* Product rich results require an offer; "ask for price" items only get breadcrumbs */}
