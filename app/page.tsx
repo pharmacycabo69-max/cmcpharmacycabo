@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 const SERVICES = [
-  { icon: IconBox, t: "Pharmacy delivery", d: `Prescriptions, OTC medicine and travel essentials brought to your hotel, resort or villa, ${SITE.deliveryHours.label}.`, href: "/24-7-pharmacy-delivery-cabo-san-lucas" },
+  { icon: IconBox, t: "Pharmacy delivery", d: `Prescriptions, OTC medicine and travel essentials delivered to every hotel, resort and villa in Los Cabos, ${SITE.deliveryHours.label}.`, href: "/24-7-pharmacy-delivery-cabo-san-lucas" },
   { icon: IconDoctor, t: "English-speaking doctors", d: "Video consultations and visits at your hotel or villa with bilingual physicians, by appointment.", href: "/doctor-consultation" },
   { icon: IconDrip, t: "IV therapy", d: "IV therapy at your hotel or villa from $159, after a medical assessment, by appointment.", href: "/iv-therapy" },
   { icon: IconPill, t: "Lab tests & imaging", d: "Blood work, urine and stool tests, X-rays and ultrasound coordinated by our medical team. Quote on request.", href: "/lab-tests-imaging" },
@@ -36,7 +36,7 @@ const STEPS = [
 
 const FAQ = [
   { q: "What are your delivery hours?", a: "We deliver every day from 7:00 am to 11:00 pm to hotels, resorts, villas and homes in Cabo San Lucas, San José del Cabo and the Corridor. Delivery is free on orders of $59 or more, and we confirm the estimated delivery time when you order." },
-  { q: "Do you deliver to hotels, resorts and Airbnbs?", a: "Yes. We deliver discreetly to hotels, all-inclusive resorts, villas and vacation rentals across Los Cabos. Some hotels only allow delivery to the front desk; we coordinate with you." },
+  { q: "Do you deliver to hotels, resorts and Airbnbs?", a: "Yes — we deliver to every hotel, all-inclusive resort, villa and vacation rental in Cabo San Lucas, San José del Cabo and the Tourist Corridor. Some hotels only allow delivery to the front desk; we coordinate it with you." },
   { q: "Can I get prescription medication from an English-speaking pharmacy?", a: "Yes. Our team is bilingual and can guide you through Mexican prescription requirements. Prescription-only medicines are dispensed only with a valid prescription." },
   { q: "Do you offer doctor visits?", a: "We coordinate English-speaking doctors by video consultation or by appointment at your hotel or villa. We are not an emergency service: in an emergency, call 911." },
   { q: "Do you accept travel insurance?", a: "We accept international health and travel insurance from the United States and Canada, subject to policy verification and coverage confirmation. Contact our team to verify your eligibility and payment arrangements before receiving medical services." },

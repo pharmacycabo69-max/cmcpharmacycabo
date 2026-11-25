@@ -20,7 +20,7 @@ const GROUPS: { title: string; items: { q: string; a: string }[] }[] = [
       { q: "What are your delivery hours?", a: "We deliver every day from 7:00 am to 11:00 pm to hotels, resorts, villas and homes in Cabo San Lucas, San José del Cabo and the Corridor." },
       { q: "How much is delivery?", a: `Delivery is free on orders of $${SITE.freeDeliveryFrom} or more. For smaller orders we confirm the delivery fee with your total before we go.` },
       { q: "How long does delivery take?", a: "It depends on where you are staying and the time of day. We give you an estimated delivery time when you order." },
-      { q: "Can you deliver to my hotel room?", a: "Yes, we deliver to hotels and resorts across Los Cabos. Some hotels only allow delivery to the front desk or concierge; we coordinate it with you. We are not affiliated with any hotel." },
+      { q: "Can you deliver to my hotel room?", a: "Yes — we deliver to every hotel, resort, villa and vacation rental in Cabo San Lucas, San José del Cabo and the Tourist Corridor. Some hotels only allow delivery to the front desk or concierge; we coordinate it with you. We are an independent service, not affiliated with any hotel." },
       { q: "How do I order?", a: `Send us a WhatsApp message to ${SITE.whatsappDisplay} with the product or a photo of the box. You can also browse the shop and tap "Order on WhatsApp" on any product.` },
     ],
   },

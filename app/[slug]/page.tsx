@@ -74,11 +74,21 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
       )}
       <div className="mt-8"><Prose html={page.html} /></div>
 
-      {/* Master data §13/§14: hotel names must not suggest an affiliation */}
       {isArea(slug) && (
-        <p className="mt-8 rounded-xl bg-slate-50 p-4 text-xs leading-relaxed text-slate-600">
-          {SITE.name} is an independent pharmacy delivery service and is not affiliated with, endorsed by or part of the hotels or resorts named on this page. Hotel names are used only to describe where we deliver. Some properties only allow deliveries to the front desk or concierge; we coordinate this with you.
-        </p>
+        <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6" aria-labelledby="every-hotel">
+          <h2 id="every-hotel" className="text-lg font-semibold">We deliver to every hotel in Los Cabos</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            Wherever you are staying — any hotel, resort, villa, vacation rental or home in Cabo San Lucas, San José del Cabo or the Tourist Corridor — we bring your medicine every day from 7 am to 11 pm. Delivery is free on orders of ${SITE.freeDeliveryFrom} or more.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            <a href={`${SITE.whatsapp}?text=${encodeURIComponent("Hi! I need a pharmacy delivery to my hotel in Cabo.")}`} target="_blank" rel="noopener" className="btn btn-primary">Order on WhatsApp</a>
+            <Link href="/delivery-areas" className="btn btn-outline">All delivery areas</Link>
+          </div>
+          {/* Master data §13/§14: hotel names must not suggest an affiliation */}
+          <p className="mt-4 text-xs leading-relaxed text-slate-500">
+            {SITE.name} is an independent pharmacy delivery service; hotel names are used only to describe where we deliver, and we are not affiliated with these properties. Some hotels only accept deliveries at the front desk or concierge — we coordinate it with you.
+          </p>
+        </section>
       )}
 
       {INSURANCE_PAGES.has(slug) && <div className="mt-12"><InsuranceNotice compact /></div>}
