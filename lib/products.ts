@@ -94,11 +94,16 @@ export function categoryIds(id: number): Set<number> {
 }
 
 /** Categories travelers ask for most (same as the home page), used to order the main shop page. */
-const TRAVEL_SLUGS = ["sun-care", "digestive-gi-care", "pain-fever-relief", "allergy-otc", "hydration-electrolytes", "insect-repellents", "wound-care-first-aid", "cold-flu", "heartburn-acid-relief"];
-let travelIds: Set<number> | null = null;
+const TRAVEL_SLUGS = ["sun-care", "hydration-electrolytes", "digestive-gi-care", "pain-fever-relief", "allergy-otc", "wound-care-first-aid", "cold-flu", "heartburn-acid-relief", "insect-repellents"];
+let travelSets: Set<number>[] | null = null;
+/** Position of the product's first traveler category (0 = sun care) or the list length when it has none. */
+/** Household pest products filed under "insect repellents" by the supplier are not traveler essentials. */
+const HOUSEHOLD_PEST = /(ratones|ratas?|rat[oó]n|mouse|mice|rodentw*|trampas?|cucarachas?|roachw*)/i;
 const travelRank = (p: ProductSummary) => {
-  travelIds ??= new Set(TRAVEL_SLUGS.flatMap((slug) => { const c = categoryBySlug(slug); return c ? [...categoryIds(c.id)] : []; }));
-  return p.cats.some((c) => travelIds!.has(c)) ? 0 : 1;
+  if (HOUSEHOLD_PEST.test(p.name)) return TRAVEL_SLUGS.length;
+  travelSets ??= TRAVEL_SLUGS.map((slug) => { const c = categoryBySlug(slug); return c ? categoryIds(c.id) : new Set<number>(); });
+  const i = travelSets.findIndex((set) => p.cats.some((c) => set.has(c)));
+  return i === -1 ? travelSets.length : i;
 };
 
 export function search({ q, cat, page = 1, sort }: { q?: string; cat?: number; page?: number; sort?: string }) {
