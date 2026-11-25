@@ -38,10 +38,10 @@ export function AestheticHero({ className = "w-full" }: P) {
   );
 }
 
-export function LipsArt({ className = "h-28 w-full" }: P) {
+export function LipsArt({ className = "h-36 w-full" }: P) {
   return (
     <svg viewBox="0 0 240 140" className={className} aria-hidden="true">
-      <rect width="240" height="140" rx="22" fill="#fff1f2" />
+      <rect x="-200" width="640" height="140" fill="#fff1f2" />
       <path d="M52 74c22-26 44-30 68-14 24-16 46-12 68 14-22 30-46 42-68 42s-46-12-68-42Z" fill="#fb7185" />
       <path d="M52 74c22-26 44-30 68-14 24-16 46-12 68 14-24-6-46-4-68 6-22-10-44-12-68-6Z" fill="#f43f5e" />
       <path d="M52 74c26 6 46 8 68 8s42-2 68-8" stroke="#9f1239" strokeWidth="3" fill="none" strokeLinecap="round" />
@@ -51,10 +51,10 @@ export function LipsArt({ className = "h-28 w-full" }: P) {
   );
 }
 
-export function SyringeArt({ className = "h-28 w-full" }: P) {
+export function SyringeArt({ className = "h-36 w-full" }: P) {
   return (
     <svg viewBox="0 0 240 140" className={className} aria-hidden="true">
-      <rect width="240" height="140" rx="22" fill="#f0fdfa" />
+      <rect x="-200" width="640" height="140" fill="#f0fdfa" />
       <g transform="rotate(-24 120 70)">
         <rect x="56" y="58" width="104" height="26" rx="6" fill="#fff" stroke="#0f766e" strokeWidth="3" />
         <rect x="60" y="62" width="62" height="18" rx="3" fill="#5eead4" fillOpacity="0.7" />
@@ -70,11 +70,11 @@ export function SyringeArt({ className = "h-28 w-full" }: P) {
   );
 }
 
-export function GlowArt({ className = "h-28 w-full" }: P) {
+export function GlowArt({ className = "h-36 w-full" }: P) {
   return (
     <svg viewBox="0 0 240 140" className={className} aria-hidden="true">
       <defs><radialGradient id="ga-g" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stopColor="#fef3c7" /><stop offset="1" stopColor="#fef3c7" stopOpacity="0" /></radialGradient></defs>
-      <rect width="240" height="140" rx="22" fill="#fffbeb" />
+      <rect x="-200" width="640" height="140" fill="#fffbeb" />
       <circle cx="120" cy="70" r="62" fill="url(#ga-g)" />
       <circle cx="120" cy="70" r="34" fill="#fde2d4" />
       <circle cx="108" cy="64" r="3.5" fill="#334155" />
@@ -88,10 +88,10 @@ export function GlowArt({ className = "h-28 w-full" }: P) {
   );
 }
 
-export function RejuvenationArt({ className = "h-28 w-full" }: P) {
+export function RejuvenationArt({ className = "h-36 w-full" }: P) {
   return (
     <svg viewBox="0 0 240 140" className={className} aria-hidden="true">
-      <rect width="240" height="140" rx="22" fill="#ecfeff" />
+      <rect x="-200" width="640" height="140" fill="#ecfeff" />
       <ellipse cx="120" cy="72" rx="40" ry="50" fill="#fde2d4" />
       <path d="M86 52c10-26 58-26 68 0-14-10-54-10-68 0Z" fill="#1e293b" />
       <circle cx="106" cy="70" r="3.5" fill="#334155" />
@@ -146,7 +146,7 @@ export function LabHero({ className = "w-full" }: P) {
 export function XrayArt({ className = "h-36 w-full" }: P) {
   return (
     <svg viewBox="0 0 240 160" className={className} aria-hidden="true">
-      <rect width="240" height="160" rx="22" fill="#0f172a" />
+      <rect x="-200" width="640" height="160" fill="#0f172a" />
       <rect x="62" y="16" width="116" height="128" rx="10" fill="#1e293b" />
       <path d="M120 30v100" stroke="#94a3b8" strokeWidth="5" strokeLinecap="round" />
       {[0, 1, 2, 3, 4].map((i) => (
@@ -163,7 +163,7 @@ export function XrayArt({ className = "h-36 w-full" }: P) {
 export function UltrasoundArt({ className = "h-36 w-full" }: P) {
   return (
     <svg viewBox="0 0 240 160" className={className} aria-hidden="true">
-      <rect width="240" height="160" rx="22" fill="#0f172a" />
+      <rect x="-200" width="640" height="160" fill="#0f172a" />
       <path d="M120 22 196 130H44Z" fill="#1e293b" />
       <path d="M120 22 196 130H44Z" fill="none" stroke="#334155" strokeWidth="2" />
       {[40, 64, 88].map((r) => <path key={r} d={`M${120 - r * 0.7} ${22 + r} Q120 ${22 + r * 1.25} ${120 + r * 0.7} ${22 + r}`} stroke="#5eead4" strokeOpacity="0.35" strokeWidth="2" fill="none" />)}

@@ -45,7 +45,7 @@ const TREATMENTS: { name: string; art: ReactNode; price: string; priceNote?: str
     art: <GlowArt />,
     price: "From $1,500",
     what: "A medical depigmenting peel for dark spots and uneven tone on the face.",
-    points: ["Skin type assessed first", "Home-care routine included in your plan", "Sun protection is essential afterwards"],
+    points: ["Skin type assessed first", "Home-care advice from your doctor", "Sun protection is essential afterwards"],
   },
   {
     name: "Facial rejuvenation",
