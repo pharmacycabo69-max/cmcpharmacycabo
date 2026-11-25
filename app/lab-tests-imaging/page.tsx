@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { LabAreaIcon, LabHero, UltrasoundArt, XrayArt } from "@/components/Illustrations";
 import { InsuranceNotice } from "@/components/InsuranceNotice";
 import catalog from "@/content/lab-imaging.json";
 import { JsonLd, faqSchema } from "@/lib/seo";
@@ -9,76 +10,138 @@ import { SITE } from "@/lib/site";
 /**
  * Lab tests & imaging (owner approved 24 Nov 2026: publish the catalogue without prices, quote on request).
  * Providers are not named: no signed agreement is confirmed (content/lab-imaging.json lists what is excluded).
+ * Images: original illustrations (components/Illustrations.tsx).
  */
 export const metadata: Metadata = {
-  title: "Lab Tests & Imaging in Cabo San Lucas: Blood Work, X-Ray, Ultrasound",
+  title: "Lab Tests, X-Ray & Ultrasound in Cabo San Lucas",
   description:
-    "Blood work, urine and stool tests, hormones, cultures, X-rays and ultrasound coordinated by our medical team in Cabo San Lucas. Ask for a quote on WhatsApp.",
+    "Blood work, urine and stool tests, hormones, cultures, X-rays and ultrasound coordinated by our medical team in Cabo San Lucas. 93 lab tests and 9 imaging studies — ask for a quote on WhatsApp.",
   alternates: { canonical: "/lab-tests-imaging" },
   openGraph: { url: "/lab-tests-imaging", images: ["/opengraph-image"] },
 };
 
 const FAQ = [
   { q: "How much do lab tests cost?", a: "Prices depend on the tests and where the sample is taken. Send us the list of tests on WhatsApp and we will send you a quote in US dollars before you book." },
-  { q: "Do I need a doctor's order?", a: "Bring the order from your doctor if you have one. If you don't, our doctors can assess you by video or in person and order the tests you need." },
+  { q: "Do I need a doctor's order?", a: "Bring the order from your doctor if you have one. If you don't, our doctors can assess you by video ($59) or in person ($99) and order the tests you need." },
   { q: "How do I prepare and when are results ready?", a: "Preparation (for example fasting) and turnaround time depend on each test. We confirm both when you book." },
   { q: "Is a radiologist's report included?", a: "We confirm who reads the study and whether a written report is included when you request your quote." },
 ];
 
-const quote = `${SITE.whatsapp}?text=${encodeURIComponent("Hi! I'd like a quote for lab tests or imaging.")}`;
+const quote = (t: string) => `${SITE.whatsapp}?text=${encodeURIComponent(`Hi! I'd like a quote for ${t}.`)}`;
 const count = catalog.lab.reduce((n, a) => n + a.tests.length, 0);
+const xrays = catalog.imaging.filter((t) => /x-ray/i.test(t));
+const ultrasounds = catalog.imaging.filter((t) => !/x-ray/i.test(t));
+
+const STEPS = [
+  ["Send your list", "Message us the tests or studies you need, or the photo of your doctor's order."],
+  ["Get a quote", "We reply with the total in US dollars, preparation and where it is done."],
+  ["Sample or study", "Go to the lab or imaging center at the confirmed time."],
+  ["Results", "We confirm how and when you receive your results; review them with our doctor by video if you wish."],
+];
 
 export default function LabTestsImaging() {
   return (
-    <div className="mx-auto max-w-4xl px-4 py-10">
+    <>
       <JsonLd data={faqSchema(FAQ)} />
-      <Breadcrumbs items={[{ name: "Lab tests & imaging", href: "/lab-tests-imaging" }]} />
-      <h1 className="mt-5 text-3xl font-bold tracking-tight md:text-4xl">Lab tests &amp; imaging in Cabo San Lucas</h1>
-      <p className="mt-4 max-w-2xl text-slate-600">
-        Our medical team coordinates blood work, urine and stool tests, cultures, X-rays and ultrasound with laboratories and imaging centers in Cabo San Lucas. Prices are quoted on request, in US dollars, before you book.
-      </p>
-      <div className="mt-6 flex flex-wrap gap-3">
-        <a href={quote} target="_blank" rel="noopener" className="btn btn-primary">Request a quote on WhatsApp</a>
-        <Link href="/doctor-consultation" className="btn btn-outline">Need a doctor&apos;s order?</Link>
-      </div>
 
-      <section className="mt-12" aria-labelledby="lab">
-        <h2 id="lab" className="text-xl font-semibold">Laboratory tests ({count})</h2>
-        <div className="mt-4 grid gap-4 sm:grid-cols-2">
-          {catalog.lab.map((a) => (
-            <div key={a.area} className="rounded-2xl border border-slate-200 bg-white p-5">
-              <h3 className="font-semibold">{a.area}</h3>
-              <ul className="mt-2 space-y-1 text-sm text-slate-600">{a.tests.map((t) => <li key={t}>{t}</li>)}</ul>
+      {/* Hero */}
+      <section className="bg-gradient-to-b from-teal-50 to-white">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 pb-12 pt-8 md:grid-cols-2 md:pb-16">
+          <div>
+            <Breadcrumbs items={[{ name: "Lab tests & imaging", href: "/lab-tests-imaging" }]} />
+            <p className="mt-6 text-xs font-bold uppercase tracking-[0.16em] text-brand">Diagnostics · Cabo San Lucas</p>
+            <h1 className="mt-2 text-4xl font-extrabold leading-[1.1] tracking-tight md:text-5xl">Lab tests, X-ray &amp; ultrasound in Cabo</h1>
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate-600">
+              Blood work, urine and stool tests, hormones, cultures, X-rays and ultrasound, coordinated by our medical team with laboratories and imaging centers in Cabo San Lucas. Quote in US dollars before you book.
+            </p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <a href={quote("lab tests or imaging")} target="_blank" rel="noopener" className="btn btn-primary !px-6 !py-3.5">Request a quote</a>
+              <Link href="/doctor-consultation" className="btn btn-outline !px-6 !py-3.5">Need a doctor&apos;s order?</Link>
             </div>
-          ))}
+            <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-slate-600">
+              <li>✓ {count} lab tests</li><li>✓ X-ray &amp; ultrasound</li><li>✓ English &amp; Spanish</li>
+            </ul>
+          </div>
+          <LabHero className="mx-auto w-full max-w-md drop-shadow-sm" />
         </div>
       </section>
 
-      <section className="mt-12" aria-labelledby="img">
-        <h2 id="img" className="text-xl font-semibold">Diagnostic imaging</h2>
-        <ul className="mt-4 grid gap-2 text-sm text-slate-700 sm:grid-cols-2">
-          {catalog.imaging.map((t) => <li key={t} className="rounded-xl border border-slate-200 bg-white px-4 py-3">{t}</li>)}
-        </ul>
-        <p className="mt-3 text-sm text-slate-600">Studies are done at the imaging center; we confirm location, preparation and report when you book.</p>
-      </section>
+      <div className="mx-auto max-w-6xl px-4">
+        {/* Imaging */}
+        <section className="py-12" aria-labelledby="img">
+          <h2 id="img" className="text-2xl font-bold tracking-tight md:text-3xl">Diagnostic imaging</h2>
+          <div className="mt-8 grid gap-6 md:grid-cols-2">
+            {[
+              { title: "X-ray", art: <XrayArt />, items: xrays, q: "an X-ray" },
+              { title: "Ultrasound", art: <UltrasoundArt />, items: ultrasounds, q: "an ultrasound" },
+            ].map((g) => (
+              <div key={g.title} className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+                {g.art}
+                <div className="p-6">
+                  <h3 className="text-lg font-semibold">{g.title}</h3>
+                  <ul className="mt-3 space-y-1.5 text-sm text-slate-700">{g.items.map((t) => <li key={t}>• {t}</li>)}</ul>
+                  <a href={quote(g.q)} target="_blank" rel="noopener" className="btn btn-outline mt-5 !py-2">Quote {g.title.toLowerCase()}</a>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="mt-4 text-sm text-slate-600">Studies are done at the imaging center; we confirm location, preparation and report when you book.</p>
+        </section>
 
-      <div className="mt-12"><InsuranceNotice compact /></div>
+        {/* Laboratory */}
+        <section className="py-6" aria-labelledby="lab">
+          <h2 id="lab" className="text-2xl font-bold tracking-tight md:text-3xl">Laboratory tests <span className="text-slate-400">({count})</span></h2>
+          <p className="mt-2 text-slate-600">Tap an area to see every test.</p>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {catalog.lab.map((a) => (
+              <details key={a.area} className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm open:shadow-md">
+                <summary className="flex cursor-pointer items-center gap-3">
+                  <LabAreaIcon area={a.area} />
+                  <span className="flex-1"><span className="block font-semibold">{a.area}</span><span className="text-xs text-slate-500">{a.tests.length} tests</span></span>
+                  <span aria-hidden className="text-xl text-brand transition group-open:rotate-45">+</span>
+                </summary>
+                <ul className="mt-4 space-y-1 border-t border-slate-100 pt-3 text-sm text-slate-600">{a.tests.map((t) => <li key={t}>{t}</li>)}</ul>
+              </details>
+            ))}
+          </div>
+        </section>
 
-      <section className="mt-12" aria-labelledby="faq-h">
-        <h2 id="faq-h" className="text-xl font-semibold">Frequently asked questions</h2>
-        <div className="mt-4 divide-y divide-slate-200 border-y border-slate-200">
-          {FAQ.map((f) => (
-            <details key={f.q} className="group py-4">
-              <summary className="flex cursor-pointer items-center justify-between gap-4 font-medium">{f.q}<span aria-hidden className="text-brand transition group-open:rotate-45">+</span></summary>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">{f.a}</p>
-            </details>
-          ))}
-        </div>
-      </section>
+        {/* How it works */}
+        <section className="py-12" aria-labelledby="how">
+          <h2 id="how" className="text-2xl font-bold tracking-tight">How it works</h2>
+          <ol className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {STEPS.map(([t, d], i) => (
+              <li key={t} className="rounded-2xl bg-brand-soft p-5">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-sm font-bold text-brand shadow-sm">{i + 1}</span>
+                <p className="mt-3 font-semibold">{t}</p>
+                <p className="mt-1 text-sm leading-relaxed text-slate-600">{d}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
 
-      <p className="mt-10 text-xs leading-relaxed text-slate-500">
-        Don&apos;t see the test you need? Ask us on WhatsApp. Some tests are only available after a medical consultation. In an emergency, call 911.
-      </p>
-    </div>
+        <InsuranceNotice compact />
+
+        {/* FAQ */}
+        <section className="py-10" aria-labelledby="faq-h">
+          <h2 id="faq-h" className="text-2xl font-bold tracking-tight">Frequently asked questions</h2>
+          <div className="mt-5 divide-y divide-slate-200 border-y border-slate-200">
+            {FAQ.map((f) => (
+              <details key={f.q} className="group py-4">
+                <summary className="flex cursor-pointer items-center justify-between gap-4 font-medium">{f.q}<span aria-hidden className="text-brand transition group-open:rotate-45">+</span></summary>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-6 rounded-3xl bg-gradient-to-br from-brand-dark via-brand to-teal-500 px-6 py-10 text-center text-white md:px-12">
+          <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">Get your quote on WhatsApp</h2>
+          <p className="mx-auto mt-2 max-w-xl text-teal-50">Send us the tests you need or a photo of your doctor&apos;s order. Some tests are only available after a medical consultation.</p>
+          <a href={quote("lab tests or imaging")} target="_blank" rel="noopener" className="btn mt-6 bg-white !px-6 !py-3.5 text-brand hover:bg-teal-50">Message us</a>
+        </section>
+        <p className="pb-4 text-xs text-slate-500">Not an emergency service: in an emergency, call 911.</p>
+      </div>
+    </>
   );
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { InsuranceNotice } from "@/components/InsuranceNotice";
@@ -9,7 +10,7 @@ import { SITE, abs } from "@/lib/site";
  * Medical services (master data §2, D12, D17: USD, taxes included). Replaces the imported page, which showed
  * placeholder doctor/reviews and a 24/7 "AI doctor".
  * Named physician: published on the owner's explicit instruction (24 Nov 2026), data from master data §3.
- * No photo until an authorized one is supplied.
+ * Photo supplied and assigned by the owner (public/team/), branded with the CMC strip.
  */
 const DOCTOR = {
   name: "Dr. Kevin González Adame",
@@ -18,6 +19,7 @@ const DOCTOR = {
   license: "14796516",
   languages: ["English", "Spanish"],
   clinic: "Cabo Walk-In Clinic",
+  photo: "/team/dr-kevin-gonzalez-adame.jpg",
 };
 export const metadata: Metadata = {
   title: "English-Speaking Doctor in Cabo San Lucas: Video $59, Clinic $99, Hotel Visit $189",
@@ -91,6 +93,7 @@ export default function DoctorConsultation() {
     alumniOf: { "@type": "CollegeOrUniversity", name: DOCTOR.school },
     hasCredential: { "@type": "EducationalOccupationalCredential", credentialCategory: "Cédula profesional (Mexico)", identifier: DOCTOR.license },
     worksFor: { "@type": "MedicalClinic", name: DOCTOR.clinic },
+    image: abs(DOCTOR.photo),
   };
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
@@ -113,7 +116,10 @@ export default function DoctorConsultation() {
         ))}
       </ul>
 
-      <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6" aria-labelledby="doctor">
+      <section className="mt-10 grid items-center gap-6 rounded-2xl border border-slate-200 bg-white p-6 md:grid-cols-[240px_1fr]" aria-labelledby="doctor">
+        {/* Photo supplied and assigned by the owner (24 Nov 2026) */}
+        <Image src={DOCTOR.photo} alt={`${DOCTOR.name}, physician at ${DOCTOR.clinic}`} width={720} height={900} sizes="(min-width: 768px) 240px, 100vw" className="mx-auto w-full max-w-[280px] rounded-xl object-cover shadow-sm" />
+        <div>
         <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand">Your doctor</p>
         <h2 id="doctor" className="mt-1 text-xl font-semibold">{DOCTOR.name}</h2>
         <dl className="mt-3 grid gap-x-6 gap-y-2 text-sm sm:grid-cols-2">
@@ -124,6 +130,7 @@ export default function DoctorConsultation() {
           <div className="sm:col-span-2"><dt className="text-slate-500">Clinic</dt><dd className="font-medium">{DOCTOR.clinic} · {SITE.street.split(",")[0]}, Centro, Cabo San Lucas</dd></div>
         </dl>
         <p className="mt-3 text-xs text-slate-500">You can verify any Mexican professional license in the public registry of the Secretaría de Educación Pública (SEP).</p>
+        </div>
       </section>
 
       <p className="mt-6 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-900">
