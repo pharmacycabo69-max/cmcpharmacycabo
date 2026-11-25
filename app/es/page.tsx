@@ -46,7 +46,7 @@ export default function Inicio() {
             <HeroSearch lang="es" />
             <div className="mt-5 flex flex-col gap-3 sm:flex-row">
               <Link href="/request" className="btn btn-primary !py-3.5">Solicitar disponibilidad de medicamentos</Link>
-              <Link href="/doctor-consultation" className="btn btn-navy !py-3.5">Reservar atención médica</Link>
+              <Link href="/book" className="btn btn-navy !py-3.5">Reservar atención médica</Link>
             </div>
             <p className="mt-4 text-sm text-slate-500">Catálogo, reservas y fichas de producto en inglés por ahora; te atendemos en español por WhatsApp ({SITE.whatsappDisplay}) o teléfono ({SITE.phone}).</p>
           </div>

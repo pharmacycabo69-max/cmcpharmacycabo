@@ -20,9 +20,9 @@ export function WhatsAppFab() {
             <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M10.5 20.5a4.95 4.95 0 0 1-7-7l10-10a4.95 4.95 0 0 1 7 7l-10 10zM8.5 8.5l7 7" /></svg>
             {es ? "Medicamentos" : "Order medicine"}
           </Link>
-          <Link href="/doctor-consultation" className="flex h-12 flex-col items-center justify-center rounded-xl text-[11px] font-semibold text-navy hover:bg-surface">
+          <Link href="/book" className="flex h-12 flex-col items-center justify-center rounded-xl text-[11px] font-semibold text-navy hover:bg-surface">
             <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden><rect x="4" y="5" width="16" height="15" rx="2" /><path d="M8 3v4M16 3v4M4 10h16M12 13v4M10 15h4" /></svg>
-            {es ? "Reservar médico" : "Book a doctor"}
+            {es ? "Reservar" : "Book care"}
           </Link>
           <a href={href} target="_blank" rel="noopener" className="flex h-12 flex-col items-center justify-center rounded-xl bg-[#25d366] text-[11px] font-bold text-[#05301b]">
             <IconChat className="h-5 w-5" />

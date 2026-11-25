@@ -56,7 +56,7 @@ export default function LabTestsImaging() {
               Blood work, urine and stool tests, hormones, cultures, X-rays and ultrasound, coordinated by our medical team with laboratories and imaging centers in Cabo San Lucas. Quote in US dollars before you book.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <a href={quote("lab tests or imaging")} target="_blank" rel="noopener" className="btn btn-primary !px-6 !py-3.5">Request a quote</a>
+              <Link href="/book?service=lab" className="btn btn-primary !px-6 !py-3.5">Request a quote</Link>
               <Link href="/doctor-consultation" className="btn btn-outline !px-6 !py-3.5">Need a doctor&apos;s order?</Link>
             </div>
             <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-slate-600">
@@ -81,7 +81,7 @@ export default function LabTestsImaging() {
                 <div className="p-6">
                   <h3 className="text-lg font-semibold">{g.title}</h3>
                   <ul className="mt-3 space-y-1.5 text-sm text-slate-700">{g.items.map((t) => <li key={t}>• {t}</li>)}</ul>
-                  <a href={quote(g.q)} target="_blank" rel="noopener" className="btn btn-outline mt-5 !py-2">Quote {g.title.toLowerCase()}</a>
+                  <Link href="/book?service=imaging" className="btn btn-outline mt-5 !py-2">Quote {g.title.toLowerCase()}</Link>
                 </div>
               </div>
             ))}

@@ -94,7 +94,7 @@ export default function AestheticMedicine() {
               Lip fillers, wrinkle-relaxing injections, skin brightening and facial rejuvenation by appointment, after an in-person medical assessment. Our aesthetic medicine division is led by {LEAD}.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <a href={book("")} target="_blank" rel="noopener" className="btn btn-primary !px-6 !py-3.5">Book an assessment</a>
+              <Link href="/book?service=aesthetics" className="btn btn-primary !px-6 !py-3.5">Book an assessment</Link>
               <a href="#treatments" className="btn btn-outline !px-6 !py-3.5">See treatments &amp; prices</a>
             </div>
             <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-slate-600">

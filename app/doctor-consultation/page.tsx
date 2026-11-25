@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -19,10 +20,10 @@ export const metadata: Metadata = {
   openGraph: { url: "/doctor-consultation", images: ["/opengraph-image"] },
 };
 
-const wa = (text: string) => `${SITE.whatsapp}?text=${encodeURIComponent(text)}`;
 
 const SERVICES = [
   {
+    id: "video",
     name: "Video consultation",
     price: 59,
     where: "From your phone or laptop, wherever you are staying.",
@@ -31,6 +32,7 @@ const SERVICES = [
     msg: "Hi! I'd like to book a video consultation with a doctor.",
   },
   {
+    id: "walk-in",
     name: "Clinic visit",
     price: 99,
     where: `At our clinic in Centro, Cabo San Lucas (${SITE.street.split(",")[0]}). Every day 9:00 am – 5:00 pm.`,
@@ -39,6 +41,7 @@ const SERVICES = [
     msg: "Hi! I'd like to book a clinic visit with a doctor.",
   },
   {
+    id: "home-doctor",
     name: "Doctor at your hotel or villa",
     price: 189,
     where: "At your hotel, villa or home in Cabo San Lucas, San José del Cabo and the Corridor.",
@@ -101,7 +104,7 @@ export default function DoctorConsultation() {
             <p className="mt-1 text-3xl font-bold text-brand">${s.price}<span className="ml-1 text-sm font-medium text-slate-500">USD</span></p>
             <p className="mt-3 text-sm text-slate-700">{s.where}</p>
             <p className="mt-2 text-sm text-slate-600">{s.detail}</p>
-            <a href={wa(s.msg)} target="_blank" rel="noopener" className="btn btn-primary mt-5 justify-center">{s.cta}</a>
+            <Link href={`/book?service=${s.id}`} className="btn btn-primary mt-5 justify-center">{s.cta}</Link>
           </li>
         ))}
       </ul>

@@ -32,7 +32,7 @@ type Icon = ComponentType<{ className?: string }>;
 /** "I need…" entry points (V4 §5.1 item 3): each opens the matching flow. */
 const INTENTS: { icon: Icon; t: string; d: string; href: string; cta: string }[] = [
   { icon: IconPill, t: "I need medication", d: "Build a request; a pharmacist confirms availability and total.", href: "/shop", cta: "Order medicine" },
-  { icon: IconStethoscope, t: "I need a doctor", d: `Video $${MEDICAL_PRICES.video}, clinic $${MEDICAL_PRICES.clinic}, at your hotel $${MEDICAL_PRICES.hotel}.`, href: "/doctor-consultation", cta: "Book medical care" },
+  { icon: IconStethoscope, t: "I need a doctor", d: `Video $${MEDICAL_PRICES.video}, clinic $${MEDICAL_PRICES.clinic}, at your hotel $${MEDICAL_PRICES.hotel}.`, href: "/book", cta: "Book medical care" },
   { icon: IconDrip, t: "I need IV therapy", d: "At your hotel or villa after a medical assessment.", href: "/iv-therapy", cta: "See IV menu" },
   { icon: IconFlask, t: "I need a medical test", d: "Lab tests, X-ray and ultrasound, coordinated by our doctors.", href: "/lab-tests-imaging", cta: "Request a quote" },
   { icon: IconCard, t: "I have travel insurance", d: "US & Canadian policies, verified before your visit.", href: "/international-insurance", cta: "Verify my insurance" },
@@ -48,7 +48,7 @@ const STEPS = [
 const FAQ = [
   { q: "Is there a pharmacy near me in Cabo San Lucas?", a: `Yes. The ${SITE.parent} network has ${LOCATIONS.length} pharmacies in Cabo San Lucas open every day from 8 am to 6 pm, and ${SITE.name}, its delivery service, brings medicine to your hotel, villa or home from 7 am to 11 pm.` },
   { q: "Do you deliver to my hotel?", a: "We deliver to hotels, resorts, villas and vacation rentals in Cabo San Lucas, San José del Cabo and the Corridor. Some hotels only accept deliveries at the front desk or the entrance; we coordinate the hand-over with you." },
-  { q: "Do I pay online?", a: "Not for pharmacy orders. You send a request, a pharmacist confirms availability and the total, and you pay through the channel we agree on. Some medical services, like IV therapy, take a deposit when you book." },
+  { q: "Do I pay online?", a: "Not for pharmacy orders. You send a request, a pharmacist confirms availability and the total, and you pay through the channel we agree on. Medical services are booked first and paid online only after our team confirms your time." },
   { q: "Can I get prescription medication?", a: "Prescription-only medicines are dispensed only with a valid prescription. If you don't have one, our English-speaking doctors can see you by video, at the clinic or at your hotel." },
   { q: "Do you accept travel insurance?", a: "We accept international health and travel insurance from the United States and Canada, subject to policy verification and coverage confirmation. Contact our team to verify your eligibility and payment arrangements before receiving medical services." },
   { q: "Is this an emergency service?", a: "No. In an emergency, call 911 or go to the nearest hospital." },
@@ -84,7 +84,7 @@ export default function Home() {
             <HeroSearch />
             <div className="mt-5 flex flex-col gap-3 sm:flex-row">
               <Link href="/request" className="btn btn-primary !py-3.5">Request medication availability</Link>
-              <Link href="/doctor-consultation" className="btn btn-navy !py-3.5">Book medical care</Link>
+              <Link href="/book" className="btn btn-navy !py-3.5">Book medical care</Link>
             </div>
             <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-slate-600">
               <li className="flex items-center gap-1.5"><IconShield className="h-4 w-4 text-brand" />Part of {SITE.parent} · {LOCATIONS.length} pharmacies</li>

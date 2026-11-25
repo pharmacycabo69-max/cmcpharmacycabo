@@ -44,10 +44,10 @@ export const setQty = (id: number, qty: number) =>
 export const clearRequest = () => write([]);
 
 /** Short unique reference the team can quote back: CMC-YYMMDD-XXXX (no personal data in it). */
-export function newRequestId(now = new Date()) {
+export function newRequestId(now = new Date(), kind: "" | "B" = "") {
   const d = `${String(now.getFullYear()).slice(2)}${String(now.getMonth() + 1).padStart(2, "0")}${String(now.getDate()).padStart(2, "0")}`;
   const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
   const bytes = new Uint8Array(4);
   crypto.getRandomValues(bytes);
-  return `CMC-${d}-${[...bytes].map((b) => alphabet[b % alphabet.length]).join("")}`;
+  return `CMC-${kind ? `${kind}-` : ""}${d}-${[...bytes].map((b) => alphabet[b % alphabet.length]).join("")}`;
 }

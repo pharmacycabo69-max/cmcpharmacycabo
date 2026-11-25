@@ -73,7 +73,7 @@ export default function HotelDoctor() {
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate-600">An English-speaking doctor comes to your hotel, villa or home in Cabo San Lucas, San José del Cabo and the Corridor. By appointment.</p>
             <p className="mt-6 flex items-baseline gap-2"><span className="text-5xl font-extrabold text-brand">${MEDICAL_PRICES.hotel}</span><span className="text-slate-500">USD · taxes included</span></p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <a href={book} target="_blank" rel="noopener" className="btn btn-primary !px-6 !py-3.5">Book a hotel visit</a>
+              <Link href="/book?service=home-doctor" className="btn btn-primary !px-6 !py-3.5">Book a hotel visit</Link>
               <Link href="/doctor-consultation" className="btn btn-outline !px-6 !py-3.5">Video $59 · Clinic $99</Link>
             </div>
           </div>
@@ -146,7 +146,7 @@ export default function HotelDoctor() {
         <section className="mb-6 rounded-3xl bg-navy px-6 py-10 text-center text-white md:px-12">
           <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">Book a doctor at your hotel</h2>
           <p className="mx-auto mt-2 max-w-xl text-white/80">Tell us where you are staying and when. We confirm the doctor, the time and the total price.</p>
-          <a href={book} target="_blank" rel="noopener" className="btn mt-6 bg-white !px-6 !py-3.5 text-brand hover:bg-surface">Message us on WhatsApp</a>
+          <Link href="/book?service=home-doctor" className="btn mt-6 bg-white !px-6 !py-3.5 text-brand hover:bg-surface">Book online</Link> <a href={book} target="_blank" rel="noopener" className="btn mt-6 !px-6 !py-3.5 text-white ring-1 ring-white/40 hover:bg-white/10">WhatsApp</a>
         </section>
 
         <RelatedServices current="/hotel-doctor-cabo" />

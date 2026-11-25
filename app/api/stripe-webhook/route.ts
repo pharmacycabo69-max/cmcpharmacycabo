@@ -24,7 +24,7 @@ function compose(s: Session) {
   const when = [m.booking_date, m.booking_time === "ASAP" ? "as soon as possible" : m.booking_time].filter(Boolean).join(" ");
   const service = m.service_name || "service";
   const lines = [
-    `New paid booking: ${service}`, `When: ${when || "not specified"} (Cabo time)`,
+    `New paid booking: ${service}`, ...(m.booking_ref ? [`Reference: ${m.booking_ref}`] : []), `When: ${when || "not specified"} (Cabo time)`,
     `Customer: ${m.customer_name || cd.name || "-"}`, `Phone: ${m.customer_phone || cd.phone || "-"}`, `Email: ${cd.email || "-"}`,
   ];
   if (m.location) lines.push(`Location: ${m.location}`);

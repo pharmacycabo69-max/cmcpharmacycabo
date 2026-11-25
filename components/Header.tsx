@@ -46,7 +46,7 @@ export function Header() {
         <div className="flex items-center gap-2">
           <LangToggle className="hidden sm:inline-flex" />
           <RequestBadge />
-          <Link href="/contact-us" className="btn btn-navy hidden !px-4 !py-2.5 text-sm md:inline-flex">Contact</Link>
+          <Link href="/book" className="btn btn-primary hidden !px-4 !py-2.5 text-sm md:inline-flex">Book care</Link>
           <details className="group relative lg:hidden">
             <summary aria-label="Open menu" className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl border border-line text-navy">
               <svg viewBox="0 0 24 24" className="h-5 w-5 group-open:hidden" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden><path d="M4 7h16M4 12h16M4 17h16" /></svg>

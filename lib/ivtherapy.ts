@@ -261,7 +261,7 @@ export const IV_FAQ: { q: string; a: string }[] = [
   },
   {
     "q": "How do I pay?",
-    "a": "Reserve your visit online with a 50% deposit by card (Stripe). The remaining balance is paid after the session by credit card (Visa, MasterCard, AMEX), USD cash or bank transfer. Receipts are available for travel insurance reimbursement."
+    "a": "Book online and our team confirms your time first; then you pay a 50% deposit online by card (Stripe). The remaining balance is paid after the session by credit card (Visa, MasterCard, AMEX), USD cash or bank transfer. Receipts are available for travel insurance reimbursement."
   },
   {
     "q": "What if I have a reaction during the drip?",
