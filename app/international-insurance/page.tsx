@@ -44,7 +44,7 @@ export default function InsurancePage() {
             </div>
           </div>
           <div className="relative aspect-[4/3] overflow-hidden rounded-3xl">
-            <Image src="/locations/mercado-marina/02-counter-service.jpg" alt="Pharmacist at the counter of one of our pharmacies in Cabo San Lucas" fill sizes="(min-width: 768px) 40vw, 100vw" className="object-cover" priority />
+            <Image src="/locations/mercado-marina/02-counter-service.jpg" alt="Pharmacist at the counter of one of our pharmacies in Cabo San Lucas" fill sizes="(min-width: 768px) 40vw, 100vw" className="object-cover object-[35%_50%]" priority />
           </div>
         </div>
       </section>
