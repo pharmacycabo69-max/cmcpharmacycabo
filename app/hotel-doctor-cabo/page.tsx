@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { DoctorArt } from "@/components/Illustrations";
+import Image from "next/image";
 import { InsuranceNotice } from "@/components/InsuranceNotice";
 import { RelatedServices } from "@/components/RelatedServices";
 import { JsonLd, faqSchema, orgId } from "@/lib/seo";
 import { SITE, abs } from "@/lib/site";
-import { MEDICAL_PRICES } from "@/lib/team";
+import { DOCTOR, MEDICAL_PRICES } from "@/lib/team";
 
 /**
  * Hotel doctor / house calls (master data §2: house call $189 USD, taxes included; D12/D17).
@@ -64,11 +64,11 @@ export default function HotelDoctor() {
     <>
       <JsonLd data={[service, faqSchema(FAQ)]} />
 
-      <section className="bg-gradient-to-b from-sky-50 to-white">
+      <section className="bg-surface">
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 pb-12 pt-8 md:grid-cols-2 md:pb-16">
           <div>
             <Breadcrumbs items={[{ name: "Doctor consultation", href: "/doctor-consultation" }, { name: "Hotel doctor", href: "/hotel-doctor-cabo" }]} />
-            <p className="mt-6 text-xs font-bold uppercase tracking-[0.16em] text-sky-700">House calls · Los Cabos</p>
+            <p className="mt-6 text-xs font-bold uppercase tracking-[0.16em] text-brand">House calls · Los Cabos</p>
             <h1 className="mt-2 text-4xl font-extrabold leading-[1.1] tracking-tight md:text-5xl">Hotel doctor &amp; house calls in Cabo San Lucas</h1>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate-600">An English-speaking doctor comes to your hotel, villa or home in Cabo San Lucas, San José del Cabo and the Corridor. By appointment.</p>
             <p className="mt-6 flex items-baseline gap-2"><span className="text-5xl font-extrabold text-brand">${MEDICAL_PRICES.hotel}</span><span className="text-slate-500">USD · taxes included</span></p>
@@ -77,7 +77,10 @@ export default function HotelDoctor() {
               <Link href="/doctor-consultation" className="btn btn-outline !px-6 !py-3.5">Video $59 · Clinic $99</Link>
             </div>
           </div>
-          <DoctorArt className="mx-auto h-72 w-full max-w-md overflow-hidden rounded-3xl shadow-sm ring-1 ring-slate-100" />
+          <figure className="relative mx-auto w-full max-w-sm">
+            <Image src={DOCTOR.photo} alt={`${DOCTOR.name}, physician at ${DOCTOR.clinic}`} width={720} height={900} priority sizes="(min-width: 768px) 384px, 90vw" className="aspect-[4/5] w-full rounded-3xl object-cover shadow-xl shadow-navy/15" />
+            <figcaption className="absolute -bottom-4 left-4 right-4 rounded-2xl bg-white p-4 text-sm shadow-lg ring-1 ring-line"><span className="block font-semibold text-navy">{DOCTOR.name}</span><span className="text-slate-600">{DOCTOR.clinic} · English &amp; Spanish</span></figcaption>
+          </figure>
         </div>
       </section>
 
@@ -90,7 +93,7 @@ export default function HotelDoctor() {
           <h2 id="included" className="text-2xl font-bold tracking-tight md:text-3xl">What a hotel visit includes</h2>
           <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {INCLUDED.map(([t, d]) => (
-              <li key={t} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <li key={t} className="rounded-2xl border border-line bg-white p-5 shadow-sm">
                 <p className="font-semibold"><span aria-hidden className="mr-2 text-brand">✓</span>{t}</p>
                 <p className="mt-1 text-sm leading-relaxed text-slate-600">{d}</p>
               </li>
@@ -102,7 +105,7 @@ export default function HotelDoctor() {
           <h2 id="reasons" className="text-2xl font-bold tracking-tight">Common reasons visitors call a doctor</h2>
           <p className="mt-2 text-slate-600">Examples only, not a complete list. Your doctor decides what is appropriate after assessing you.</p>
           <ul className="mt-5 flex flex-wrap gap-2.5">
-            {REASONS.map((r) => <li key={r} className="rounded-full bg-sky-50 px-4 py-2 text-sm font-medium text-sky-900">{r}</li>)}
+            {REASONS.map((r) => <li key={r} className="rounded-full bg-surface px-4 py-2 text-sm font-medium text-navy">{r}</li>)}
           </ul>
         </section>
 
@@ -110,8 +113,8 @@ export default function HotelDoctor() {
           <h2 id="how" className="text-2xl font-bold tracking-tight md:text-3xl">How it works</h2>
           <ol className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map(([t, d], i) => (
-              <li key={t} className="rounded-2xl bg-sky-50 p-5">
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-sm font-bold text-sky-700 shadow-sm">{i + 1}</span>
+              <li key={t} className="rounded-2xl bg-surface p-5">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-sm font-bold text-brand shadow-sm">{i + 1}</span>
                 <p className="mt-3 font-semibold">{t}</p>
                 <p className="mt-1 text-sm leading-relaxed text-slate-600">{d}</p>
               </li>
@@ -130,7 +133,7 @@ export default function HotelDoctor() {
 
         <section className="py-12" aria-labelledby="faq-h">
           <h2 id="faq-h" className="text-2xl font-bold tracking-tight md:text-3xl">Frequently asked questions</h2>
-          <div className="mt-5 divide-y divide-slate-200 border-y border-slate-200">
+          <div className="mt-5 divide-y divide-slate-200 border-y border-line">
             {FAQ.map((f) => (
               <details key={f.q} className="group py-4">
                 <summary className="flex cursor-pointer items-center justify-between gap-4 font-medium">{f.q}<span aria-hidden className="text-brand transition group-open:rotate-45">+</span></summary>
@@ -140,10 +143,10 @@ export default function HotelDoctor() {
           </div>
         </section>
 
-        <section className="mb-6 rounded-3xl bg-gradient-to-br from-sky-600 to-brand px-6 py-10 text-center text-white md:px-12">
+        <section className="mb-6 rounded-3xl bg-navy px-6 py-10 text-center text-white md:px-12">
           <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">Book a doctor at your hotel</h2>
-          <p className="mx-auto mt-2 max-w-xl text-sky-50">Tell us where you are staying and when. We confirm the doctor, the time and the total price.</p>
-          <a href={book} target="_blank" rel="noopener" className="btn mt-6 bg-white !px-6 !py-3.5 text-brand hover:bg-sky-50">Message us on WhatsApp</a>
+          <p className="mx-auto mt-2 max-w-xl text-white/80">Tell us where you are staying and when. We confirm the doctor, the time and the total price.</p>
+          <a href={book} target="_blank" rel="noopener" className="btn mt-6 bg-white !px-6 !py-3.5 text-brand hover:bg-surface">Message us on WhatsApp</a>
         </section>
 
         <RelatedServices current="/hotel-doctor-cabo" />

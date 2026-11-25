@@ -96,7 +96,7 @@ export default function DoctorConsultation() {
 
       <ul className="mt-8 grid gap-5 md:grid-cols-3">
         {SERVICES.map((s) => (
-          <li key={s.name} className="flex flex-col rounded-2xl border border-slate-200 bg-white p-6">
+          <li key={s.name} className="flex flex-col rounded-2xl border border-line bg-white p-6">
             <h2 className="text-lg font-semibold">{s.name}</h2>
             <p className="mt-1 text-3xl font-bold text-brand">${s.price}<span className="ml-1 text-sm font-medium text-slate-500">USD</span></p>
             <p className="mt-3 text-sm text-slate-700">{s.where}</p>
@@ -106,7 +106,7 @@ export default function DoctorConsultation() {
         ))}
       </ul>
 
-      <section className="mt-10 grid items-center gap-6 rounded-2xl border border-slate-200 bg-white p-6 md:grid-cols-[240px_1fr]" aria-labelledby="doctor">
+      <section className="mt-10 grid items-center gap-6 rounded-2xl border border-line bg-white p-6 md:grid-cols-[240px_1fr]" aria-labelledby="doctor">
         {/* Photo supplied and assigned by the owner (24 Nov 2026) */}
         <Image src={DOCTOR.photo} alt={`${DOCTOR.name}, physician at ${DOCTOR.clinic}`} width={720} height={900} sizes="(min-width: 768px) 240px, 100vw" className="mx-auto w-full max-w-[280px] rounded-xl object-cover shadow-sm" />
         <div>
@@ -146,7 +146,7 @@ export default function DoctorConsultation() {
 
       <section className="mt-12" aria-labelledby="faq-h">
         <h2 id="faq-h" className="text-xl font-semibold">Frequently asked questions</h2>
-        <div className="mt-4 divide-y divide-slate-200 border-y border-slate-200">
+        <div className="mt-4 divide-y divide-slate-200 border-y border-line">
           {FAQ.map((f) => (
             <details key={f.q} className="group py-4">
               <summary className="flex cursor-pointer items-center justify-between gap-4 font-medium">{f.q}<span aria-hidden className="text-brand transition group-open:rotate-45">+</span></summary>

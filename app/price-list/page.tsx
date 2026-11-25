@@ -64,7 +64,7 @@ export default function PriceList() {
       <nav aria-label="Price list sections" className="mt-6">
         <ul className="flex flex-wrap gap-2 text-sm">
           {sections.map((s) => (
-            <li key={s.id}><a href={`#${s.id}`} className="inline-block rounded-full border border-slate-200 px-3 py-1 text-slate-700 hover:border-brand hover:text-brand">{s.title.replace(/\s*\(.*\)$/, "")}</a></li>
+            <li key={s.id}><a href={`#${s.id}`} className="inline-block rounded-full border border-line px-3 py-1 text-slate-700 hover:border-brand hover:text-brand">{s.title.replace(/\s*\(.*\)$/, "")}</a></li>
           ))}
         </ul>
       </nav>
@@ -75,7 +75,7 @@ export default function PriceList() {
           <p className="mt-1 text-sm text-slate-600">{s.blurb}</p>
           <table className="mt-4 w-full text-sm">
             <thead className="sr-only"><tr><th>Product</th><th>Price (USD)</th></tr></thead>
-            <tbody className="divide-y divide-slate-100 border-y border-slate-200">
+            <tbody className="divide-y divide-slate-100 border-y border-line">
               {s.items.map((p) => (
                 <tr key={p.id}>
                   <td className="py-2.5 pr-4">
@@ -101,7 +101,7 @@ export default function PriceList() {
 
       <section className="mt-14" aria-labelledby="faq-h">
         <h2 id="faq-h" className="text-xl font-semibold">Frequently asked questions</h2>
-        <div className="mt-4 divide-y divide-slate-200 border-y border-slate-200">
+        <div className="mt-4 divide-y divide-slate-200 border-y border-line">
           {FAQ.map((f) => (
             <details key={f.q} className="group py-4">
               <summary className="flex cursor-pointer items-center justify-between gap-4 font-medium">{f.q}<span aria-hidden className="text-brand transition group-open:rotate-45">+</span></summary>

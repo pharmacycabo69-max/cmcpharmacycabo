@@ -202,7 +202,8 @@ const PRICE_MULTIVITAMIN = 189;
 const MULTIVITAMIN_IDS = new Set(["myers-cocktail-classic"]);
 export const IV_PRICE_NOTES = {
   inClinic: "In clinic: IV therapy $129, Multivitamin $154, NAD+ $279.",
-  groups: "Groups of 3 or more: $139 per person.",
+  // V4 §4 (25 Nov 2026): group pricing is quoted, not published, until the owner confirms it
+  groups: "Groups of 3 or more: ask us for a group quote.",
 };
 const PENDING_VALIDATION = new Set(["immune-boost"]); // high-dose vitamin C
 /** Descriptive taglines (master data §4.1: no detox/immunity/cure or results claims without clinical evidence). */

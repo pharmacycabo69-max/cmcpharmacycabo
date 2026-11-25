@@ -59,7 +59,7 @@ export default function DeliveryAreas() {
           ].map(([Icon, big, small]) => {
             const I = Icon as typeof IconClock;
             return (
-              <li key={big as string} className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4">
+              <li key={big as string} className="flex items-center gap-3 rounded-2xl border border-line bg-white p-4">
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand"><I className="h-5 w-5" /></span>
                 <p><span className="block text-sm font-bold leading-tight">{big as string}</span><span className="block text-xs text-slate-500">{small as string}</span></p>
               </li>
@@ -93,7 +93,7 @@ export default function DeliveryAreas() {
 
         <section className="mt-14" aria-labelledby="faq-h">
           <h2 id="faq-h" className="text-2xl font-bold tracking-tight">Hotel delivery FAQ</h2>
-          <div className="mt-4 divide-y divide-slate-200 border-y border-slate-200">
+          <div className="mt-4 divide-y divide-slate-200 border-y border-line">
             {FAQ.map((f) => (
               <details key={f.q} className="group py-4">
                 <summary className="flex cursor-pointer items-center justify-between gap-4 font-medium">{f.q}<span aria-hidden className="text-brand transition group-open:rotate-45">+</span></summary>

@@ -36,7 +36,7 @@ const GROUPS: { title: string; items: { q: string; a: string }[] }[] = [
     title: "Doctors, IV therapy & other services",
     items: [
       { q: "Is this an emergency service?", a: "No. In an emergency, call 911 or go to the nearest hospital. We provide general consultations, IV therapy and other services by appointment." },
-      { q: "How much is IV therapy?", a: "At your hotel or villa: IV therapy $159, Multivitamin $189 and NAD+ $279. At the clinic: IV therapy $129, Multivitamin $154 and NAD+ $279. Groups of 3 or more: $139 per person. USD, taxes included, after a medical assessment. A 50% deposit secures your booking." },
+      { q: "How much is IV therapy?", a: "At your hotel or villa: IV therapy $159, Multivitamin $189 and NAD+ $279. At the clinic: IV therapy $129, Multivitamin $154 and NAD+ $279. Groups of 3 or more: ask us for a group quote. USD, taxes included, after a medical assessment. A 50% deposit secures your booking." },
       { q: "Do you offer lab tests and imaging?", a: "Yes. Our medical team coordinates blood work, urine and stool tests, X-rays and ultrasound. Ask for a quote on WhatsApp." },
     ],
   },
@@ -67,7 +67,7 @@ export default function Faq() {
       {GROUPS.map((g) => (
         <section key={g.title} className="mt-10" aria-label={g.title}>
           <h2 className="text-xl font-semibold">{g.title}</h2>
-          <div className="mt-3 divide-y divide-slate-200 border-y border-slate-200">
+          <div className="mt-3 divide-y divide-slate-200 border-y border-line">
             {g.items.map((f) => (
               <details key={f.q} className="group py-4">
                 <summary className="flex cursor-pointer items-center justify-between gap-4 font-medium">{f.q}<span aria-hidden className="text-brand transition group-open:rotate-45">+</span></summary>

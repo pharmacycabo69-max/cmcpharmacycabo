@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { ConciergeForm } from "@/components/ConciergeForm";
 import { AreaStrip } from "@/components/AreaStrip";
 import { PostCover } from "@/components/PostCover";
 import { InsuranceNotice } from "@/components/InsuranceNotice";
@@ -142,14 +143,14 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
       <div className="mt-8"><Prose html={page.html} /></div>
 
       {shop && (
-        <Link href={`/product-category/${shop[1]}`} className="group mt-10 flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-brand hover:shadow-md">
+        <Link href={`/product-category/${shop[1]}`} className="group mt-10 flex items-center justify-between gap-4 rounded-2xl border border-line bg-white p-5 transition hover:border-brand hover:shadow-md">
           <span><span className="block text-xs font-bold uppercase tracking-[0.16em] text-brand">Shop</span><span className="mt-1 block font-semibold">{shop[2]} delivered to your hotel</span><span className="mt-0.5 block text-sm text-slate-600">See products and prices in USD.</span></span>
           <span aria-hidden className="text-xl text-brand transition group-hover:translate-x-1">→</span>
         </Link>
       )}
 
       {isArea(slug) && (
-        <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6" aria-labelledby="every-hotel">
+        <section className="mt-10 rounded-2xl border border-line bg-white p-6" aria-labelledby="every-hotel">
           <h2 id="every-hotel" className="text-lg font-semibold">We deliver to every hotel in Los Cabos</h2>
           <p className="mt-2 text-sm leading-relaxed text-slate-600">
             Wherever you are staying — any hotel, resort, villa, vacation rental or home in Cabo San Lucas, San José del Cabo or the Tourist Corridor — we bring your medicine every day from 7 am to 11 pm. Delivery is free on orders of ${SITE.freeDeliveryFrom} or more.
@@ -166,6 +167,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
       )}
 
       {INSURANCE_PAGES.has(slug) && <div className="mt-12"><InsuranceNotice compact /></div>}
+      {slug === "for-concierges" && <section id="partner" className="mt-12 scroll-mt-24" aria-label="Partnership form"><ConciergeForm /></section>}
 
       <aside className="mt-14 rounded-2xl bg-brand-soft p-6 text-center">
         <p className="text-lg font-semibold">Need something from the pharmacy?</p>
@@ -182,7 +184,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
           <ul className="mt-4 grid gap-3 sm:grid-cols-3">
             {more.map((p) => (
               <li key={p.slug}>
-                <Link href={`/${p.slug}`} className="group block h-full overflow-hidden rounded-xl border border-slate-200 text-sm font-medium transition hover:border-brand hover:text-brand">
+                <Link href={`/${p.slug}`} className="group block h-full overflow-hidden rounded-xl border border-line text-sm font-medium transition hover:border-brand hover:text-brand">
                   {isPost && <div className="aspect-[16/7] overflow-hidden"><PostCover slug={p.slug} className="h-full w-full transition duration-500 group-hover:scale-105" /></div>}
                   <span className="block p-4">{p.title}</span>
                 </Link>

@@ -64,12 +64,12 @@ export default async function LocationPage({ params }: Props) {
             <a href={l.mapsUrl} target="_blank" rel="noopener" className="btn btn-outline">Directions</a>
           </div>
         </div>
-        <ul className="divide-y divide-slate-100 rounded-xl border border-slate-200 text-sm" aria-label="Opening hours">
+        <ul className="divide-y divide-slate-100 rounded-xl border border-line text-sm" aria-label="Opening hours">
           {DAYS.map((d) => <li key={d} className="flex justify-between px-4 py-2"><span className="text-slate-600">{DAY_LABEL[d]}</span><span className="font-medium">{formatRange(l.hours[d])}</span></li>)}
         </ul>
       </div>
 
-      <iframe src={mapSrc(l)} title={`Map: ${l.gbpName}, ${l.placeLabel}`} loading="lazy" allowFullScreen referrerPolicy="no-referrer-when-downgrade" className="mt-8 h-72 w-full rounded-xl border border-slate-200" />
+      <iframe src={mapSrc(l)} title={`Map: ${l.gbpName}, ${l.placeLabel}`} loading="lazy" allowFullScreen referrerPolicy="no-referrer-when-downgrade" className="mt-8 h-72 w-full rounded-xl border border-line" />
 
       <section className="mt-10" aria-label="Photos">
         <div className="grid gap-3 sm:grid-cols-3">
@@ -86,14 +86,14 @@ export default async function LocationPage({ params }: Props) {
         <h2 id="svc" className="h2">Services</h2>
         <ul className="mt-4 grid gap-3 sm:grid-cols-3">
           {[["/iv-therapy", "IV therapy at your hotel or villa"], ["/doctor-consultation", "Doctor consultation"], ["/delivery-areas", "Pharmacy delivery"]].map(([href, label]) => (
-            <li key={href}><Link href={href} className="block h-full rounded-xl border border-slate-200 p-4 text-sm font-medium transition hover:border-brand hover:text-brand">{label}</Link></li>
+            <li key={href}><Link href={href} className="block h-full rounded-xl border border-line p-4 text-sm font-medium transition hover:border-brand hover:text-brand">{label}</Link></li>
           ))}
         </ul>
       </section>
 
       <section className="mt-12" aria-labelledby="faq">
         <h2 id="faq" className="h2">Frequently asked questions</h2>
-        <div className="mt-5 divide-y divide-slate-200 rounded-xl border border-slate-200">
+        <div className="mt-5 divide-y divide-slate-200 rounded-xl border border-line">
           {l.faq.map((f) => (
             <details key={f.q} className="group p-5">
               <summary className="flex cursor-pointer items-center justify-between gap-4 font-medium">{f.q}<span aria-hidden className="text-brand transition group-open:rotate-45">+</span></summary>

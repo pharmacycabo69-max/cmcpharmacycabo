@@ -70,9 +70,9 @@ export default async function Product({ params }: Props) {
       <Breadcrumbs items={crumbs} />
       <div className="mt-6 grid gap-10 md:grid-cols-2">
         <div className="space-y-3">
-          {p.images.length === 0 && <div className="rounded-xl border border-slate-200 p-4"><NoPhoto className="aspect-square w-full" /></div>}
+          {p.images.length === 0 && <div className="rounded-xl border border-line p-4"><NoPhoto className="aspect-square w-full" /></div>}
           {p.images.slice(0, 3).map((i, n) => (
-            <div key={i.src} className="flex justify-center rounded-xl border border-slate-200 bg-white p-4">
+            <div key={i.src} className="flex justify-center rounded-xl border border-line bg-white p-4">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={n === 0 ? i.src : i.thumb} alt={i.alt || p.name} width={600} height={600} loading={n === 0 ? "eager" : "lazy"} fetchPriority={n === 0 ? "high" : "auto"} className="max-h-[460px] w-auto object-contain" />
             </div>

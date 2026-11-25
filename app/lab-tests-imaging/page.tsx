@@ -46,7 +46,7 @@ export default function LabTestsImaging() {
       <JsonLd data={faqSchema(FAQ)} />
 
       {/* Hero */}
-      <section className="bg-gradient-to-b from-teal-50 to-white">
+      <section className="bg-surface">
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 pb-12 pt-8 md:grid-cols-2 md:pb-16">
           <div>
             <Breadcrumbs items={[{ name: "Lab tests & imaging", href: "/lab-tests-imaging" }]} />
@@ -76,7 +76,7 @@ export default function LabTestsImaging() {
               { title: "X-ray", art: <XrayArt />, items: xrays, q: "an X-ray" },
               { title: "Ultrasound", art: <UltrasoundArt />, items: ultrasounds, q: "an ultrasound" },
             ].map((g) => (
-              <div key={g.title} className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+              <div key={g.title} className="overflow-hidden rounded-3xl border border-line bg-white shadow-sm">
                 {g.art}
                 <div className="p-6">
                   <h3 className="text-lg font-semibold">{g.title}</h3>
@@ -95,7 +95,7 @@ export default function LabTestsImaging() {
           <p className="mt-2 text-slate-600">Tap an area to see every test.</p>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {catalog.lab.map((a) => (
-              <details key={a.area} className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm open:shadow-md">
+              <details key={a.area} className="group rounded-2xl border border-line bg-white p-5 shadow-sm open:shadow-md">
                 <summary className="flex cursor-pointer items-center gap-3">
                   <LabAreaIcon area={a.area} />
                   <span className="flex-1"><span className="block font-semibold">{a.area}</span><span className="text-xs text-slate-500">{a.tests.length} tests</span></span>
@@ -126,7 +126,7 @@ export default function LabTestsImaging() {
         {/* FAQ */}
         <section className="py-10" aria-labelledby="faq-h">
           <h2 id="faq-h" className="text-2xl font-bold tracking-tight">Frequently asked questions</h2>
-          <div className="mt-5 divide-y divide-slate-200 border-y border-slate-200">
+          <div className="mt-5 divide-y divide-slate-200 border-y border-line">
             {FAQ.map((f) => (
               <details key={f.q} className="group py-4">
                 <summary className="flex cursor-pointer items-center justify-between gap-4 font-medium">{f.q}<span aria-hidden className="text-brand transition group-open:rotate-45">+</span></summary>
@@ -136,10 +136,10 @@ export default function LabTestsImaging() {
           </div>
         </section>
 
-        <section className="mb-6 rounded-3xl bg-gradient-to-br from-brand-dark via-brand to-teal-500 px-6 py-10 text-center text-white md:px-12">
+        <section className="mb-6 rounded-3xl bg-navy px-6 py-10 text-center text-white md:px-12">
           <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">Get your quote on WhatsApp</h2>
-          <p className="mx-auto mt-2 max-w-xl text-teal-50">Send us the tests you need or a photo of your doctor&apos;s order. Some tests are only available after a medical consultation.</p>
-          <a href={quote("lab tests or imaging")} target="_blank" rel="noopener" className="btn mt-6 bg-white !px-6 !py-3.5 text-brand hover:bg-teal-50">Message us</a>
+          <p className="mx-auto mt-2 max-w-xl text-white/80">Send us the tests you need or a photo of your doctor&apos;s order. Some tests are only available after a medical consultation.</p>
+          <a href={quote("lab tests or imaging")} target="_blank" rel="noopener" className="btn mt-6 bg-white !px-6 !py-3.5 text-brand hover:bg-brand-soft">Message us</a>
         </section>
         <RelatedServices current="/lab-tests-imaging" />
         <p className="mt-6 pb-4 text-xs text-slate-500">Not an emergency service: in an emergency, call 911.</p>

@@ -87,7 +87,7 @@ export function BookingWizard({ drip, onClose }: { drip: string; onClose?: () =>
             <div className="grid gap-2.5">
               {IV_DRIPS.map((o) => (
                 <button key={o.id} type="button" aria-pressed={k === o.id} onClick={() => setK(o.id)}
-                  className={`flex w-full items-center justify-between gap-3 rounded-xl border-2 p-4 text-left transition ${k === o.id ? "border-brand bg-brand-soft" : "border-slate-200 hover:border-slate-300"}`}>
+                  className={`flex w-full items-center justify-between gap-3 rounded-xl border-2 p-4 text-left transition ${k === o.id ? "border-brand bg-brand-soft" : "border-line hover:border-slate-300"}`}>
                   <span><b className="block text-[0.95rem]">{o.name}</b><span className="mt-0.5 block text-xs text-slate-500">{o.duration}</span></span>
                   <span className="whitespace-nowrap font-bold text-brand">{o.from ? "From " : ""}{money(o.priceUsd)}</span>
                 </button>
@@ -121,9 +121,9 @@ export function BookingWizard({ drip, onClose }: { drip: string; onClose?: () =>
               <>
                 <h3 className="mb-2 mt-5 text-xs font-semibold uppercase tracking-wide text-slate-500">Preferred time (Cabo time)</h3>
                 <div className="grid grid-cols-3 gap-2">
-                  {isToday && <button type="button" aria-pressed={time === "ASAP"} onClick={() => setTime("ASAP")} className={`col-span-3 rounded-lg border-2 py-2.5 text-sm font-bold ${time === "ASAP" ? "border-brand bg-brand-soft" : "border-slate-200"}`}>As soon as possible</button>}
+                  {isToday && <button type="button" aria-pressed={time === "ASAP"} onClick={() => setTime("ASAP")} className={`col-span-3 rounded-lg border-2 py-2.5 text-sm font-bold ${time === "ASAP" ? "border-brand bg-brand-soft" : "border-line"}`}>As soon as possible</button>}
                   {hours.map((h) => { const v = `${pad(h)}:00`; return (
-                    <button key={v} type="button" aria-pressed={time === v} onClick={() => setTime(v)} className={`rounded-lg border-2 py-2.5 text-sm font-semibold ${time === v ? "border-brand bg-brand-soft" : "border-slate-200 hover:border-slate-300"}`}>{hlabel(h)}</button>
+                    <button key={v} type="button" aria-pressed={time === v} onClick={() => setTime(v)} className={`rounded-lg border-2 py-2.5 text-sm font-semibold ${time === v ? "border-brand bg-brand-soft" : "border-line hover:border-slate-300"}`}>{hlabel(h)}</button>
                   ); })}
                   {isToday && hours.length === 0 && <p className="col-span-3 text-xs text-slate-500">No more regular slots today. Choose “As soon as possible” or another day.</p>}
                 </div>
@@ -150,7 +150,7 @@ export function BookingWizard({ drip, onClose }: { drip: string; onClose?: () =>
 
         {step === 4 && svc && (
           <>
-            <dl className="rounded-xl bg-slate-50 p-4 text-sm">
+            <dl className="rounded-xl bg-surface p-4 text-sm">
               {([["Service", svc.name], ["Date", dlabel(date)], ["Time", tlabel(time)], ["Name", f.name], ["Phone", f.phone], ["Email", f.email], ["Location", f.loc], ["Price", `${svc.from ? "From " : ""}${money(svc.priceUsd)} USD`]] as const).map(([a, b]) => (
                 <div key={a} className="flex justify-between gap-4 py-1"><dt className="text-slate-500">{a}</dt><dd className="text-right font-semibold">{b}</dd></div>
               ))}

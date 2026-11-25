@@ -84,11 +84,11 @@ export default function AestheticMedicine() {
       <JsonLd data={[services, faqSchema(FAQ)]} />
 
       {/* Hero */}
-      <section className="bg-gradient-to-b from-rose-50 to-white">
+      <section className="bg-surface">
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 pb-12 pt-8 md:grid-cols-2 md:pb-16">
           <div>
             <Breadcrumbs items={[{ name: "Aesthetic medicine", href: "/aesthetic-medicine" }]} />
-            <p className="mt-6 text-xs font-bold uppercase tracking-[0.16em] text-rose-600">Aesthetic medicine · Cabo San Lucas</p>
+            <p className="mt-6 text-xs font-bold uppercase tracking-[0.16em] text-brand">Aesthetic medicine · Cabo San Lucas</p>
             <h1 className="mt-2 text-4xl font-extrabold leading-[1.1] tracking-tight md:text-5xl">Natural-looking aesthetic treatments in Cabo</h1>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate-600">
               Lip fillers, wrinkle-relaxing injections, skin brightening and facial rejuvenation by appointment, after an in-person medical assessment. Our aesthetic medicine division is led by {LEAD}.
@@ -112,7 +112,7 @@ export default function AestheticMedicine() {
           <p className="mt-2 text-slate-600">Starting prices in US dollars. Your doctor confirms the total after the assessment.</p>
           <ul className="mt-8 grid gap-6 md:grid-cols-2">
             {TREATMENTS.map((t) => (
-              <li key={t.name} className="flex flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition hover:shadow-md">
+              <li key={t.name} className="flex flex-col overflow-hidden rounded-3xl border border-line bg-white shadow-sm transition hover:shadow-md">
                 {t.art}
                 <div className="flex flex-1 flex-col p-6">
                   <div className="flex flex-wrap items-baseline justify-between gap-2">
@@ -133,8 +133,8 @@ export default function AestheticMedicine() {
           <h2 id="how" className="text-2xl font-bold tracking-tight">How it works</h2>
           <ol className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map(([t, d], i) => (
-              <li key={t} className="rounded-2xl bg-rose-50 p-5">
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-sm font-bold text-rose-600 shadow-sm">{i + 1}</span>
+              <li key={t} className="rounded-2xl bg-surface p-5">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-sm font-bold text-brand shadow-sm">{i + 1}</span>
                 <p className="mt-3 font-semibold">{t}</p>
                 <p className="mt-1 text-sm leading-relaxed text-slate-600">{d}</p>
               </li>
@@ -144,7 +144,7 @@ export default function AestheticMedicine() {
 
         {/* Safety */}
         <section className="py-6" aria-labelledby="safety">
-          <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 md:p-8">
+          <div className="rounded-3xl border border-line bg-surface p-6 md:p-8">
             <h2 id="safety" className="text-xl font-semibold">Safety first</h2>
             <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
               Aesthetic treatments are medical procedures. They are only performed after an assessment, and your doctor may recommend not to treat — for example during pregnancy or breastfeeding, with active skin infections or with certain medications. Common, usually temporary effects include redness, swelling or bruising. We do not show before-and-after photos or promise specific results.
@@ -155,7 +155,7 @@ export default function AestheticMedicine() {
         {/* FAQ */}
         <section className="py-10" aria-labelledby="faq-h">
           <h2 id="faq-h" className="text-2xl font-bold tracking-tight">Frequently asked questions</h2>
-          <div className="mt-5 divide-y divide-slate-200 border-y border-slate-200">
+          <div className="mt-5 divide-y divide-slate-200 border-y border-line">
             {FAQ.map((f) => (
               <details key={f.q} className="group py-4">
                 <summary className="flex cursor-pointer items-center justify-between gap-4 font-medium">{f.q}<span aria-hidden className="text-brand transition group-open:rotate-45">+</span></summary>
@@ -166,10 +166,10 @@ export default function AestheticMedicine() {
         </section>
 
         {/* CTA */}
-        <section className="mb-6 rounded-3xl bg-gradient-to-br from-rose-500 to-brand px-6 py-10 text-center text-white md:px-12">
+        <section className="mb-6 rounded-3xl bg-navy px-6 py-10 text-center text-white md:px-12">
           <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">Book your assessment</h2>
-          <p className="mx-auto mt-2 max-w-xl text-rose-50">Tell us the treatment you are interested in and your travel dates. We reply in English or Spanish.</p>
-          <a href={book("")} target="_blank" rel="noopener" className="btn mt-6 bg-white !px-6 !py-3.5 text-brand hover:bg-rose-50">Message us on WhatsApp</a>
+          <p className="mx-auto mt-2 max-w-xl text-white/80">Tell us the treatment you are interested in and your travel dates. We reply in English or Spanish.</p>
+          <a href={book("")} target="_blank" rel="noopener" className="btn mt-6 bg-white !px-6 !py-3.5 text-brand hover:bg-surface">Message us on WhatsApp</a>
         </section>
         <RelatedServices current="/aesthetic-medicine" />
         <p className="mt-6 pb-4 text-xs leading-relaxed text-slate-500">

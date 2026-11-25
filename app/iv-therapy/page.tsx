@@ -41,7 +41,7 @@ export default function IvTherapy() {
         },
       ]} />
 
-      <section className="border-b border-slate-100 bg-brand-soft">
+      <section className="bg-surface">
         <div className="mx-auto max-w-4xl px-4 py-12 md:py-16">
           <Breadcrumbs items={[{ name: "IV therapy", href: "/iv-therapy" }]} />
           <h1 className="mt-5 text-4xl font-bold leading-[1.1] tracking-tight md:text-5xl">IV therapy in Cabo San Lucas, delivered to your hotel or villa</h1>
@@ -56,18 +56,18 @@ export default function IvTherapy() {
       <section className="section" aria-labelledby="why">
         <h2 id="why" className="h2">Why IV therapy</h2>
         <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {BENEFITS.map(([t, d]) => <li key={t} className="rounded-xl border border-slate-200 p-5"><h3 className="font-semibold">{t}</h3><p className="mt-2 text-sm text-slate-600">{d}</p></li>)}
+          {BENEFITS.map(([t, d]) => <li key={t} className="rounded-xl border border-line p-5"><h3 className="font-semibold">{t}</h3><p className="mt-2 text-sm text-slate-600">{d}</p></li>)}
         </ul>
       </section>
 
-      <section id="drips" className="scroll-mt-20 bg-slate-50" aria-labelledby="menu">
+      <section id="drips" className="scroll-mt-20 bg-surface" aria-labelledby="menu">
         <div className="section">
           <BookingError />
           <h2 id="menu" className="h2">Our IV drip menu</h2>
           <p className="mt-3 max-w-2xl text-slate-600">At your hotel or villa: $159 per IV therapy, Multivitamin (Myers) $189, NAD+ $279. Prices in USD, taxes included. {IV_PRICE_NOTES.inClinic} {IV_PRICE_NOTES.groups} Pick a drip to choose your date and time. A 50% deposit secures your visit.</p>
           <ul className="mt-8 grid gap-6 md:grid-cols-2">
             {IV_DRIPS.map((d, i) => (
-              <li key={d.id} className="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white">
+              <li key={d.id} className="flex flex-col overflow-hidden rounded-2xl border border-line bg-white">
                 <Image src={d.image} alt={d.alt} width={768} height={768} loading={i < 2 ? "eager" : "lazy"} sizes="(min-width: 768px) 480px, 100vw" className="aspect-[16/10] w-full object-cover" />
                 <div className="flex flex-1 flex-col p-6">
                   <p className="text-xs font-semibold uppercase tracking-wide text-brand">{d.category}</p>
@@ -86,7 +86,7 @@ export default function IvTherapy() {
         </div>
       </section>
 
-      <section className="bg-slate-50" aria-labelledby="how">
+      <section className="bg-surface" aria-labelledby="how">
         <div className="section">
           <h2 id="how" className="h2">How it works</h2>
           <ol className="mt-8 grid gap-6 md:grid-cols-3">
@@ -103,7 +103,7 @@ export default function IvTherapy() {
       <section className="section" aria-labelledby="zones">
         <h2 id="zones" className="h2">Hotel &amp; villa delivery across Los Cabos</h2>
         <p className="mt-3 max-w-2xl text-slate-600">Our nursing team comes to you with pharmaceutical-grade fluids and sterile equipment. Rest in your room, by the pool or on your terrace. We confirm the appointment time with you.</p>
-        <ul className="mt-6 grid gap-3 sm:grid-cols-2">{ZONES.map((z) => <li key={z} className="rounded-xl border border-slate-200 p-4 text-sm">{z}</li>)}</ul>
+        <ul className="mt-6 grid gap-3 sm:grid-cols-2">{ZONES.map((z) => <li key={z} className="rounded-xl border border-line p-4 text-sm">{z}</li>)}</ul>
       </section>
 
       <section className="mx-auto max-w-3xl px-4 pb-4" aria-labelledby="safety">
@@ -117,7 +117,7 @@ export default function IvTherapy() {
 
       <section className="mx-auto max-w-3xl px-4 py-12" aria-labelledby="faq">
         <h2 id="faq" className="h2 text-center">IV therapy questions, answered</h2>
-        <div className="mt-8 divide-y divide-slate-200 rounded-xl border border-slate-200">
+        <div className="mt-8 divide-y divide-slate-200 rounded-xl border border-line">
           {IV_FAQ.map((f) => (
             <details key={f.q} className="group p-5">
               <summary className="flex cursor-pointer items-center justify-between gap-4 font-medium">{f.q}<span aria-hidden className="text-brand transition group-open:rotate-45">+</span></summary>

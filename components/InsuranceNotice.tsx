@@ -7,7 +7,7 @@ import { INSURANCE } from "@/lib/site";
  */
 export function InsuranceNotice({ compact = false }: { compact?: boolean }) {
   return (
-    <aside aria-labelledby="ins-title" className={`rounded-2xl border border-slate-200 bg-white ${compact ? "p-5" : "p-6 md:p-8"}`}>
+    <aside aria-labelledby="ins-title" className={`rounded-2xl border border-line bg-white ${compact ? "p-5" : "p-6 md:p-8"}`}>
       <div className="flex items-start gap-4">
         <span className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand sm:flex"><IconShield className="h-5 w-5" /></span>
         <div>

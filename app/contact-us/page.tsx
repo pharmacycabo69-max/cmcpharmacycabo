@@ -35,19 +35,19 @@ export default function Contact() {
       </p>
 
       <div className="mt-8 grid gap-5 md:grid-cols-3">
-        <div className="rounded-2xl border border-slate-200 bg-white p-6">
+        <div className="rounded-2xl border border-line bg-white p-6">
           <h2 className="font-semibold">WhatsApp</h2>
           <p className="mt-1 text-lg font-bold text-brand">{SITE.whatsappDisplay}</p>
           <p className="mt-1 text-sm text-slate-600">Orders, prices, prescriptions and appointments.</p>
           <a href={`${SITE.whatsapp}?text=${encodeURIComponent("Hi! I have a question for CMC Pharmacy Cabo.")}`} target="_blank" rel="noopener" className="btn btn-primary mt-4">Message us</a>
         </div>
-        <div className="rounded-2xl border border-slate-200 bg-white p-6">
+        <div className="rounded-2xl border border-line bg-white p-6">
           <h2 className="font-semibold">Phone &amp; email</h2>
           <p className="mt-1 text-lg font-bold text-brand"><a href={SITE.tel}>{SITE.phone}</a></p>
           <p className="mt-1 text-sm text-slate-600"><a href={`mailto:${SITE.email}`} className="hover:text-brand">{SITE.email}</a></p>
           <a href={SITE.tel} className="btn btn-outline mt-4">Call us</a>
         </div>
-        <div className="rounded-2xl border border-slate-200 bg-white p-6">
+        <div className="rounded-2xl border border-line bg-white p-6">
           <h2 className="font-semibold">Clinic address</h2>
           <address className="mt-1 text-sm not-italic leading-relaxed text-slate-700">{SITE.street},<br />{SITE.postalCode} {SITE.locality}, B.C.S., Mexico</address>
           <a href={mapsUrl} target="_blank" rel="noopener" className="btn btn-outline mt-4">Get directions</a>
@@ -56,7 +56,7 @@ export default function Contact() {
 
       <section className="mt-10" aria-labelledby="hours">
         <h2 id="hours" className="text-xl font-semibold">Hours</h2>
-        <dl className="mt-3 divide-y divide-slate-100 rounded-2xl border border-slate-200 text-sm">
+        <dl className="mt-3 divide-y divide-slate-100 rounded-2xl border border-line text-sm">
           {HOURS.map(([k, v]) => (
             <div key={k} className="flex flex-wrap justify-between gap-2 px-5 py-3"><dt className="font-medium">{k}</dt><dd className="text-slate-600">{v}</dd></div>
           ))}
@@ -68,7 +68,7 @@ export default function Contact() {
         <h2 id="stores" className="text-xl font-semibold">Our stores in Cabo San Lucas</h2>
         <ul className="mt-3 grid gap-3 text-sm sm:grid-cols-2">
           {LOCATIONS.map((l) => (
-            <li key={l.slug}><Link href={`/locations/${l.slug}`} className="block rounded-xl border border-slate-200 p-4 hover:border-brand"><span className="font-semibold">{l.gbpName} · {l.placeLabel}</span><span className="mt-1 block text-slate-600">{l.addressLine}</span></Link></li>
+            <li key={l.slug}><Link href={`/locations/${l.slug}`} className="block rounded-xl border border-line p-4 hover:border-brand"><span className="font-semibold">{l.gbpName} · {l.placeLabel}</span><span className="mt-1 block text-slate-600">{l.addressLine}</span></Link></li>
           ))}
         </ul>
       </section>

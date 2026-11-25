@@ -58,7 +58,7 @@ export default function Locations() {
           ].map(([Icon, big, small]) => {
             const I = Icon as typeof IconClock;
             return (
-              <li key={big as string} className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-4">
+              <li key={big as string} className="flex items-center gap-3 rounded-2xl border border-line bg-white p-4">
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand"><I className="h-5 w-5" /></span>
                 <p><span className="block text-sm font-bold leading-tight">{big as string}</span><span className="block text-xs text-slate-500">{small as string}</span></p>
               </li>
@@ -75,9 +75,9 @@ export default function Locations() {
 
         <section className="mt-14" aria-labelledby="details">
           <h2 id="details" className="text-2xl font-bold tracking-tight">Addresses, hours and phone</h2>
-          <div className="mt-5 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+          <div className="mt-5 overflow-x-auto rounded-2xl border border-line bg-white">
             <table className="w-full min-w-[640px] text-left text-sm">
-              <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
+              <thead className="bg-surface text-xs uppercase tracking-wide text-slate-500">
                 <tr><th className="px-4 py-3">Store</th><th className="px-4 py-3">Address</th><th className="px-4 py-3">Hours</th><th className="px-4 py-3">Contact</th></tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -107,18 +107,18 @@ export default function Locations() {
           </ul>
         </section>
 
-        <section className="mt-14 overflow-hidden rounded-3xl bg-gradient-to-br from-brand-dark via-brand to-teal-500 p-8 text-white md:p-10" aria-labelledby="delivery">
+        <section className="mt-14 overflow-hidden rounded-3xl bg-navy p-8 text-white md:p-10" aria-labelledby="delivery">
           <h2 id="delivery" className="text-2xl font-extrabold tracking-tight">Can&apos;t get to a store? We deliver to your hotel</h2>
-          <p className="mt-2 max-w-2xl text-teal-50">Every day from 7 am to 11 pm to any hotel, resort or villa in Los Cabos. Free delivery on orders of ${SITE.freeDeliveryFrom} or more.</p>
+          <p className="mt-2 max-w-2xl text-white/80">Every day from 7 am to 11 pm to any hotel, resort or villa in Los Cabos. Free delivery on orders of ${SITE.freeDeliveryFrom} or more.</p>
           <div className="mt-6 flex flex-wrap gap-3">
             <a href={`${SITE.whatsapp}?text=${encodeURIComponent("Hi! I need a pharmacy delivery in Cabo.")}`} target="_blank" rel="noopener" className="btn !bg-[#25d366] text-[#05301b] hover:!bg-[#2ee170]">Order on WhatsApp</a>
-            <Link href="/delivery-areas" className="btn bg-white text-brand hover:bg-teal-50">Find your hotel</Link>
+            <Link href="/delivery-areas" className="btn bg-white text-brand hover:bg-brand-soft">Find your hotel</Link>
           </div>
         </section>
 
         <section className="mt-14" aria-labelledby="faq-h">
           <h2 id="faq-h" className="text-2xl font-bold tracking-tight">Pharmacy FAQ</h2>
-          <div className="mt-4 divide-y divide-slate-200 border-y border-slate-200">
+          <div className="mt-4 divide-y divide-slate-200 border-y border-line">
             {FAQ.map((f) => (
               <details key={f.q} className="group py-4">
                 <summary className="flex cursor-pointer items-center justify-between gap-4 font-medium">{f.q}<span aria-hidden className="text-brand transition group-open:rotate-45">+</span></summary>

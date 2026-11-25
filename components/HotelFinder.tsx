@@ -30,7 +30,7 @@ export function HotelFinder({ hotels, whatsapp }: { hotels: Hotel[]; whatsapp: s
         <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {list.map((h) => (
             <li key={h.slug}>
-              <Link href={`/${h.slug}`} className="group flex h-full items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-4 text-sm font-semibold transition hover:-translate-y-0.5 hover:border-brand hover:shadow-md">
+              <Link href={`/${h.slug}`} className="group flex h-full items-center justify-between gap-3 rounded-2xl border border-line bg-white p-4 text-sm font-semibold transition hover:-translate-y-0.5 hover:border-brand hover:shadow-md">
                 <span className="group-hover:text-brand">{h.name}</span>
                 <span aria-hidden className="text-brand transition group-hover:translate-x-1">→</span>
               </Link>

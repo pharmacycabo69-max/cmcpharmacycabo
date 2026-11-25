@@ -6,7 +6,7 @@ import type { Location } from "@/lib/locations";
 export function StoreCard({ l, priority = false }: { l: Location; priority?: boolean }) {
   const photo = l.photos[0];
   return (
-    <article className="flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition hover:border-brand">
+    <article className="flex flex-col overflow-hidden rounded-xl border border-line bg-white transition hover:border-brand">
       <Link href={`/locations/${l.slug}`} aria-label={`${l.gbpName}, ${l.addressLine}`} className="block aspect-[4/3] overflow-hidden bg-slate-100">
         <Image src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} sizes="(min-width: 1024px) 350px, (min-width: 640px) 50vw, 100vw" priority={priority} className="h-full w-full object-cover" />
       </Link>

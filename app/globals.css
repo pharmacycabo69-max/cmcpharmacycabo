@@ -23,31 +23,34 @@ html { scroll-behavior: smooth; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
-body { background: #fff; color: #10202b; font-family: var(--font-inter), system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+body { background: #fff; color: #112a3a; font-family: var(--font-inter), system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
 h1, h2, h3, .font-display { font-family: var(--font-heading), var(--font-inter), system-ui, sans-serif; letter-spacing: -0.02em; }
 :focus-visible { outline: 2px solid var(--color-brand); outline-offset: 2px; }
 summary::-webkit-details-marker { display: none; }
 summary { list-style: none; }
 
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; border-radius: .75rem; padding: .8rem 1.3rem; font-weight: 600; font-size: .95rem; line-height: 1.2; transition: background .15s, border-color .15s, color .15s, transform .15s; }
-.btn:active { transform: translateY(1px); }
-.btn-primary { background: var(--color-brand); color: #fff; }
-.btn-primary:hover { background: var(--color-brand-dark); }
-.btn-navy { background: var(--color-navy); color: #fff; }
-.btn-navy:hover { background: var(--color-navy-deep); }
-.btn-outline { border: 1px solid #c9d6db; color: var(--color-navy); background: #fff; }
-.btn-outline:hover { border-color: var(--color-brand); color: var(--color-brand); }
-.btn-wa { background: #25d366; color: #05301b; }
-.btn-wa:hover { background: #2ee170; }
+/* Component classes live in the components layer so Tailwind utilities (hidden, md:flex, w-full…) can override them */
+@layer components {
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; border-radius: .75rem; padding: .8rem 1.3rem; font-weight: 600; font-size: .95rem; line-height: 1.2; transition: background .15s, border-color .15s, color .15s, transform .15s; }
+  .btn:active { transform: translateY(1px); }
+  .btn-primary { background: var(--color-brand); color: #fff; }
+  .btn-primary:hover { background: var(--color-brand-dark); }
+  .btn-navy { background: var(--color-navy); color: #fff; }
+  .btn-navy:hover { background: var(--color-navy-deep); }
+  .btn-outline { border: 1px solid #c9d6db; color: var(--color-navy); background: #fff; }
+  .btn-outline:hover { border-color: var(--color-brand); color: var(--color-brand); }
+  .btn-wa { background: #25d366; color: #05301b; }
+  .btn-wa:hover { background: #2ee170; }
 
-.section { margin-inline: auto; max-width: 76rem; padding: 4.5rem 1rem; }
-.h2 { font-family: var(--font-heading), var(--font-inter), system-ui, sans-serif; font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.25rem); font-weight: 700; letter-spacing: -.025em; line-height: 1.15; color: var(--color-navy); }
-.eyebrow { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .16em; color: var(--color-brand); }
-.card { border: 1px solid var(--color-line); background: #fff; border-radius: 1.1rem; }
-.card-hover { transition: border-color .2s, box-shadow .2s, transform .2s; }
-.card-hover:hover { border-color: #9cc9cb; box-shadow: 0 10px 30px -12px rgb(18 62 85 / .25); transform: translateY(-2px); }
-.field { width: 100%; border-radius: .7rem; border: 1px solid #c9d6db; background: #fff; padding: .7rem .9rem; font-size: 1rem; outline: none; }
-.field:focus { border-color: var(--color-brand); box-shadow: 0 0 0 3px rgb(8 127 131 / .15); }
+  .section { margin-inline: auto; max-width: 76rem; padding: 4.5rem 1rem; }
+  .h2 { font-family: var(--font-heading), var(--font-inter), system-ui, sans-serif; font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.25rem); font-weight: 700; letter-spacing: -.025em; line-height: 1.15; }
+  .eyebrow { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .16em; color: var(--color-brand); }
+  .card { border: 1px solid var(--color-line); background: #fff; border-radius: 1.1rem; }
+  .card-hover { transition: border-color .2s, box-shadow .2s, transform .2s; }
+  .card-hover:hover { border-color: #9cc9cb; box-shadow: 0 10px 30px -12px rgb(18 62 85 / .25); transform: translateY(-2px); }
+  .field { width: 100%; border-radius: .7rem; border: 1px solid #c9d6db; background: #fff; padding: .7rem .9rem; font-size: 1rem; outline: none; }
+  .field:focus { border-color: var(--color-brand); box-shadow: 0 0 0 3px rgb(8 127 131 / .15); }
+}
 
 /* Content imported from the previous site */
 .prose-cmc { line-height: 1.8; color: #334155; font-size: 1.05rem; }

@@ -26,7 +26,7 @@ export default function Blog() {
     mainEntity: { "@type": "ItemList", itemListElement: all.slice(0, 30).map((p, i) => ({ "@type": "ListItem", position: i + 1, url: abs(`/${p.slug}`), name: p.title })) },
   };
   const Card = ({ p, big = false }: { p: (typeof all)[number]; big?: boolean }) => (
-    <article className={`group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white transition hover:-translate-y-1 hover:border-brand hover:shadow-lg ${big ? "md:col-span-2 md:flex-row" : ""}`}>
+    <article className={`group flex flex-col overflow-hidden rounded-2xl border border-line bg-white transition hover:-translate-y-1 hover:border-brand hover:shadow-lg ${big ? "md:col-span-2 md:flex-row" : ""}`}>
       <Link href={`/${p.slug}`} tabIndex={-1} aria-hidden className={`block overflow-hidden bg-slate-100 ${big ? "aspect-[16/9] md:aspect-auto md:w-1/2" : "aspect-[16/9]"}`}>
         {p.image ? (
           // eslint-disable-next-line @next/next/no-img-element

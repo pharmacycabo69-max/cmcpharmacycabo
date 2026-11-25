@@ -88,7 +88,7 @@ export function ShopView({ base, params, category }: { base: string; params: Par
               ["2. Confirm the total", `We confirm availability, price and delivery time before we go. Delivery is free on orders of $${SITE.freeDeliveryFrom} or more.`],
               ["3. Receive it", "We deliver to hotels, resorts, villas and homes in Cabo San Lucas and San José del Cabo, every day from 7 am to 11 pm."],
             ].map(([t, d]) => (
-              <li key={t} className="rounded-2xl border border-slate-200 bg-white p-5">
+              <li key={t} className="rounded-2xl border border-line bg-white p-5">
                 <h3 className="font-semibold">{t}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">{d}</p>
               </li>
@@ -103,7 +103,7 @@ export function ShopView({ base, params, category }: { base: string; params: Par
       {content && (
         <section className="mt-14 max-w-3xl" aria-labelledby="cat-faq">
           <h2 id="cat-faq" className="text-xl font-semibold">Frequently asked questions</h2>
-          <div className="mt-4 divide-y divide-slate-200 border-y border-slate-200">
+          <div className="mt-4 divide-y divide-slate-200 border-y border-line">
             {content.faq.map((f) => (
               <details key={f.q} className="group py-4">
                 <summary className="flex cursor-pointer items-center justify-between gap-4 font-medium">{f.q}<span aria-hidden className="text-brand transition group-open:rotate-45">+</span></summary>
