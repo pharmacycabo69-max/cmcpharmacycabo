@@ -155,14 +155,10 @@ export function BookingWizard({ drip, onClose }: { drip: string; onClose?: () =>
                 <div key={a} className="flex justify-between gap-4 py-1"><dt className="text-slate-500">{a}</dt><dd className="text-right font-semibold">{b}</dd></div>
               ))}
             </dl>
-            <form method="post" action="/api/iv-therapy/checkout" className="mt-5 flex flex-col gap-3">
-              <input type="hidden" name="option" value={svc.id} /><input type="hidden" name="date" value={date} /><input type="hidden" name="time" value={time} />
-              <input type="hidden" name="name" value={f.name} /><input type="hidden" name="phone" value={f.phone} /><input type="hidden" name="email" value={f.email} />
-              <input type="hidden" name="location" value={f.loc} /><input type="hidden" name="notes" value={f.notes} />
-              <button className={primary}>Pay {Math.round(IV.depositRate * 100)}% deposit · {money(svc.priceUsd * IV.depositRate)}</button>
-              <a href={waHref} target="_blank" rel="noopener" className={`${btn} bg-[#1fa855] text-center text-white hover:bg-[#188a45]`}>Send request on WhatsApp</a>
-            </form>
-            <p className="mt-4 text-xs leading-relaxed text-slate-500">The deposit is paid by card with Stripe; the balance is paid after the service. This is a booking request: our team confirms availability and the exact time by WhatsApp or phone. Not for emergencies — call 911.</p>
+            <div className="mt-5 flex flex-col gap-3">
+              <a href={waHref} target="_blank" rel="noopener" className={`${btn} bg-[#1fa855] text-center text-white hover:bg-[#188a45]`}>Send booking request on WhatsApp</a>
+            </div>
+            <p className="mt-4 text-xs leading-relaxed text-slate-500">Nothing is charged now. Our team confirms availability and the exact time by WhatsApp, then explains how to pay. Not for emergencies — call 911.</p>
             <div className="mt-4"><button type="button" className={ghost} onClick={back}>← Edit</button></div>
           </>
         )}

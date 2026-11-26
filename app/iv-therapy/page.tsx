@@ -10,7 +10,7 @@ import { abs } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: { absolute: "IV Therapy Cabo San Lucas at Your Hotel | From $159" },
-  description: "IV therapy at your hotel or villa in Cabo San Lucas: IV $159, Multivitamin $189, NAD+ $279 (USD, taxes included). Medical assessment first; 50% deposit to book.",
+  description: "IV therapy at your hotel or villa in Cabo San Lucas: IV $159, Multivitamin $189, NAD+ $279 (USD, taxes included). Medical assessment first; pay after we confirm your time.",
   alternates: { canonical: "/iv-therapy" },
   openGraph: { url: "/iv-therapy", images: [IV_DRIPS[0].image] },
 };
@@ -19,7 +19,7 @@ const BENEFITS = [
   ["Medical assessment first", "Our team reviews your health history and rules out contraindications before any drip."],
   ["Licensed professionals", "Administered by a licensed nurse who monitors you during the session."],
   ["At your hotel or villa", "We come to you across Cabo San Lucas, San José del Cabo and the Corridor, by appointment."],
-  ["Clear pricing", "At your hotel or villa: IV therapy $159, Multivitamin $189, NAD+ $279. USD, taxes included. 50% deposit to book."],
+  ["Clear pricing", "At your hotel or villa: IV therapy $159, Multivitamin $189, NAD+ $279. USD, taxes included. You pay after we confirm your time."],
 ];
 const STEPS = [
   ["Consult", "Short assessment with our medical team by phone or in person. We review your health history and rule out contraindications."],
