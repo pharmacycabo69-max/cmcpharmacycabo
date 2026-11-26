@@ -36,7 +36,7 @@ const GROUPS: { title: string; items: { q: string; a: string }[] }[] = [
     title: "Doctors, IV therapy & other services",
     items: [
       { q: "Is this an emergency service?", a: "No. In an emergency, call 911 or go to the nearest hospital. We provide general consultations, IV therapy and other services by appointment." },
-      { q: "How much is IV therapy?", a: "At your hotel or villa: IV therapy $159, Total Wellness IV $189 and NAD+ $279. At the clinic: IV therapy $129, Total Wellness IV $154 and NAD+ $279. Groups of 3 or more: ask us for a group quote. USD, taxes included, after a medical assessment. A 50% deposit secures your booking." },
+      { q: "How much is IV therapy?", a: "At your hotel or villa: IV therapy $159, Total Wellness IV $189 and NAD+ $279. At the clinic: IV therapy $129, Total Wellness IV $154 and NAD+ $279. Groups: ask us for a quote. USD, taxes included, after a medical assessment. You pay online once your time is confirmed." },
       { q: "Do you offer lab tests and imaging?", a: "Yes. Our medical team coordinates blood work, urine and stool tests and X-rays with partner providers. Ask for a quote; ultrasound is not offered at this time." },
     ],
   },

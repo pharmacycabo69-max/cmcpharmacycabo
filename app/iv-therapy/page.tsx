@@ -68,7 +68,7 @@ export default function IvTherapy() {
         <div className="section">
           <BookingError />
           <h2 id="menu" className="h2">Our IV drip menu</h2>
-          <p className="mt-3 max-w-2xl text-slate-600">At your hotel or villa: $159 per IV therapy, Total Wellness IV $189, NAD+ $279. Prices in USD, taxes included. {IV_PRICE_NOTES.inClinic} {IV_PRICE_NOTES.groups} Pick a drip to choose your date and time. A 50% deposit secures your visit.</p>
+          <p className="mt-3 max-w-2xl text-slate-600">At your hotel or villa: $159 per IV therapy, Total Wellness IV $189, NAD+ $279. Prices in USD, taxes included. {IV_PRICE_NOTES.inClinic} {IV_PRICE_NOTES.groups} Pick a drip to choose your date and time; you pay online once we confirm your time.</p>
           <div className="mt-8"><IvMenu items={IV_DRIPS.map((d) => ({ id: d.id, name: d.name, category: d.category, tagline: d.tagline, price: d.priceUsd, duration: d.duration, image: d.image, alt: d.alt, formula: INGREDIENTS_VERIFIED ? d.includes : INGREDIENTS_NOTE }))} /></div>
         </div>
       </section>
