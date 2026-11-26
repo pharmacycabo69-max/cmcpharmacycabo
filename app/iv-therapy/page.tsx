@@ -64,7 +64,7 @@ export default function IvTherapy() {
         <div className="section">
           <BookingError />
           <h2 id="menu" className="h2">Our IV drip menu</h2>
-          <p className="mt-3 max-w-2xl text-slate-600">At your hotel or villa: $159 per IV therapy, Multivitamin (Myers) $189, NAD+ $279. Prices in USD, taxes included. {IV_PRICE_NOTES.inClinic} {IV_PRICE_NOTES.groups} Pick a drip to choose your date and time. A 50% deposit secures your visit.</p>
+          <p className="mt-3 max-w-2xl text-slate-600">At your hotel or villa: $159 per IV therapy, Multivitamin (Myers) $189, NAD+ $279. Prices in USD, taxes included. {IV_PRICE_NOTES.inClinic} {IV_PRICE_NOTES.groups} Pick a drip to send your request; we confirm your time before anything is charged.</p>
           <ul className="mt-8 grid gap-6 md:grid-cols-2">
             {IV_DRIPS.map((d, i) => (
               <li key={d.id} className="flex flex-col overflow-hidden rounded-2xl border border-line bg-white">
