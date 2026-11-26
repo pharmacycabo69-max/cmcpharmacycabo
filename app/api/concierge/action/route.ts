@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getSession } from "@/lib/server/auth";
 import { sameOrigin } from "@/lib/server/http";
 import { notify } from "@/lib/server/notify";
-import { makePayToken, paymentsEnabled } from "@/lib/server/paylink";
+import { makePayToken, paymentsEnabled, serviceAllowedOnline } from "@/lib/server/paylink";
 import { getRecord, updateRecord, type Status } from "@/lib/server/records";
 import { SITE } from "@/lib/site";
 
@@ -44,6 +44,7 @@ export async function POST(req: Request) {
     case "paylink": {
       if (rec.kind !== "booking") return back({ msg: "Pharmacy orders are not charged online." });
       if (!paymentsEnabled()) return back({ msg: "Online payments are disabled (PAYMENTS_ENABLED, Stripe key or PAY_LINK_SECRET missing)." });
+      if (!serviceAllowedOnline(rec.service?.id)) return back({ msg: "This service needs Stripe approval before it can be charged online (telemedicine). Use another authorized payment method." });
       if (!["confirmed", "payment_link_sent"].includes(rec.status) || !rec.expectedCents) return back({ msg: "Confirm availability and the amount first." });
       if (rec.payment?.status === "paid") return back({ msg: "Already paid." });
       const hours = Number(f.get("hours")) || 24;

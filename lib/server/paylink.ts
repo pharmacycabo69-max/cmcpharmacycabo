@@ -35,5 +35,13 @@ export function verifyPayToken(token: string): { ok: true; p: PayToken } | { ok:
 /** Stable id of a token, used as the Stripe idempotency key (same link → same Checkout session). */
 export const tokenId = (token: string) => crypto.createHash("sha256").update(token).digest("hex").slice(0, 32);
 
+/**
+ * Stripe Mexico lists telemedicine/telehealth, online pharmacies and prescription products as restricted (prior
+ * approval required; stripe.com/mx/legal/restricted-businesses, checked 26 Nov 2026). These services stay blocked
+ * until the owner has Stripe's written approval and lists them in STRIPE_APPROVED_RESTRICTED (comma-separated ids).
+ */
+const RESTRICTED = new Set(["video"]);
+export const serviceAllowedOnline = (serviceId?: string) => !!serviceId && (!RESTRICTED.has(serviceId) || (process.env.STRIPE_APPROVED_RESTRICTED || "").split(",").map((x) => x.trim()).includes(serviceId));
+
 /** Online payment is off until the owner approves the cancellation policy and Stripe confirms the activity. */
 export const paymentsEnabled = () => process.env.PAYMENTS_ENABLED === "true" && /^sk_(test|live)_/.test(process.env.STRIPE_SECRET_KEY || "") && payLinksReady();

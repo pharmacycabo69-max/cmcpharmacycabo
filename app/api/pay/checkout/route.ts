@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { sameOrigin } from "@/lib/server/http";
-import { paymentsEnabled, tokenId, verifyPayToken } from "@/lib/server/paylink";
+import { paymentsEnabled, serviceAllowedOnline, tokenId, verifyPayToken } from "@/lib/server/paylink";
 import { getRecord, updateRecord } from "@/lib/server/records";
 import { getStripe } from "@/lib/stripe";
 import { SITE } from "@/lib/site";
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
   const stripe = getStripe();
   if (!paymentsEnabled() || !stripe) return back("state");
   const rec = await getRecord(v.p.f).catch(() => null);
-  if (!rec || rec.kind !== "booking" || rec.expectedCents !== v.p.a || !["confirmed", "payment_link_sent"].includes(rec.status) || rec.payment?.status === "paid") return back("state");
+  if (!rec || rec.kind !== "booking" || !serviceAllowedOnline(rec.service?.id) || rec.expectedCents !== v.p.a || !["confirmed", "payment_link_sent"].includes(rec.status) || rec.payment?.status === "paid") return back("state");
   try {
     const found = await stripe.paymentIntents.search({ query: `metadata['folio']:'${rec.folio}' AND status:'succeeded'`, limit: 1 });
     if (found.data.length) return back("state");
