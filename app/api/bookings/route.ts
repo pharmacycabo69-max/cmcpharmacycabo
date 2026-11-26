@@ -30,14 +30,17 @@ export async function POST(req: Request) {
   if (!name || phone.replace(/\D/g, "").length < 8 || (mode === "hotel" && !place)) return json({ error: "invalid_contact" }, 400);
   if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return json({ error: "invalid_email" }, 400);
 
-  const price = svc.pay === "online_after_confirmation" ? priceOf(svc, option || undefined) : null;
+  const people = svc.group === "IV therapy" ? Math.max(1, Math.min(10, Math.floor(Number(b.people)) || 1)) : 1;
+  const unit = svc.pay === "online_after_confirmation" ? priceOf(svc, option || undefined) : null;
+  // Total at list price × people; group discounts are not applied online (pending validation)
+  const price = unit ? unit * people : null;
   let rec;
   try {
     rec = await createRecord({
       kind: "booking", lang: b.lang === "es" ? "es" : "en",
       contact: { name, phone, email: email || undefined },
       delivery: mode === "hotel" ? { area: area || "Not specified", place } : undefined,
-      service: { id: svc.id, option: option || undefined, mode, date, time },
+      service: { id: svc.id, option: option || undefined, mode, date, time, people },
       expectedCents: price ? Math.round(price * 100) : undefined,
     });
   } catch (e) {

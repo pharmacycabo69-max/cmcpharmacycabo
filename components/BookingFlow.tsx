@@ -27,7 +27,7 @@ function caboNow() {
 type Details = { name: string; phone: string; email: string; area: string; place: string };
 type Sent = { folio: string; track: string; service: string; option?: string; mode: Mode; date: string; time: string };
 
-export function BookingFlow({ initial, initialOption }: { initial?: string; initialOption?: string }) {
+export function BookingFlow({ initial, initialOption, initialPeople }: { initial?: string; initialOption?: string; initialPeople?: number }) {
   const now = useMemo(caboNow, []);
   const [svcId, setSvcId] = useState(getBookable(initial ?? "") ? initial! : "");
   const svc = getBookable(svcId);
@@ -38,6 +38,7 @@ export function BookingFlow({ initial, initialOption }: { initial?: string; init
   const [cm, setCm] = useState(now.m);
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
+  const [people, setPeople] = useState(Math.max(1, Math.min(10, initialPeople || 1)));
   const [d, setD] = useState<Details>({ name: "", phone: "", email: "", area: AREAS[0], place: "" });
   const [err, setErr] = useState("");
   const [sent, setSent] = useState<Sent | null>(null);
@@ -50,7 +51,9 @@ export function BookingFlow({ initial, initialOption }: { initial?: string; init
   const last = new Date(now.y, now.m, now.d + 60);
   const lastIso = iso(last.getFullYear(), last.getMonth(), last.getDate());
   const hours = mode ? HOURS[mode].filter((h) => !(date === todayIso && h <= now.h + 1)) : [];
-  const price = svc ? priceOf(svc, opt) : null;
+  const isIv = svc?.group === "IV therapy";
+  const unit = svc ? priceOf(svc, opt) : null;
+  const price = unit ? unit * (isIv ? people : 1) : null;
 
   const toDetails = () => {
     if (!svc) return;
@@ -69,7 +72,7 @@ export function BookingFlow({ initial, initialOption }: { initial?: string; init
     if (d.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email)) return setErr("Please check your email.");
     setErr(""); setFallback(false); setBusy(true);
     try {
-      const r = await fetch("/api/bookings", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ service: svcId, option: opt || undefined, mode, date, time, ...d, lang: "en" }) });
+      const r = await fetch("/api/bookings", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ service: svcId, option: opt || undefined, people: isIv ? people : 1, mode, date, time, ...d, lang: "en" }) });
       const j = await r.json().catch(() => ({}));
       if (r.ok && j.folio) { save({ folio: j.folio, track: j.track, service: svcId, option: opt || undefined, mode: mode as Mode, date, time }); window.scrollTo({ top: 0 }); }
       else if (r.status === 503 || r.status === 429) { setErr("We couldn't save your booking online right now. Please send it on WhatsApp and we'll take care of it."); setFallback(true); }
@@ -175,6 +178,19 @@ export function BookingFlow({ initial, initialOption }: { initial?: string; init
                 </div>
               </fieldset>
             )}
+            {isIv && (
+              <div>
+                <label htmlFor="bk-people" className="text-sm font-semibold text-navy">Number of people</label>
+                <div className="mt-2 flex items-center gap-3">
+                  <div className="flex items-center rounded-xl ring-1 ring-line">
+                    <button type="button" aria-label="One person less" onClick={() => setPeople((p) => Math.max(1, p - 1))} className="h-10 w-10 text-lg text-navy">−</button>
+                    <input id="bk-people" inputMode="numeric" value={people} onChange={(e) => setPeople(Math.max(1, Math.min(10, Number(e.target.value.replace(/\D/g, "")) || 1)))} className="h-10 w-10 text-center text-sm font-semibold" />
+                    <button type="button" aria-label="One person more" onClick={() => setPeople((p) => Math.min(10, p + 1))} className="h-10 w-10 text-lg text-navy">+</button>
+                  </div>
+                  {people > 1 && <p className="text-xs text-slate-500">List price × {people}. Group discounts are confirmed case by case.</p>}
+                </div>
+              </div>
+            )}
             {svc.modes.length > 1 && (
               <fieldset>
                 <legend className="text-sm font-semibold text-navy">Where</legend>
@@ -249,7 +265,7 @@ export function BookingFlow({ initial, initialOption }: { initial?: string; init
               <p className="mt-2 font-display text-xl font-bold text-navy">{svc.name}</p>
               {opt && <p className="text-sm text-slate-600">{svc.options?.find((o) => o.id === opt)?.name}</p>}
               <dl className="mt-4 space-y-2 border-t border-line pt-4 text-sm">
-                <div className="flex justify-between"><dt className="text-slate-500">Price</dt><dd className="font-semibold text-navy">{price ? `$${price} USD` : "Quote"}</dd></div>
+                <div className="flex justify-between"><dt className="text-slate-500">Price{isIv && people > 1 ? ` (${people} people)` : ""}</dt><dd className="font-semibold text-navy">{price ? `$${price} USD` : "Quote"}</dd></div>
                 {price ? <div className="flex justify-between"><dt className="text-slate-500">Paid online after confirmation</dt><dd className="font-semibold text-navy">{money(price * svc.payNow)}</dd></div> : null}
                 {mode && <div className="flex justify-between"><dt className="text-slate-500">Where</dt><dd className="text-navy">{MODE_LABEL[mode]}</dd></div>}
                 {date && <div className="flex justify-between"><dt className="text-slate-500">When</dt><dd className="text-navy">{dlabel(date)}{time ? `, ${time === "ASAP" ? "ASAP" : hlabel(+time.split(":")[0])}` : ""}</dd></div>}

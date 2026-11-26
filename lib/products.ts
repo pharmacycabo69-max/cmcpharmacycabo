@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import indexJson from "@/data/products/index.json";
 import catsJson from "@/data/products/categories.slim.json";
+import { score } from "@/lib/smartsearch";
 
 export type ProductSummary = {
   id: number; slug: string; name: string; sku: string | null; price: number; regular: number;
@@ -126,11 +127,18 @@ export function search({ q, cat, page = 1, sort, type, price }: { q?: string; ca
   const band = price ? PRICE_BANDS[price] : undefined;
   if (band) list = list.filter((p) => p.price >= band[0] && p.price < band[1]);
   if (cat) { const ids = categoryIds(cat); list = list.filter((p) => p.cats.some((c) => ids.has(c))); }
-  if (q) { const t = q.toLowerCase().split(/\s+/).filter(Boolean); list = list.filter((p) => t.every((w) => p.name.toLowerCase().includes(w) || p.sku?.toLowerCase() === w)); }
+  // Smart search: bilingual synonyms + typo tolerance (lib/smartsearch); best matches first unless a sort is chosen
+  let scores: Map<number, number> | null = null;
+  if (q) {
+    const exact = q.trim().toLowerCase();
+    scores = new Map(list.map((p) => [p.id, p.sku?.toLowerCase() === exact ? 99 : score(p.name, q)] as [number, number]).filter(([, v]) => v > 0));
+    list = list.filter((p) => scores!.has(p.id));
+  }
   if (sort === "price-asc") list = [...list].sort((a, b) => (hasPrice(a) ? a.price : Infinity) - (hasPrice(b) ? b.price : Infinity));
   else if (sort === "price-desc") list = [...list].sort((a, b) => b.price - a.price);
   // Default order: complete listings first (photo + price), then photo only, then price only (stable within each group).
   // On the main shop page, what travelers need most (sun care, stomach, pain, allergy…) comes first.
+  else if (scores) list = [...list].sort((a, b) => scores!.get(b.id)! - scores!.get(a.id)! || listingRank(a) - listingRank(b));
   else if (!cat && !q) list = [...list].sort((a, b) => listingRank(a) - listingRank(b) || travelRank(a) - travelRank(b));
   else list = [...list].sort((a, b) => listingRank(a) - listingRank(b));
   const total = list.length;

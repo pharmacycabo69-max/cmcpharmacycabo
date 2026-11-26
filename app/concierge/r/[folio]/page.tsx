@@ -49,7 +49,7 @@ export default async function RecordPage({ params, searchParams }: { params: Pro
           {r.items && <ul className="mt-2 space-y-1 text-sm">{r.items.map((i) => <li key={i.id}>{i.qty} × {i.name} — {money(i.unitCents)} {i.rx && <b className="text-amber-800">℞</b>}</li>)}</ul>}
           {r.items && <p className="mt-2 text-sm">Catalog subtotal {money(subtotal)} · {subtotal >= SITE.freeDeliveryFrom * 100 ? "free delivery" : "delivery fee to confirm"}{r.rxAnswer && <> · prescription: {r.rxAnswer}</>}</p>}
           {r.notFound && <p className="mt-2 text-sm">Requested by name: {r.notFound}</p>}
-          {r.service && <p className="mt-2 text-sm">{svc?.name}{r.service.option && ` — ${svc?.options?.find((o) => o.id === r.service!.option)?.name}`}<br />{MODE_LABEL[r.service.mode as keyof typeof MODE_LABEL]} · preferred {r.service.date} {r.service.time}</p>}
+          {r.service && <p className="mt-2 text-sm">{svc?.name}{r.service.option && ` — ${svc?.options?.find((o) => o.id === r.service!.option)?.name}`}<br />{MODE_LABEL[r.service.mode as keyof typeof MODE_LABEL]} · preferred {r.service.date} {r.service.time}{r.service.people && r.service.people > 1 ? ` · ${r.service.people} people` : ""}</p>}
           <p className="mt-2 text-sm">Expected amount: <b>{money(r.expectedCents)}</b>{r.deliveryFeeCents !== undefined && <> · delivery {money(r.deliveryFeeCents)}</>}</p>
           {r.payment && <p className="mt-2 text-sm">Payment: {r.payment.status} {money(r.payment.amountCents)} {r.payment.paymentIntent && <a className="text-brand underline" href={`https://dashboard.stripe.com/payments/${r.payment.paymentIntent}`} target="_blank" rel="noopener">Stripe</a>}</p>}
         </section>

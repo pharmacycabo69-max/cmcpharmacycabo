@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { CategoryRail } from "@/components/CategoryRail";
 import { ProductCard } from "@/components/ProductCard";
+import { SearchSuggest } from "@/components/SearchSuggest";
 import { categories, isIndexableCategory, search, topCategories, type Category } from "@/lib/products";
 import { categoryContent, relatedGuides } from "@/lib/category-content";
 import { JsonLd, faqSchema } from "@/lib/seo";
@@ -46,9 +48,10 @@ export function ShopView({ base, params, category }: { base: string; params: Par
         </div>
       )}
 
+      {!category && !filtered && res.page === 1 && <CategoryRail />}
+
       <form action={base} className="mt-6 grid gap-3 sm:flex" role="search">
-        <label className="sr-only" htmlFor="q">Search products</label>
-        <input id="q" name="q" defaultValue={params.q} placeholder="Search products…" className="field min-w-0 sm:flex-1" />
+        <SearchSuggest id="q" defaultValue={params.q} placeholder="Search by product, brand or active ingredient (English or Spanish)" className="min-w-0 sm:flex-1" />
         <label className="sr-only" htmlFor="sort">Sort</label>
         <select id="sort" name="sort" defaultValue={params.sort ?? ""} className="field sm:w-52">
           <option value="">Default order</option>

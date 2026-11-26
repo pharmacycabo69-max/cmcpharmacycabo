@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { BookDripButton } from "@/components/BookDripButton";
+import { IvMenu } from "@/components/IvMenu";
 import { BookingError } from "@/components/BookingError";
 import { RelatedServices } from "@/components/RelatedServices";
 import { JsonLd, faqSchema, orgId } from "@/lib/seo";
@@ -70,24 +69,7 @@ export default function IvTherapy() {
           <BookingError />
           <h2 id="menu" className="h2">Our IV drip menu</h2>
           <p className="mt-3 max-w-2xl text-slate-600">At your hotel or villa: $159 per IV therapy, Total Wellness IV $189, NAD+ $279. Prices in USD, taxes included. {IV_PRICE_NOTES.inClinic} {IV_PRICE_NOTES.groups} Pick a drip to choose your date and time. A 50% deposit secures your visit.</p>
-          <ul className="mt-8 grid gap-6 md:grid-cols-2">
-            {IV_DRIPS.map((d, i) => (
-              <li key={d.id} className="flex flex-col overflow-hidden rounded-2xl border border-line bg-white">
-                <Image src={d.image} alt={d.alt} width={768} height={768} loading={i < 2 ? "eager" : "lazy"} sizes="(min-width: 768px) 480px, 100vw" className="aspect-[16/10] w-full object-cover" />
-                <div className="flex flex-1 flex-col p-6">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-brand">{d.category}</p>
-                  <div className="mt-1 flex items-baseline justify-between gap-3">
-                    <h3 className="text-xl font-bold">{d.name}</h3>
-                    <p className="whitespace-nowrap font-semibold">{d.from && <span className="mr-1 text-xs font-normal text-slate-500">From</span>}${d.priceUsd}<span className="ml-1.5 text-xs font-normal text-slate-500">· {d.duration}</span></p>
-                  </div>
-                  <p className="mt-1 text-sm text-slate-600">{d.tagline}</p>
-                  <p className="mt-3 text-sm"><strong>Formula:</strong> {INGREDIENTS_VERIFIED ? d.includes : INGREDIENTS_NOTE}</p>
-                  <ul className="mt-3 space-y-1 text-sm text-slate-600">{d.benefits.map((b) => <li key={b}>✓ {b}</li>)}</ul>
-                  <BookDripButton id={d.id} className="btn btn-primary mt-5 self-start" />
-                </div>
-              </li>
-            ))}
-          </ul>
+          <div className="mt-8"><IvMenu items={IV_DRIPS.map((d) => ({ id: d.id, name: d.name, category: d.category, tagline: d.tagline, price: d.priceUsd, duration: d.duration, image: d.image, alt: d.alt, formula: INGREDIENTS_VERIFIED ? d.includes : INGREDIENTS_NOTE }))} /></div>
         </div>
       </section>
 

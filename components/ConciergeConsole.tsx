@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { SearchSuggest } from "@/components/SearchSuggest";
 import { useRequest } from "@/lib/request";
 
 const WA = "https://wa.me/5216242261023";
@@ -61,8 +62,7 @@ export function ConciergeConsole() {
         {tab === "medicine" && (
           <>
             <form action="/search" role="search" className="flex gap-2">
-              <label htmlFor="cc-q" className="sr-only">Search a medicine or product</label>
-              <input id="cc-q" name="q" required autoComplete="off" placeholder="Search a medicine or product" className="field h-12 flex-1" />
+              <SearchSuggest id="cc-q" placeholder="Medicine, brand or active ingredient" className="min-w-0 flex-1" />
               <button className="btn btn-primary h-12 px-5">Search</button>
             </form>
             <div className="mt-3 flex flex-wrap gap-1.5">

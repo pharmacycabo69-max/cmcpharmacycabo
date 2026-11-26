@@ -34,7 +34,7 @@ export type Rec = {
   items?: Item[];
   notFound?: string; // pharmacy: products requested by name
   rxAnswer?: "have" | "need";
-  service?: { id: string; option?: string; mode: string; date: string; time: string };
+  service?: { id: string; option?: string; mode: string; date: string; time: string; people?: number };
   /** Server-computed. Fixed-price services: list price. Quote services and pharmacy: set by the concierge. */
   expectedCents?: number;
   deliveryFeeCents?: number;

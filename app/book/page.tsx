@@ -8,8 +8,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/book" },
 };
 
-export default async function BookPage({ searchParams }: { searchParams: Promise<{ service?: string; option?: string }> }) {
-  const { service, option } = await searchParams;
+export default async function BookPage({ searchParams }: { searchParams: Promise<{ service?: string; option?: string; people?: string }> }) {
+  const { service, option, people } = await searchParams;
   return (
     <div className="bg-surface">
       <div className="mx-auto max-w-[76rem] px-4 py-10">
@@ -21,7 +21,7 @@ export default async function BookPage({ searchParams }: { searchParams: Promise
           </div>
           <p className="text-sm text-slate-500">Emergency? Call <a href="tel:911" className="font-semibold text-navy">911</a></p>
         </div>
-        <div className="mt-8"><BookingFlow initial={service} initialOption={option} /></div>
+        <div className="mt-8"><BookingFlow initial={service} initialOption={option} initialPeople={Number(people) || 1} /></div>
       </div>
     </div>
   );
