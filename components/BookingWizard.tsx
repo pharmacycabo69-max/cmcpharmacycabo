@@ -106,7 +106,7 @@ export function BookingWizard({ drip, onClose }: { drip: string; onClose?: () =>
                 <button type="button" aria-label="Next month" disabled={iso(cy, cm + 1, 1) > lastIso} onClick={() => { const d = new Date(cy, cm + 1, 1); setCy(d.getFullYear()); setCm(d.getMonth()); }} className="h-9 w-9 rounded-full bg-slate-100 text-lg disabled:opacity-30">›</button>
               </div>
               <div className="grid grid-cols-7 gap-1 text-center">
-                {WD.map((w) => <div key={w} className="py-1 text-[11px] font-bold text-slate-400">{w}</div>)}
+                {WD.map((w) => <div key={w} className="py-1 text-[11px] font-bold text-slate-500">{w}</div>)}
                 {Array.from({ length: first }, (_, i) => <div key={`e${i}`} />)}
                 {Array.from({ length: days }, (_, i) => {
                   const d = i + 1, s = iso(cy, cm, d), dis = s < todayIso || s > lastIso;

@@ -208,7 +208,7 @@ export function BookingFlow({ initial, initialOption, initialPeople }: { initial
                   <button type="button" aria-label="Next month" disabled={iso(cy, cm + 1, 1) > lastIso} onClick={() => { const x = new Date(cy, cm + 1, 1); setCy(x.getFullYear()); setCm(x.getMonth()); }} className="h-9 w-9 rounded-full bg-surface text-lg disabled:opacity-30">›</button>
                 </div>
                 <div className="grid grid-cols-7 gap-1 text-center">
-                  {WD.map((w) => <div key={w} className="py-1 text-[11px] font-bold text-slate-400">{w}</div>)}
+                  {WD.map((w) => <div key={w} className="py-1 text-[11px] font-bold text-slate-500">{w}</div>)}
                   {Array.from({ length: new Date(cy, cm, 1).getDay() }, (_, i) => <div key={`e${i}`} />)}
                   {Array.from({ length: new Date(cy, cm + 1, 0).getDate() }, (_, i) => {
                     const s = iso(cy, cm, i + 1), dis = s < todayIso || s > lastIso;

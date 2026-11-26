@@ -8,7 +8,7 @@ export function Footer() {
       <div className="mx-auto grid max-w-[76rem] gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
           <p className="flex items-center gap-2.5 font-display text-lg font-bold text-white"><LogoMark className="h-8 w-8" />{SITE.name}</p>
-          <p className="mt-4 max-w-sm text-sm leading-relaxed">The delivery and concierge service of <Link href="/locations" className="text-white underline-offset-2 hover:underline">{SITE.parent}</Link>: English-speaking pharmacists and doctors for visitors and residents of Cabo San Lucas, San José del Cabo and the Corridor.</p>
+          <p className="mt-4 max-w-sm text-sm leading-relaxed">The delivery and concierge service of <Link href="/locations" className="text-white underline underline-offset-2">{SITE.parent}</Link>: English-speaking pharmacists and doctors for visitors and residents of Cabo San Lucas, San José del Cabo and the Corridor.</p>
           <dl className="mt-5 space-y-1.5 text-sm">
             <div className="flex gap-2"><dt className="text-white/50">Delivery</dt><dd>{SITE.deliveryHours.label}</dd></div>
             <div className="flex gap-2"><dt className="text-white/50">WhatsApp</dt><dd><a href={SITE.whatsapp} className="text-white">{SITE.whatsappDisplay}</a></dd></div>

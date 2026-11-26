@@ -82,7 +82,7 @@ export default async function Product({ params }: Props) {
           <h1 className="font-display text-2xl font-bold leading-snug tracking-tight text-navy md:text-3xl">{p.name}</h1>
           <p className="mt-4 flex items-baseline gap-3">
             <span className="text-3xl font-semibold">{hasPrice(p) ? money(p.price) : <span className="text-2xl text-brand">Ask for price</span>}</span>
-            {hasPrice(p) && p.onSale && <span className="text-slate-400 line-through">{money(p.regular)}</span>}
+            {hasPrice(p) && p.onSale && <span className="text-slate-500 line-through">{money(p.regular)}</span>}
           </p>
           <p className="mt-2 text-sm text-slate-500">{p.sku && <>SKU {p.sku} · </>}Availability confirmed by a pharmacist before delivery</p>
           {rx ? (

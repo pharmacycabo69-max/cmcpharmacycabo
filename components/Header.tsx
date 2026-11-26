@@ -23,7 +23,7 @@ export function Header() {
         </div>
       </div>
       <div className="mx-auto flex h-16 max-w-[76rem] items-center justify-between gap-4 px-4 lg:h-[4.5rem]">
-        <Link href="/" aria-label={`${SITE.name} home`} className="shrink-0"><Logo /></Link>
+        <Link href="/" aria-label="CMC Pharmacy Cabo San Lucas — home" className="shrink-0"><Logo /></Link>
 
         <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
           {NAV.map((n) => <Link key={n.href} href={n.href} className={link}>{n.label}</Link>)}

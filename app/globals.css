@@ -6,7 +6,7 @@
  * Contrast: teal on white 4.9:1, navy on white 11:1, white on teal 4.9:1 (WCAG AA).
  */
 @theme inline {
-  --color-brand: #087f83;
+  --color-brand: #06777a;
   --color-brand-dark: #066a6d;
   --color-brand-soft: #e8f4f4;
   --color-navy: #123e55;
@@ -49,7 +49,7 @@ summary { list-style: none; }
   .card-hover { transition: border-color .2s, box-shadow .2s, transform .2s; }
   .card-hover:hover { border-color: #9cc9cb; box-shadow: 0 10px 30px -12px rgb(18 62 85 / .25); transform: translateY(-2px); }
   .field { width: 100%; border-radius: .7rem; border: 1px solid #c9d6db; background: #fff; padding: .7rem .9rem; font-size: 1rem; outline: none; }
-  .field:focus { border-color: var(--color-brand); box-shadow: 0 0 0 3px rgb(8 127 131 / .15); }
+  .field:focus { border-color: var(--color-brand); box-shadow: 0 0 0 3px rgb(6 119 122 / .15); }
 }
 
 /* Content imported from the previous site */

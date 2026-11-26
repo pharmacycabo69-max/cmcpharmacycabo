@@ -8,7 +8,7 @@ import { Analytics } from "@/components/Analytics";
 import { SITE } from "@/lib/site";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
-const heading = Manrope({ variable: "--font-heading", subsets: ["latin"], weight: ["600", "700", "800"], display: "swap" });
+const heading = Manrope({ variable: "--font-heading", subsets: ["latin"], weight: ["700", "800"], display: "swap" });
 
 export const viewport: Viewport = { themeColor: "#123e55", width: "device-width", initialScale: 1 };
 

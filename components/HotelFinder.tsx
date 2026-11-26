@@ -20,7 +20,7 @@ export function HotelFinder({ hotels, whatsapp }: { hotels: Hotel[]; whatsapp: s
     <div>
       <label htmlFor="hotel-q" className="sr-only">Search your hotel</label>
       <div className="relative">
-        <svg aria-hidden viewBox="0 0 24 24" className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
+        <svg aria-hidden viewBox="0 0 24 24" className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
         <input id="hotel-q" type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Type your hotel name…" autoComplete="off"
           className="w-full rounded-2xl border border-slate-300 bg-white py-4 pl-12 pr-4 text-base shadow-sm outline-none transition focus:border-brand focus:ring-4 focus:ring-teal-100" />
       </div>

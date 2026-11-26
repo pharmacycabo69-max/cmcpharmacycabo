@@ -84,7 +84,7 @@ export default function LabTestsImaging() {
 
         {/* Laboratory */}
         <section className="py-6" aria-labelledby="lab">
-          <h2 id="lab" className="text-2xl font-bold tracking-tight md:text-3xl">Laboratory tests <span className="text-slate-400">({count})</span></h2>
+          <h2 id="lab" className="text-2xl font-bold tracking-tight md:text-3xl">Laboratory tests <span className="text-slate-500">({count})</span></h2>
           <p className="mt-2 text-slate-600">Tap an area to see every test.</p>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {catalog.lab.map((a) => (

@@ -78,7 +78,7 @@ export function ShopView({ base, params, category }: { base: string; params: Par
       {chips.length > 0 && (
         <ul className="-mx-4 mt-5 flex gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0" aria-label="Categories">
           {chips.map((c) => (
-            <li key={c.id} className="shrink-0"><Link href={`/product-category/${c.slug}`} className="inline-block whitespace-nowrap rounded-full border border-line bg-white px-3 py-1.5 text-xs font-medium text-navy hover:border-brand hover:text-brand">{c.name} <span className="text-slate-400">({c.count})</span></Link></li>
+            <li key={c.id} className="shrink-0"><Link href={`/product-category/${c.slug}`} className="inline-block whitespace-nowrap rounded-full border border-line bg-white px-3 py-1.5 text-xs font-medium text-navy hover:border-brand hover:text-brand">{c.name} <span className="text-slate-500">({c.count})</span></Link></li>
           ))}
         </ul>
       )}
