@@ -42,11 +42,11 @@ function tidyLanding(html: string) {
 }
 
 /**
- * Imported copy advertises 24/7 / overnight service. Confirmed hours (master data §2): delivery 7:00–23:00
+ * Imported copy advertises 24/7 / overnight service. Confirmed hours (owner V5, 26 Nov 2026): delivery 8:00–23:30
  * every day, no 24/7 or immediate availability. These rules rewrite those claims at load time so the original
  * import stays untouched and the change is reversible. Order matters: specific phrases first.
  */
-const HOURS = "7 am–11 pm";
+const HOURS = "8 am–11:30 pm";
 // Used as String.replace replacements, where "$$" is a literal "$" (so "$59" is not read as a group reference)
 const FREE_FROM = `$$${SITE.freeDeliveryFrom}`;
 const FREE_DELIVERY_SENTENCE = `Delivery is free on orders of ${FREE_FROM} or more; for smaller orders we confirm the delivery fee with your total before we go.`;
@@ -54,11 +54,11 @@ const capFirst = (match: string, repl: string) => (/^[A-Z]/.test(match) ? repl[0
 const CLAIMS: [RegExp, string | ((m: string) => string)][] = [
   [/24\s*hours?\s+a\s+day(,?\s*(and\s+)?7\s+days\s+a\s+week)?/gi, `${HOURS}, every day`],
   [/anytime,?\s+day\s+or\s+night/gi, (m) => capFirst(m, `any day, ${HOURS}`)],
-  [/day\s+or\s+night/gi, (m) => capFirst(m, `every day until 11 pm`)],
-  [/around[- ]the[- ]clock/gi, (m) => capFirst(m, `every day from 7 am to 11 pm`)],
-  [/\bat any hour\b/gi, `every day from 7 am to 11 pm`],
+  [/day\s+or\s+night/gi, (m) => capFirst(m, `every day until 11:30 pm`)],
+  [/around[- ]the[- ]clock/gi, (m) => capFirst(m, `every day from 8 am to 11:30 pm`)],
+  [/\bat any hour\b/gi, `every day from 8 am to 11:30 pm`],
   [/\bany hour\b/gi, HOURS],
-  [/\ball night\b/gi, "until 11 pm"],
+  [/\ball night\b/gi, "until 11:30 pm"],
   [/\b(?:24\/7|24-7)\s+(delivery)/gi, (m) => capFirst(m, "daily delivery")],
   // "24/7 pharmacy", "24-Hour Pharmacy Delivery", "24 hour pharmacy" → drop the adjective ("within 24 hours" is untouched)
   [/\b(?:24\/7|24-hours?|24 hour)\s+(?=[A-Za-z])/gi, ""],
@@ -69,7 +69,7 @@ const CLAIMS: [RegExp, string | ((m: string) => string)][] = [
   [/<p>\s*●\s*Live\s*<\/p>/g, ""],
   // WhatsApp: the bot-connected main line (master data §2)
   [/wa\.me\/521?6242673177/g, "wa.me/5216242261023"],
-  // Delivery fees (owner, 24 Nov 2026): free on orders of $59+. Imported copy invents fees/minimums ($5–15, $20–25,
+  // Delivery fees (owner V5, 26 Nov 2026): free on orders of $99+. Imported copy invents fees/minimums ($5–15, $20–25,
   // free from $25/$50/$99): any sentence that states a fee, minimum or threshold with an amount becomes the policy.
   [
     /[^.!?<>]+[.!]?/g,

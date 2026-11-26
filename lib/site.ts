@@ -18,13 +18,15 @@ export const SITE = {
   postalCode: "23450",
   country: "MX",
   logo: "/apple-icon",
-  /** Delivery hours confirmed by the owner. Do not advertise 24/7 or immediate availability. */
-  deliveryHours: { opens: "07:00", closes: "23:00", label: "7:00 am – 11:00 pm, every day" },
-  /** Free delivery threshold in USD (owner, 24 Nov 2026). Smaller orders: fee confirmed with the total. */
-  freeDeliveryFrom: 59,
+  /** Delivery hours (owner V5, 26 Nov 2026). Requests are received 24/7; delivery runs 8:00–23:30. Never advertise 24/7 delivery. */
+  deliveryHours: { opens: "08:00", closes: "23:30", label: "8:00 am – 11:30 pm, every day" },
+  /** Digital requests and bookings are received 24/7 and answered during operating hours. */
+  requestsLabel: "Requests received 24/7",
+  /** Free delivery threshold in USD (owner V5, 26 Nov 2026). Smaller orders: the fee is confirmed before payment, never invented. */
+  freeDeliveryFrom: 99,
   tagline: "Pharmacy Delivery & English-Speaking Doctors in Los Cabos",
   description:
-    "Pharmacy delivery in Cabo San Lucas & San José del Cabo, every day 7 am–11 pm. English-speaking pharmacists, prescription and OTC medicine to your hotel or villa, and doctor visits.",
+    "Pharmacy delivery in Cabo San Lucas & San José del Cabo, every day 8 am–11:30 pm. English-speaking pharmacists, prescription and OTC medicine to your hotel or villa, and doctor visits.",
   /** Google rating is not verified for this brand; keep null until the owner confirms the profile and figures. */
   rating: null as null | { value: number; count: number },
   /** CMC is the delivery & concierge service of RMC Pharmacy, which runs the stores in /locations. */
@@ -47,8 +49,8 @@ export const NAV = [
   { href: "/iv-therapy", label: "IV Therapy" },
 ];
 export const MORE_SERVICES: { title: string; links: [string, string][] }[] = [
-  { title: "Medical care", links: [["/services", "All services & prices"], ["/book", "Book care online"], ["/hotel-doctor-cabo", "Doctor at your hotel"], ["/lab-tests-imaging", "Lab tests, X-ray & ultrasound"], ["/aesthetic-medicine", "Aesthetic medicine"], ["/prescription-requirements", "Prescriptions in Mexico"]] },
-  { title: "Pharmacy", links: [["/price-list", "Price list"], ["/delivery-areas", "Hotels & delivery areas"], ["/locations", "Our 5 pharmacies"], ["/team", "Our doctor & team"], ["/for-concierges", "For hotels & concierges"]] },
+  { title: "Medical care", links: [["/services", "All services & prices"], ["/book", "Book care online"], ["/hotel-doctor-cabo", "Doctor at your hotel"], ["/lab-tests-imaging", "Lab tests"], ["/x-ray-cabo", "X-ray"], ["/nursing-cabo", "Nursing care"], ["/aesthetic-medicine", "Aesthetic medicine"], ["/prescription-requirements", "Prescriptions in Mexico"]] },
+  { title: "Pharmacy", links: [["/price-list", "Price list"], ["/delivery-areas", "Hotels & delivery areas"], ["/locations", "RMC Pharmacy stores"], ["/team", "Our doctor & team"], ["/for-concierges", "For hotels & concierges"]] },
   { title: "Help", links: [["/faq", "FAQ"], ["/blog", "Travel health guides"], ["/contact-us", "Contact"], ["/es", "Español"]] },
 ];
 

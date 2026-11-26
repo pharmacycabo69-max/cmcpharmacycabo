@@ -19,7 +19,7 @@ import { DOCTOR, MEDICAL_PRICES } from "@/lib/team";
 export const metadata: Metadata = {
   title: { absolute: "Cabo San Lucas Pharmacy: Hotel Delivery | CMC Pharmacy Cabo" },
   description:
-    "Pharmacy delivery to every hotel in Cabo San Lucas & San José del Cabo, 7 am–11 pm. English-speaking doctors, IV therapy, lab tests. Free delivery from $59.",
+    "Pharmacy delivery to every hotel in Cabo San Lucas & San José del Cabo, 8 am–11:30 pm. English-speaking doctors, IV therapy, lab tests. Free delivery from $99.",
   alternates: { canonical: "/", languages: { en: "/", es: "/es", "x-default": "/" } },
   openGraph: {
     title: "Cabo San Lucas Pharmacy: Hotel Delivery | CMC Pharmacy Cabo",
@@ -34,7 +34,7 @@ const INTENTS: { icon: Icon; t: string; d: string; href: string; cta: string }[]
   { icon: IconPill, t: "I need medication", d: "Build a request; a pharmacist confirms availability and total.", href: "/shop", cta: "Order medicine" },
   { icon: IconStethoscope, t: "I need a doctor", d: `Video $${MEDICAL_PRICES.video}, clinic $${MEDICAL_PRICES.clinic}, at your hotel $${MEDICAL_PRICES.hotel}.`, href: "/book", cta: "Book medical care" },
   { icon: IconDrip, t: "I need IV therapy", d: "At your hotel or villa after a medical assessment.", href: "/iv-therapy", cta: "See IV menu" },
-  { icon: IconFlask, t: "I need a medical test", d: "Lab tests, X-ray and ultrasound, coordinated by our doctors.", href: "/lab-tests-imaging", cta: "Request a quote" },
+  { icon: IconFlask, t: "I need a medical test", d: "Lab tests and X-ray, coordinated by our doctors.", href: "/lab-tests-imaging", cta: "Request a quote" },
   { icon: IconCard, t: "I have travel insurance", d: "US & Canadian policies, verified before your visit.", href: "/international-insurance", cta: "Verify my insurance" },
   { icon: IconSparkle, t: "Aesthetic medicine", d: "Lip fillers, botulinum toxin, rejuvenation, brightening.", href: "/aesthetic-medicine", cta: "See treatments" },
 ];
@@ -46,7 +46,7 @@ const STEPS = [
 ];
 
 const FAQ = [
-  { q: "Is there a pharmacy near me in Cabo San Lucas?", a: `Yes. The ${SITE.parent} network has ${LOCATIONS.length} pharmacies in Cabo San Lucas open every day from 8 am to 6 pm, and ${SITE.name}, its delivery service, brings medicine to your hotel, villa or home from 7 am to 11 pm.` },
+  { q: "Is there a pharmacy near me in Cabo San Lucas?", a: `Yes. The ${SITE.parent} network has ${LOCATIONS.length} pharmacies in Cabo San Lucas open every day from 8 am to 6 pm, and ${SITE.name}, its delivery service, brings medicine to your hotel, villa or home from 8 am to 11:30 pm.` },
   { q: "Do you deliver to my hotel?", a: "We deliver to hotels, resorts, villas and vacation rentals in Cabo San Lucas, San José del Cabo and the Corridor. Some hotels only accept deliveries at the front desk or the entrance; we coordinate the hand-over with you." },
   { q: "Do I pay online?", a: "Not for pharmacy orders. You send a request, a pharmacist confirms availability and the total, and you pay through the channel we agree on. Medical services are booked first and paid online only after our team confirms your time." },
   { q: "Can I get prescription medication?", a: "Prescription-only medicines are dispensed only with a valid prescription. If you don't have one, our English-speaking doctors can see you by video, at the clinic or at your hotel." },
@@ -106,7 +106,7 @@ export default function Home() {
               <p className="text-xs text-slate-500">Physician · license {DOCTOR.license}</p>
             </div>
             <div className="absolute -bottom-6 left-6 right-6 grid grid-cols-3 divide-x divide-line rounded-2xl bg-white text-center text-navy shadow-2xl shadow-black/30">
-              {[[`$${MEDICAL_PRICES.video}`, "Video doctor"], ["7am–11pm", "Delivery, daily"], [`$${SITE.freeDeliveryFrom}+`, "Free delivery"]].map(([a, b]) => (
+              {[[`$${MEDICAL_PRICES.video}`, "Video doctor"], ["8am–11:30pm", "Delivery, daily"], [`$${SITE.freeDeliveryFrom}+`, "Free delivery"]].map(([a, b]) => (
                 <p key={b} className="px-2 py-3"><span className="block font-display text-lg font-extrabold">{a}</span><span className="text-[11px] text-slate-500">{b}</span></p>
               ))}
             </div>

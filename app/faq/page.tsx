@@ -8,7 +8,7 @@ import { INSURANCE, SITE } from "@/lib/site";
 export const metadata: Metadata = {
   title: { absolute: "Pharmacy & Doctor FAQ for Visitors to Cabo San Lucas" },
   description:
-    "Delivery hours, free delivery from $59, prescriptions in Mexico, doctor and IV prices, insurance and payments for visitors to Cabo San Lucas.",
+    "Delivery hours, free delivery from $99, prescriptions in Mexico, doctor and IV prices, insurance and payments for visitors to Cabo San Lucas.",
   alternates: { canonical: "/faq" },
   openGraph: { url: "/faq", images: ["/opengraph-image"] },
 };
@@ -17,7 +17,7 @@ const GROUPS: { title: string; items: { q: string; a: string }[] }[] = [
   {
     title: "Ordering & delivery",
     items: [
-      { q: "What are your delivery hours?", a: "We deliver every day from 7:00 am to 11:00 pm to hotels, resorts, villas and homes in Cabo San Lucas, San José del Cabo and the Corridor." },
+      { q: "What are your delivery hours?", a: "We deliver every day from 8:00 am to 11:30 pm to hotels, resorts, villas and homes in Cabo San Lucas, San José del Cabo and the Corridor." },
       { q: "How much is delivery?", a: `Delivery is free on orders of $${SITE.freeDeliveryFrom} or more. For smaller orders we confirm the delivery fee with your total before we go.` },
       { q: "How long does delivery take?", a: "It depends on where you are staying and the time of day. We give you an estimated delivery time when you order." },
       { q: "Can you deliver to my hotel room?", a: "Yes — we deliver to every hotel, resort, villa and vacation rental in Cabo San Lucas, San José del Cabo and the Tourist Corridor. Some hotels only allow delivery to the front desk or concierge; we coordinate it with you. We are an independent service, not affiliated with any hotel." },
@@ -36,8 +36,8 @@ const GROUPS: { title: string; items: { q: string; a: string }[] }[] = [
     title: "Doctors, IV therapy & other services",
     items: [
       { q: "Is this an emergency service?", a: "No. In an emergency, call 911 or go to the nearest hospital. We provide general consultations, IV therapy and other services by appointment." },
-      { q: "How much is IV therapy?", a: "At your hotel or villa: IV therapy $159, Multivitamin $189 and NAD+ $279. At the clinic: IV therapy $129, Multivitamin $154 and NAD+ $279. Groups of 3 or more: ask us for a group quote. USD, taxes included, after a medical assessment. A 50% deposit secures your booking." },
-      { q: "Do you offer lab tests and imaging?", a: "Yes. Our medical team coordinates blood work, urine and stool tests, X-rays and ultrasound. Ask for a quote on WhatsApp." },
+      { q: "How much is IV therapy?", a: "At your hotel or villa: IV therapy $159, Total Wellness IV $189 and NAD+ $279. At the clinic: IV therapy $129, Total Wellness IV $154 and NAD+ $279. Groups of 3 or more: ask us for a group quote. USD, taxes included, after a medical assessment. A 50% deposit secures your booking." },
+      { q: "Do you offer lab tests and imaging?", a: "Yes. Our medical team coordinates blood work, urine and stool tests and X-rays with partner providers. Ask for a quote; ultrasound is not offered at this time." },
     ],
   },
   {

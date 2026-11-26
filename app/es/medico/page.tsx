@@ -23,7 +23,7 @@ export default function Medico() {
       }}
       includes={[
         { t: `Videoconsulta · $${MEDICAL_PRICES.video} USD`, d: "Desde tu habitación, con orientación médica, receta cuando corresponde y canalización si hace falta." },
-        { t: `Consulta en clínica · $${MEDICAL_PRICES.clinic} USD`, d: "En nuestra clínica del Centro de Cabo San Lucas, de 9:00 a 17:00, con cita." },
+        { t: `Consulta en clínica · $${MEDICAL_PRICES.clinic} USD`, d: "En Cabo Walk-In Clinic, Centro de Cabo San Lucas, todos los días de 9:00 a 17:00; fuera de ese horario, con cita y según disponibilidad." },
         { t: `Médico a domicilio u hotel · $${MEDICAL_PRICES.hotel} USD`, d: "El médico va a tu hotel, villa o casa en Cabo San Lucas, San José del Cabo y el Corredor." },
       ]}
       steps={["Elige la consulta y tu horario preferido.", "Recibes una referencia y la envías por WhatsApp.", "Confirmamos disponibilidad y te enviamos el enlace de pago.", "El médico te atiende a la hora confirmada."]}

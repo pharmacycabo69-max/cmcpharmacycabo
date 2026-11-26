@@ -18,7 +18,7 @@ export function AreaStrip({ name }: { name: string }) {
           </div>
         </div>
         <ul className="flex flex-wrap gap-2 text-xs font-medium">
-          {[`7 am – 11 pm · every day`, `Free from $${SITE.freeDeliveryFrom}`, "English & Spanish"].map((c) => (
+          {[`8 am – 11:30 pm · every day`, `Free from $${SITE.freeDeliveryFrom}`, "English & Spanish"].map((c) => (
             <li key={c} className="rounded-full bg-white/15 px-3 py-1.5 ring-1 ring-white/25">{c}</li>
           ))}
         </ul>

@@ -11,7 +11,7 @@ import { SITE } from "@/lib/site";
 export const metadata: Metadata = {
   title: { absolute: "Contact CMC Pharmacy Cabo: WhatsApp, Phone & Hours" },
   description:
-    "Contact CMC Pharmacy Cabo by WhatsApp +52 624 226 1023 or phone. Delivery 7 am–11 pm, clinic 9 am–5 pm, 5 stores open 8 am–6 pm.",
+    "Contact CMC Pharmacy Cabo by WhatsApp +52 624 226 1023 or phone. Delivery 8 am–11:30 pm, clinic 9 am–5 pm, 5 stores open 8 am–6 pm.",
   alternates: { canonical: "/contact-us" },
   openGraph: { url: "/contact-us", images: ["/opengraph-image"] },
 };
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${SITE.street}, ${SITE.postalCode} ${SITE.locality}, B.C.S., Mexico`)}`;
 
 const HOURS = [
-  ["Pharmacy delivery", "Every day, 7:00 am – 11:00 pm"],
+  ["Pharmacy delivery", "Every day, 8:00 am – 11:30 pm"],
   ["Pharmacies (RMC Pharmacy network)", "Every day, 8:00 am – 6:00 pm"],
   ["Clinic & doctor visits", "Every day, 9:00 am – 5:00 pm, by appointment"],
 ];

@@ -37,7 +37,7 @@ export function ShopView({ base, params, category }: { base: string; params: Par
       {content && <JsonLd data={faqSchema(content.faq)} />}
       <h1 className="mt-5 font-display text-3xl font-bold tracking-tight text-navy md:text-4xl">{category ? categoryContent(category.slug)?.h1 ?? category.name : "Pharmacy & health products in Cabo"}</h1>
       <p className="mt-2 text-slate-600">
-        {category ? `Shop ${category.name.toLowerCase()} with delivery to your hotel or villa in Los Cabos, 7 am – 11 pm daily.` : "Medications, vitamins, personal care and health essentials, delivered daily in Cabo San Lucas and San José del Cabo."}{" "}
+        {category ? `Shop ${category.name.toLowerCase()} with delivery to your hotel or villa in Los Cabos, 8 am – 11:30 pm daily.` : "Medications, vitamins, personal care and health essentials, delivered daily in Cabo San Lucas and San José del Cabo."}{" "}
         <span className="text-slate-500">{res.total.toLocaleString()} items in the catalog · availability confirmed by a pharmacist</span>
       </p>
       {content && (
@@ -103,7 +103,7 @@ export function ShopView({ base, params, category }: { base: string; params: Par
             {[
               ["1. Send your list", "Tap Order on any product, or send us a photo of what you need on WhatsApp, in English or Spanish. Prescription medicines require a valid prescription."],
               ["2. Confirm the total", `We confirm availability, price and delivery time before we go. Delivery is free on orders of $${SITE.freeDeliveryFrom} or more.`],
-              ["3. Receive it", "We deliver to hotels, resorts, villas and homes in Cabo San Lucas and San José del Cabo, every day from 7 am to 11 pm."],
+              ["3. Receive it", "We deliver to hotels, resorts, villas and homes in Cabo San Lucas and San José del Cabo, every day from 8 am to 11:30 pm."],
             ].map(([t, d]) => (
               <li key={t} className="rounded-2xl border border-line bg-white p-5">
                 <h3 className="font-semibold">{t}</h3>

@@ -15,7 +15,7 @@ const GROUPS = ["Pharmacy", "Doctor", "IV therapy", "Tests", "Aesthetics", "Conc
 
 export default function ServicesPage() {
   const items: DirItem[] = [
-    { id: "pharmacy", name: "Pharmacy delivery", group: "Pharmacy", summary: `Prescription and OTC medicine to your hotel, villa or home, ${SITE.deliveryHours.label}. A pharmacist confirms availability and total first.`, price: "Free $59+", tags: ["No online charge", "Rx with valid prescription"], cta: "Order medicine", href: "/shop", more: "/24-7-pharmacy-delivery-cabo-san-lucas" },
+    { id: "pharmacy", name: "Pharmacy delivery", group: "Pharmacy", summary: `Prescription and OTC medicine to your hotel, villa or home, ${SITE.deliveryHours.label}. A pharmacist confirms availability and total first.`, price: "Free $99+", tags: ["No online charge", "Rx with valid prescription"], cta: "Order medicine", href: "/shop", more: "/24-7-pharmacy-delivery-cabo-san-lucas" },
     { id: "request", name: "Send a list or photo", group: "Pharmacy", summary: "Can't find it in the catalog? Build a request or send the name or a photo of the box.", price: "Free", tags: ["English & Spanish"], cta: "Start a request", href: "/request" },
     ...BOOKABLE.map((b) => ({
       id: b.id, name: b.name, group: b.group, summary: b.summary,

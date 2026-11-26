@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const p = getProduct((await params).slug);
   if (!p) return {};
   const cat = p.categories[0]?.name;
-  const desc = cut(`${p.name}${cat ? ` — ${cat}` : ""}. ${hasPrice(p) ? `${money(p.price)}. ` : ""}Order from CMC Pharmacy Cabo with delivery to your hotel or villa in Los Cabos, 7 am–11 pm daily.`, 158);
+  const desc = cut(`${p.name}${cat ? ` — ${cat}` : ""}. ${hasPrice(p) ? `${money(p.price)}. ` : ""}Order from CMC Pharmacy Cabo with delivery to your hotel or villa in Los Cabos, 8 am–11:30 pm daily.`, 158);
   return {
     title: productTitle(p.name),
     description: desc,
@@ -111,7 +111,7 @@ export default async function Product({ params }: Props) {
             </div>
           )}
           <ul className="mt-5 space-y-1 text-sm text-slate-600">
-            <li>✓ Delivery to hotels, resorts and villas, 7 am – 11 pm daily</li>
+            <li>✓ Delivery to hotels, resorts and villas, 8 am – 11:30 pm daily</li>
             <li>✓ Free delivery on orders of ${SITE.freeDeliveryFrom}+</li>
             <li>✓ No online payment: total and delivery time confirmed first</li>
             <li>✓ English &amp; Spanish support on WhatsApp</li>

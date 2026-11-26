@@ -6,7 +6,7 @@ import { MAX_QTY, clearRequest, newRequestId, setQty, useRequest, type RequestIt
 
 const WA_NUMBER = "5216242261023"; // bot line (V4 §4)
 const AREAS = ["Cabo San Lucas", "Tourist Corridor", "San José del Cabo", "Other / not sure"];
-const WINDOWS = ["As soon as possible", "Morning (7 am – 12 pm)", "Afternoon (12 – 6 pm)", "Evening (6 – 11 pm)"];
+const WINDOWS = ["As soon as possible", "Morning (8 am – 12 pm)", "Afternoon (12 – 6 pm)", "Evening (6 – 11:30 pm)"];
 const LAST = "cmc-request-last";
 
 type Contact = { name: string; phone: string; area: string; place: string; window: string; rx: "" | "have" | "need" | "none"; instructions: string };

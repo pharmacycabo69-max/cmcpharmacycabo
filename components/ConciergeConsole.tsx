@@ -23,22 +23,23 @@ const OPTIONS: Record<"doctor" | "iv" | "tests", Opt[]> = {
   ],
   iv: [
     { t: "IV therapy", s: "Hydration, recovery, jet lag…", p: "$159", href: "/book?service=iv-therapy" },
-    { t: "Multivitamin (Myers)", s: "Classic vitamin blend", p: "$189", href: "/book?service=iv-therapy&option=myers-cocktail-classic" },
+    { t: "Total Wellness IV", s: "Most complete vitamin IV", p: "$189", href: "/book?service=iv-therapy&option=myers-cocktail-classic" },
     { t: "NAD+ therapy", s: "NAD+ with hydration", p: "$279", href: "/book?service=nad" },
   ],
   tests: [
     { t: "Laboratory tests", s: "Blood, urine, stool", p: "Quote", href: "/book?service=lab" },
-    { t: "X-ray & ultrasound", s: "With a partner center", p: "Quote", href: "/book?service=imaging" },
+    { t: "X-ray", s: "With a partner center", p: "Quote", href: "/book?service=imaging" },
     { t: "Doctor first", s: "Not sure which test?", p: "$59", href: "/book?service=video" },
   ],
 };
 
-/** Delivery window state from the published hours (7:00–23:00, Cabo time). It is a schedule, not live staffing. */
+/** Delivery window from the published hours (8:00–23:30, Cabo time). A schedule, not live staffing. Requests are received 24/7. */
 function useDeliveryWindow() {
   const [label, setLabel] = useState("");
   useEffect(() => {
-    const h = Number(new Intl.DateTimeFormat("en-US", { timeZone: "America/Mazatlan", hour: "numeric", hourCycle: "h23" }).format(new Date()));
-    setLabel(h >= 7 && h < 23 ? "Delivery hours now · until 11 pm" : "Delivery starts at 7 am · send your request anytime");
+    const p = Object.fromEntries(new Intl.DateTimeFormat("en-US", { timeZone: "America/Mazatlan", hour: "numeric", minute: "numeric", hourCycle: "h23" }).formatToParts(new Date()).map((x) => [x.type, x.value]));
+    const m = Number(p.hour) * 60 + Number(p.minute);
+    setLabel(m >= 8 * 60 && m < 23 * 60 + 30 ? "Delivery hours now · until 11:30 pm" : "Delivery starts at 8 am · requests received 24/7");
   }, []);
   return label;
 }
@@ -94,7 +95,7 @@ export function ConciergeConsole() {
           </div>
         )}
       </div>
-      <p className="flex items-center gap-2 px-5 py-3 text-xs text-white/75"><span className="h-2 w-2 rounded-full bg-emerald-400" aria-hidden />{window_ || "Delivery 7 am – 11 pm, every day"}<span className="ml-auto hidden sm:inline">Prices in USD, taxes included</span></p>
+      <p className="flex items-center gap-2 px-5 py-3 text-xs text-white/75"><span className="h-2 w-2 rounded-full bg-emerald-400" aria-hidden />{window_ || "Delivery 8 am – 11:30 pm · requests 24/7"}<span className="ml-auto hidden sm:inline">Prices in USD, taxes included</span></p>
     </div>
   );
 }

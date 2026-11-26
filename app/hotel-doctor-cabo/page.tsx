@@ -26,7 +26,7 @@ const book = `${SITE.whatsapp}?text=${encodeURIComponent("Hi! I'd like to book a
 const INCLUDED = [
   ["Consultation at your door", "A general medical consultation and examination at your hotel, villa or home."],
   ["Prescription when appropriate", "If medicine is needed, the doctor can issue a prescription valid in Mexico."],
-  ["Medicine delivered", "Our pharmacy brings your prescription to you, every day 7 am – 11 pm."],
+  ["Medicine delivered", "Our pharmacy brings your prescription to you, every day 8 am – 11:30 pm."],
   ["Tests if needed", "We can coordinate lab tests or imaging and tell you the quote before you book."],
   ["Total price in writing", `$${MEDICAL_PRICES.hotel} USD, taxes included. We confirm the price and time before the visit.`],
   ["English & Spanish", "Your visit and written instructions in the language you prefer."],

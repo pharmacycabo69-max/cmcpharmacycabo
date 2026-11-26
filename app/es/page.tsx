@@ -10,7 +10,7 @@ import { DOCTOR, MEDICAL_PRICES } from "@/lib/team";
 
 export const metadata: Metadata = {
   title: { absolute: "Farmacia a domicilio en Cabo San Lucas | CMC Pharmacy Cabo" },
-  description: "Farmacia a domicilio en Cabo San Lucas y San José del Cabo, de 7 am a 11 pm. Médico a domicilio, videoconsulta, sueroterapia y estudios. Envío gratis desde $59 USD.",
+  description: "Farmacia a domicilio en Cabo San Lucas y San José del Cabo, de 8 am a 11:30 pm. Médico a domicilio, videoconsulta, sueroterapia y estudios. Envío gratis desde $59 USD.",
   alternates: { canonical: "/es", languages: { en: "/", es: "/es", "x-default": "/" } },
   openGraph: { url: "/es", locale: "es_MX", title: "Farmacia a domicilio en Cabo San Lucas | CMC Pharmacy Cabo" },
 };
@@ -19,13 +19,13 @@ const INTENTS = [
   { icon: IconPill, t: "Necesito medicamentos", d: "Arma tu solicitud; un farmacéutico confirma disponibilidad y total.", href: "/shop" },
   { icon: IconStethoscope, t: "Necesito un médico", d: `Video $${MEDICAL_PRICES.video}, clínica $${MEDICAL_PRICES.clinic}, en tu hotel $${MEDICAL_PRICES.hotel} USD.`, href: "/es/medico" },
   { icon: IconDrip, t: "Necesito sueroterapia", d: "En tu hotel o villa, después de una valoración médica.", href: "/es/sueroterapia" },
-  { icon: IconFlask, t: "Necesito un estudio", d: "Laboratorio, rayos X y ultrasonido, coordinados por nuestros médicos.", href: "/es/laboratorio" },
+  { icon: IconFlask, t: "Necesito un estudio", d: "Laboratorio y rayos X, coordinados por nuestros médicos.", href: "/es/laboratorio" },
   { icon: IconCard, t: "Tengo seguro de viaje", d: "Pólizas de EE. UU. y Canadá, verificadas antes de la consulta.", href: "/international-insurance" },
   { icon: IconSparkle, t: "Medicina estética", d: "Labios, toxina botulínica, rejuvenecimiento y luminosidad facial.", href: "/aesthetic-medicine" },
 ];
 
 const FAQ = [
-  { q: "¿Hay una farmacia cerca de mí en Cabo San Lucas?", a: `Sí. La red ${SITE.parent} tiene ${LOCATIONS.length} farmacias en Cabo San Lucas abiertas todos los días de 8 am a 6 pm, y ${SITE.name}, su servicio a domicilio, entrega en hoteles, villas y casas de 7 am a 11 pm.` },
+  { q: "¿Hay una farmacia cerca de mí en Cabo San Lucas?", a: `Sí. La red ${SITE.parent} tiene ${LOCATIONS.length} farmacias en Cabo San Lucas abiertas todos los días de 8 am a 6 pm, y ${SITE.name}, su servicio a domicilio, entrega en hoteles, villas y casas de 8 am a 11:30 pm.` },
   { q: "¿Cuánto cuesta el envío?", a: `Es gratis en pedidos desde $${SITE.freeDeliveryFrom} USD. En pedidos menores confirmamos el costo de envío junto con el total antes de salir.` },
   { q: "¿Pago en línea?", a: "No en pedidos de farmacia: envías tu solicitud, un farmacéutico confirma disponibilidad y total, y pagas por el medio que acordemos. Algunos servicios médicos, como la sueroterapia, piden un anticipo al reservar." },
   { q: "¿Venden medicamentos con receta?", a: "Solo con receta médica válida, como exige la ley mexicana. Si no tienes una, nuestros médicos te atienden por video, en la clínica o en tu hotel." },
@@ -40,7 +40,7 @@ export default function Inicio() {
       <section className="bg-surface">
         <div className="mx-auto grid max-w-[76rem] items-center gap-10 px-4 pb-14 pt-10 lg:grid-cols-[1.05fr_1fr] lg:pb-20 lg:pt-14">
           <div>
-            <p className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-navy ring-1 ring-line"><span className="h-2 w-2 rounded-full bg-emerald-500" aria-hidden />Farmacéuticos por WhatsApp de 7 am a 11 pm</p>
+            <p className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-navy ring-1 ring-line"><span className="h-2 w-2 rounded-full bg-emerald-500" aria-hidden />Farmacéuticos por WhatsApp de 8 am a 11:30 pm</p>
             <h1 className="mt-5 font-display text-[2.6rem] font-extrabold leading-[1.02] tracking-tight text-navy sm:text-6xl">¿Cómo podemos ayudarte hoy?</h1>
             <p className="mt-4 max-w-xl text-lg leading-relaxed text-slate-600">Atención médica y farmacia a domicilio en Los Cabos. Farmacéuticos y médicos bilingües, en tu hotel, villa o casa.</p>
             <HeroSearch lang="es" />
@@ -73,7 +73,7 @@ export default function Inicio() {
           <p className="eyebrow">Cómo funciona</p>
           <h2 id="es-como" className="h2 mt-2">De tu solicitud a tu puerta</h2>
           <ol className="mt-8 grid gap-5 md:grid-cols-3">
-            {[["Dinos qué necesitas", "Agrega productos a tu solicitud o envíanos una lista o foto de la caja por WhatsApp."], ["Un farmacéutico confirma", "Disponibilidad, requisitos de receta, precio total y hora de entrega, antes de cobrar."], ["Te lo entregamos", "En tu hotel, villa o casa, todos los días de 7 am a 11 pm. Algunos hoteles solo reciben en recepción: coordinamos la entrega contigo."]].map(([t, d], i) => (
+            {[["Dinos qué necesitas", "Agrega productos a tu solicitud o envíanos una lista o foto de la caja por WhatsApp."], ["Un farmacéutico confirma", "Disponibilidad, requisitos de receta, precio total y hora de entrega, antes de cobrar."], ["Te lo entregamos", "En tu hotel, villa o casa, todos los días de 8 am a 11:30 pm. Algunos hoteles solo reciben en recepción: coordinamos la entrega contigo."]].map(([t, d], i) => (
               <li key={t} className="card p-6"><span className="font-display text-sm font-bold text-brand">0{i + 1}</span><h3 className="mt-2 font-semibold text-navy">{t}</h3><p className="mt-2 text-sm text-slate-600">{d}</p></li>
             ))}
           </ol>

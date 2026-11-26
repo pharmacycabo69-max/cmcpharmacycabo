@@ -46,7 +46,7 @@ const IV_MENU: IvDrip[] = [
     "id": "myers-cocktail-classic",
     "name": "Myers Cocktail Classic",
     "category": "Wellness",
-    "tagline": "The original IV wellness formula. Used since the 1970s.",
+    "tagline": "Our most complete vitamin and mineral IV.",
     "priceUsd": 249,
     "from": false,
     "duration": "45–60 min",
@@ -191,7 +191,7 @@ const IV_MENU: IvDrip[] = [
 /**
  * Owner-confirmed pricing (24 Nov 2026; RMC repo docs/decisions.md D13–D17), USD with taxes included.
  * Mobile (hotel/villa/home) prices are what this page books and the checkout charges:
- *   IV therapy $159 · Multivitamin (Myers) $189 · NAD+ $279.
+ *   IV therapy $159 · Total Wellness IV $189 · NAD+ $279 (owner V5, 26 Nov 2026; 100% paid online after confirmation).
  * In-clinic and group prices are shown as information and booked through WhatsApp (IV_PRICE_NOTES).
  * Special infusions (high-dose vitamin C, iron, custom) need medical and price validation before they are sold,
  * so they are kept here but not offered. The checkout re-reads this list server-side.
@@ -200,17 +200,25 @@ const PRICE_IV = 159;
 const PRICE_NAD = 279;
 const PRICE_MULTIVITAMIN = 189;
 const MULTIVITAMIN_IDS = new Set(["myers-cocktail-classic"]);
+/** Display names set by the owner (V5): the $189 tier is sold as "Total Wellness IV". */
+const NAMES: Record<string, string> = { "myers-cocktail-classic": "Total Wellness IV" };
+/**
+ * Ingredient lists come from the old site and have not been verified by the medical team (V5 §7).
+ * Until they are, pages show this note instead of the list.
+ */
+export const INGREDIENTS_VERIFIED = false;
+export const INGREDIENTS_NOTE = "Formula confirmed by our medical team during your assessment.";
 export const IV_PRICE_NOTES = {
-  inClinic: "In clinic: IV therapy $129, Multivitamin $154, NAD+ $279.",
-  // V4 §4 (25 Nov 2026): group pricing is quoted, not published, until the owner confirms it
-  groups: "Groups of 3 or more: ask us for a group quote.",
+  inClinic: "In clinic: IV therapy $129, Total Wellness IV $154, NAD+ $279.",
+  // V5: group discounts stay unpublished until conditions, minimum group size and prices are validated
+  groups: "Groups: ask us for a quote; group conditions are confirmed case by case.",
 };
 const PENDING_VALIDATION = new Set(["immune-boost"]); // high-dose vitamin C
 /** Descriptive taglines (master data §4.1: no detox/immunity/cure or results claims without clinical evidence). */
 const TAGLINES: Record<string, string> = {
   "hydration-boost": "Fluids and electrolytes for hot Cabo days.",
   "hangover-recovery": "Fluids and vitamins after a long night, plus medication only if our medical team indicates it.",
-  "myers-cocktail-classic": "A classic blend of vitamins and minerals.",
+  "myers-cocktail-classic": "Our most complete vitamin and mineral IV.",
   "beauty-glow": "Glutathione, vitamin C and biotin.",
   "nad-performance": "NAD+ infusion with hydration.",
   "b-complex-energy": "B vitamins, amino acids and magnesium.",
@@ -220,6 +228,8 @@ const TAGLINES: Record<string, string> = {
 };
 export const IV_DRIPS: IvDrip[] = IV_MENU.filter((d) => !PENDING_VALIDATION.has(d.id)).map((d) => ({
   ...d,
+  name: NAMES[d.id] ?? d.name,
+  alt: NAMES[d.id] ? `${NAMES[d.id]} at your hotel or villa in Cabo San Lucas` : d.alt,
   priceUsd: d.id === "nad-performance" ? PRICE_NAD : MULTIVITAMIN_IDS.has(d.id) ? PRICE_MULTIVITAMIN : PRICE_IV,
   from: false,
   category: d.category === "Longevity" || d.category === "Immunity" ? "Wellness" : d.category,
@@ -261,7 +271,7 @@ export const IV_FAQ: { q: string; a: string }[] = [
   },
   {
     "q": "How do I pay?",
-    "a": "Book online and our team confirms your time first; then you pay a 50% deposit online by card (Stripe). The remaining balance is paid after the session by credit card (Visa, MasterCard, AMEX), USD cash or bank transfer. Receipts are available for travel insurance reimbursement."
+    "a": "Book online and our team confirms your time and suitability first; then you pay the full price online by card through a secure link. Nothing is charged when you send the request. Receipts are available for travel insurance reimbursement."
   },
   {
     "q": "What if I have a reaction during the drip?",

@@ -56,7 +56,7 @@ const STEPS = [
   ["Message us", "Tell us which service you need and where you are staying. Please don't send medical documents in the first message."],
   ["We confirm", "We confirm the doctor's availability, time and total price in writing before the visit."],
   ["Consultation", "The doctor assesses you and, when appropriate, gives you a prescription valid in Mexico."],
-  ["Medicine delivered", "If you need medicine, our pharmacy delivers it to you, every day 7:00 am – 11:00 pm."],
+  ["Medicine delivered", "If you need medicine, our pharmacy delivers it to you, every day 8:00 am – 11:30 pm."],
 ];
 
 const FAQ = [

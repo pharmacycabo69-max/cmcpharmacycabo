@@ -5,13 +5,13 @@ import { BookDripButton } from "@/components/BookDripButton";
 import { BookingError } from "@/components/BookingError";
 import { RelatedServices } from "@/components/RelatedServices";
 import { JsonLd, faqSchema, orgId } from "@/lib/seo";
-import { IV, IV_DRIPS, IV_FAQ, IV_PRICE_NOTES } from "@/lib/ivtherapy";
+import { IV, IV_DRIPS, IV_FAQ, IV_PRICE_NOTES, INGREDIENTS_NOTE, INGREDIENTS_VERIFIED } from "@/lib/ivtherapy";
 import { abs } from "@/lib/site";
 import { ServiceHero } from "@/components/ServiceHero";
 
 export const metadata: Metadata = {
   title: { absolute: "IV Therapy Cabo San Lucas at Your Hotel | From $159" },
-  description: "IV therapy at your hotel or villa in Cabo San Lucas: IV $159, Multivitamin $189, NAD+ $279 (USD, taxes included). Medical assessment first; 50% deposit once your time is confirmed.",
+  description: "IV therapy at your hotel or villa in Cabo San Lucas: IV $159, Total Wellness IV $189, NAD+ $279 (USD, taxes included). Medical assessment first; you pay once your time is confirmed.",
   alternates: { canonical: "/iv-therapy", languages: { en: "/iv-therapy", es: "/es/sueroterapia" } },
   openGraph: { url: "/iv-therapy", images: [IV_DRIPS[0].image] },
 };
@@ -20,7 +20,7 @@ const BENEFITS = [
   ["Medical assessment first", "Our team reviews your health history and rules out contraindications before any drip."],
   ["Licensed professionals", "Administered by a licensed nurse who monitors you during the session."],
   ["At your hotel or villa", "We come to you across Cabo San Lucas, San José del Cabo and the Corridor, by appointment."],
-  ["Clear pricing", "At your hotel or villa: IV therapy $159, Multivitamin $189, NAD+ $279. USD, taxes included. 50% deposit once your time is confirmed."],
+  ["Clear pricing", "At your hotel or villa: IV therapy $159, Total Wellness IV $189, NAD+ $279. USD, taxes included. Paid online once your time is confirmed."],
 ];
 const STEPS = [
   ["Consult", "Short assessment with our medical team by phone or in person. We review your health history and rule out contraindications."],
@@ -38,7 +38,7 @@ export default function IvTherapy() {
         {
           "@context": "https://schema.org", "@type": "Service", name: "Mobile IV therapy in Los Cabos", serviceType: "IV therapy",
           provider: { "@id": orgId }, areaServed: ["Cabo San Lucas", "San José del Cabo", "Los Cabos"], url: abs("/iv-therapy"),
-          hasOfferCatalog: { "@type": "OfferCatalog", name: "IV drip menu", itemListElement: IV_DRIPS.map((d) => ({ "@type": "Offer", price: d.priceUsd.toFixed(2), priceCurrency: "USD", itemOffered: { "@type": "Service", name: `${d.name} IV drip`, description: `${d.tagline} Includes: ${d.includes}.` } })) },
+          hasOfferCatalog: { "@type": "OfferCatalog", name: "IV drip menu", itemListElement: IV_DRIPS.map((d) => ({ "@type": "Offer", price: d.priceUsd.toFixed(2), priceCurrency: "USD", itemOffered: { "@type": "Service", name: `${d.name} IV drip`, description: INGREDIENTS_VERIFIED ? `${d.tagline} Includes: ${d.includes}.` : d.tagline } })) },
         },
       ]} />
 
@@ -46,13 +46,13 @@ export default function IvTherapy() {
         crumbs={[{ name: "IV therapy", href: "/iv-therapy" }]}
         eyebrow="IV therapy · Hotel, villa or clinic"
         title={<>IV therapy in Cabo San Lucas, at your hotel or villa</>}
-        lead="IV therapy administered by licensed medical professionals after a medical assessment. Book online; you pay the deposit only after we confirm your time."
+        lead="IV therapy administered by licensed medical professionals after a medical assessment. Book online; you pay only after we confirm your time and suitability."
         actions={[{ href: "#drips", label: "Choose your IV & book", primary: true }, { href: wa, label: `WhatsApp ${IV.phoneDisplay}`, external: true }]}
-        points={["Medical assessment first", "Licensed nurse", "50% deposit after confirmation"]}
+        points={["Medical assessment first", "Licensed nurse", "Pay after confirmation"]}
         boardTitle="IV menu · at your hotel or villa"
         board={[
           { label: "IV therapy", note: "Hydration, recovery, jet lag and more", price: "$159", href: "/book?service=iv-therapy" },
-          { label: "Multivitamin (Myers)", note: "Classic vitamin and mineral blend", price: "$189", href: "/book?service=iv-therapy&option=myers-cocktail-classic" },
+          { label: "Total Wellness IV", note: "Our most complete vitamin and mineral IV", price: "$189", href: "/book?service=iv-therapy&option=myers-cocktail-classic" },
           { label: "NAD+ therapy", note: "NAD+ with hydration", price: "$279", href: "/book?service=nad" },
           { label: "Groups of 3 or more", note: "Villas, weddings, events", price: "Quote" },
         ]}
@@ -69,7 +69,7 @@ export default function IvTherapy() {
         <div className="section">
           <BookingError />
           <h2 id="menu" className="h2">Our IV drip menu</h2>
-          <p className="mt-3 max-w-2xl text-slate-600">At your hotel or villa: $159 per IV therapy, Multivitamin (Myers) $189, NAD+ $279. Prices in USD, taxes included. {IV_PRICE_NOTES.inClinic} {IV_PRICE_NOTES.groups} Pick a drip to choose your date and time. A 50% deposit secures your visit.</p>
+          <p className="mt-3 max-w-2xl text-slate-600">At your hotel or villa: $159 per IV therapy, Total Wellness IV $189, NAD+ $279. Prices in USD, taxes included. {IV_PRICE_NOTES.inClinic} {IV_PRICE_NOTES.groups} Pick a drip to choose your date and time. A 50% deposit secures your visit.</p>
           <ul className="mt-8 grid gap-6 md:grid-cols-2">
             {IV_DRIPS.map((d, i) => (
               <li key={d.id} className="flex flex-col overflow-hidden rounded-2xl border border-line bg-white">
@@ -81,7 +81,7 @@ export default function IvTherapy() {
                     <p className="whitespace-nowrap font-semibold">{d.from && <span className="mr-1 text-xs font-normal text-slate-500">From</span>}${d.priceUsd}<span className="ml-1.5 text-xs font-normal text-slate-500">· {d.duration}</span></p>
                   </div>
                   <p className="mt-1 text-sm text-slate-600">{d.tagline}</p>
-                  <p className="mt-3 text-sm"><strong>Includes:</strong> {d.includes}</p>
+                  <p className="mt-3 text-sm"><strong>Formula:</strong> {INGREDIENTS_VERIFIED ? d.includes : INGREDIENTS_NOTE}</p>
                   <ul className="mt-3 space-y-1 text-sm text-slate-600">{d.benefits.map((b) => <li key={b}>✓ {b}</li>)}</ul>
                   <BookDripButton id={d.id} className="btn btn-primary mt-5 self-start" />
                 </div>

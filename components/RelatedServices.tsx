@@ -5,7 +5,7 @@ const ITEMS = [
   { href: "/doctor-consultation", t: "Doctor consultation", d: "Video $59 · clinic $99", icon: IconDoctor },
   { href: "/hotel-doctor-cabo", t: "Doctor at your hotel", d: "House call $189", icon: IconBuilding },
   { href: "/iv-therapy", t: "IV therapy", d: "From $159 at your hotel", icon: IconDrip },
-  { href: "/lab-tests-imaging", t: "Lab tests & imaging", d: "Blood work · X-ray · ultrasound", icon: IconPill },
+  { href: "/lab-tests-imaging", t: "Lab tests & imaging", d: "Blood work · urine · hormones", icon: IconPill },
   { href: "/aesthetic-medicine", t: "Aesthetic medicine", d: "Lip fillers · wrinkle care · glow", icon: IconStar },
   { href: "/price-list", t: "Pharmacy price list", d: "Medicine prices in USD", icon: IconBox },
 ];

@@ -12,17 +12,17 @@ import { SITE, abs } from "@/lib/site";
 export const metadata: Metadata = {
   title: { absolute: "Pharmacy Near Me in Cabo San Lucas: 5 Stores, Open Daily" },
   description:
-    "Looking for a pharmacy near you in Cabo San Lucas? 5 pharmacies open every day 8 am–6 pm in Centro and the Marina, plus hotel delivery 7 am–11 pm.",
+    "Looking for a pharmacy near you in Cabo San Lucas? 5 pharmacies open every day 8 am–6 pm in Centro and the Marina, plus hotel delivery 8 am–11:30 pm.",
   alternates: { canonical: "/locations" },
   openGraph: { url: "/locations", images: ["/opengraph-image"] },
 };
 
 const FAQ = [
   { q: "Is there a pharmacy near me in Cabo San Lucas?", a: `Yes. The ${SITE.parent} network has ${LOCATIONS.length} pharmacies in Cabo San Lucas, in Centro, downtown and the Marina area (${LOCATIONS.map((l) => l.gbpName).filter((n, i, a) => a.indexOf(n) === i).join(", ")}). They are open every day from 8 am to 6 pm.` },
-  { q: "What are the pharmacy opening hours?", a: "All our pharmacies are open every day, 8:00 am to 6:00 pm. If you need something outside those hours, our delivery service brings it to your hotel or villa every day from 7 am to 11 pm." },
+  { q: "What are the pharmacy opening hours?", a: "All our pharmacies are open every day, 8:00 am to 6:00 pm. If you need something outside those hours, our delivery service brings it to your hotel or villa every day from 8 am to 11:30 pm." },
   { q: "Do the pharmacists speak English?", a: "Yes. Our stores and our delivery team attend in English and Spanish." },
   { q: "Can I get prescription medicine?", a: "Prescription-only medicines are dispensed with a valid prescription. If you don't have one, our English-speaking doctors can see you by video or at our clinic." },
-  { q: "Do you deliver to my hotel instead?", a: `Yes. ${SITE.name}, the delivery service of ${SITE.parent}, delivers to every hotel, resort, villa and vacation rental in Los Cabos every day from 7 am to 11 pm. Delivery is free on orders of $${SITE.freeDeliveryFrom} or more.` },
+  { q: "Do you deliver to my hotel instead?", a: `Yes. ${SITE.name}, the delivery service of ${SITE.parent}, delivers to every hotel, resort, villa and vacation rental in Los Cabos every day from 8 am to 11:30 pm. Delivery is free on orders of $${SITE.freeDeliveryFrom} or more.` },
 ];
 
 const WHAT = [
@@ -46,7 +46,7 @@ export default function Locations() {
         <Breadcrumbs items={[{ name: "Locations", href: "/locations" }]} />
         <h1 className="mt-5 text-3xl font-bold tracking-tight md:text-5xl">Pharmacy near me in Cabo San Lucas</h1>
         <p className="mt-4 max-w-3xl text-lg text-slate-600">
-          Find the nearest of our <strong>{LOCATIONS.length} pharmacies</strong> (the {SITE.parent} network) in Centro and the Marina area, open every day from 8 am to 6 pm with English and Spanish service. Staying outside the center? {SITE.name}, our delivery service, brings your medicine to your hotel or villa every day from 7 am to 11 pm.
+          Find the nearest of our <strong>{LOCATIONS.length} pharmacies</strong> (the {SITE.parent} network) in Centro and the Marina area, open every day from 8 am to 6 pm with English and Spanish service. Staying outside the center? {SITE.name}, our delivery service, brings your medicine to your hotel or villa every day from 8 am to 11:30 pm.
         </p>
 
         <ul className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
@@ -54,7 +54,7 @@ export default function Locations() {
             [IconShield, `${LOCATIONS.length} stores`, "Centro & Marina"],
             [IconClock, "8 am – 6 pm", "Every day"],
             [IconGlobe, "English", "& Spanish"],
-            [IconBox, "Delivery", "7 am – 11 pm"],
+            [IconBox, "Delivery", "8 am – 11:30 pm"],
           ].map(([Icon, big, small]) => {
             const I = Icon as typeof IconClock;
             return (
@@ -109,7 +109,7 @@ export default function Locations() {
 
         <section className="mt-14 overflow-hidden rounded-3xl bg-navy p-8 text-white md:p-10" aria-labelledby="delivery">
           <h2 id="delivery" className="text-2xl font-extrabold tracking-tight">Can&apos;t get to a store? We deliver to your hotel</h2>
-          <p className="mt-2 max-w-2xl text-white/80">Every day from 7 am to 11 pm to any hotel, resort or villa in Los Cabos. Free delivery on orders of ${SITE.freeDeliveryFrom} or more.</p>
+          <p className="mt-2 max-w-2xl text-white/80">Every day from 8 am to 11:30 pm to any hotel, resort or villa in Los Cabos. Free delivery on orders of ${SITE.freeDeliveryFrom} or more.</p>
           <div className="mt-6 flex flex-wrap gap-3">
             <a href={`${SITE.whatsapp}?text=${encodeURIComponent("Hi! I need a pharmacy delivery in Cabo.")}`} target="_blank" rel="noopener" className="btn !bg-[#25d366] text-[#05301b] hover:!bg-[#2ee170]">Order on WhatsApp</a>
             <Link href="/delivery-areas" className="btn bg-white text-brand hover:bg-brand-soft">Find your hotel</Link>

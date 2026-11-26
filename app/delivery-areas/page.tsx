@@ -12,14 +12,14 @@ import { SITE, abs } from "@/lib/site";
 export const metadata: Metadata = {
   title: { absolute: "Pharmacy Delivery to Every Hotel in Los Cabos" },
   description:
-    "We deliver medicine to every hotel, resort and villa in Cabo San Lucas, San José del Cabo and the Corridor, 7 am–11 pm. Free from $59.",
+    "We deliver medicine to every hotel, resort and villa in Cabo San Lucas, San José del Cabo and the Corridor, 8 am–11:30 pm. Free from $99.",
   alternates: { canonical: "/delivery-areas" },
   openGraph: { url: "/delivery-areas", images: ["/opengraph-image"] },
 };
 
 const FAQ = [
   { q: "Do you deliver to my hotel?", a: "Yes. We deliver to every hotel, resort, villa and vacation rental in Cabo San Lucas, San José del Cabo and the Tourist Corridor. Search your hotel above, or message us if it is not listed." },
-  { q: "What time do you deliver?", a: "Every day from 7:00 am to 11:00 pm. We confirm the estimated delivery time when you order." },
+  { q: "What time do you deliver?", a: "Every day from 8:00 am to 11:30 pm. We confirm the estimated delivery time when you order." },
   { q: "How much does delivery cost?", a: `Delivery is free on orders of $${SITE.freeDeliveryFrom} or more. For smaller orders we confirm the delivery fee with your total before we go.` },
   { q: "Can you leave my order at the front desk?", a: "Some hotels only accept deliveries at the front desk or concierge. We coordinate it with you and tell you where to pick it up." },
   { q: "Are you affiliated with the hotels?", a: `No. ${SITE.name} is an independent pharmacy delivery service. Hotel names are used only to describe where we deliver.` },
@@ -28,7 +28,7 @@ const FAQ = [
 const STEPS = [
   ["Tell us your hotel", "Send your hotel (and room or villa name if you wish) by WhatsApp."],
   ["We confirm", "We confirm your products, total price and delivery time."],
-  ["We deliver", "Every day 7 am – 11 pm to your room, villa or the front desk."],
+  ["We deliver", "Every day 8 am – 11:30 pm to your room, villa or the front desk."],
 ];
 
 export default function DeliveryAreas() {
@@ -47,13 +47,13 @@ export default function DeliveryAreas() {
         <Breadcrumbs items={[{ name: "Delivery areas", href: "/delivery-areas" }]} />
         <h1 className="mt-5 text-3xl font-bold tracking-tight md:text-5xl">Pharmacy delivery to every hotel &amp; resort in Los Cabos</h1>
         <p className="mt-4 max-w-2xl text-lg text-slate-600">
-          <strong>We deliver to every hotel, resort, villa, vacation rental and home</strong> in Cabo San Lucas, San José del Cabo and the Tourist Corridor: prescriptions, over-the-counter medicine and travel essentials, every day from 7 am to 11 pm.
+          <strong>We deliver to every hotel, resort, villa, vacation rental and home</strong> in Cabo San Lucas, San José del Cabo and the Tourist Corridor: prescriptions, over-the-counter medicine and travel essentials, every day from 8 am to 11:30 pm.
         </p>
 
         <ul className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
           {[
-            [IconClock, "7 am – 11 pm", "Every day"],
-            [IconBox, `Free from $${SITE.freeDeliveryFrom}`, "Delivery on orders of $59+"],
+            [IconClock, "8 am – 11:30 pm", "Every day"],
+            [IconBox, `Free from $${SITE.freeDeliveryFrom}`, `Delivery on orders of $${SITE.freeDeliveryFrom}+`],
             [IconBuilding, "Every hotel", "Resorts, villas, rentals"],
             [IconGlobe, "English", "& Spanish support"],
           ].map(([Icon, big, small]) => {

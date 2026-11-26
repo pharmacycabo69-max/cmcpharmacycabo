@@ -17,7 +17,7 @@ export default function OgImage() {
           <div style={{ marginLeft: 28, fontSize: 52, fontWeight: 700, color: "#0f172a" }}>CMC Pharmacy Cabo</div>
         </div>
         <div style={{ marginTop: 56, fontSize: 76, fontWeight: 700, color: "#0f172a", lineHeight: 1.1 }}>Pharmacy delivery in Cabo San Lucas &amp; San José del Cabo</div>
-        <div style={{ marginTop: 36, fontSize: 34, color: "#0f766e" }}>English &amp; Spanish · Delivery 7 am – 11 pm daily</div>
+        <div style={{ marginTop: 36, fontSize: 34, color: "#0f766e" }}>English &amp; Spanish · Delivery 8 am – 11:30 pm daily</div>
       </div>
     ),
     size,
