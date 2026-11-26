@@ -1,7 +1,13 @@
-// POST /api/stripe-webhook — emails the owner one message when a Checkout payment is confirmed.
-// Env: STRIPE_WEBHOOK_SECRET (whsec_...), RESEND_API_KEY, NOTIFY_EMAIL (comma-separated), NOTIFY_FROM (optional), BUSINESS_NAME (optional).
-// Subscribe the Stripe endpoint to: checkout.session.completed, checkout.session.async_payment_succeeded.
+// POST /api/stripe-webhook — the only place that marks a booking as paid, failed, expired or refunded.
+// Verifies the Stripe signature, ignores events already processed, checks amount and currency against the
+// stored record, updates the record and notifies CRM / email / internal WhatsApp.
+// Env: STRIPE_WEBHOOK_SECRET. Subscribe to: checkout.session.completed, checkout.session.async_payment_succeeded,
+// checkout.session.async_payment_failed, checkout.session.expired, charge.refunded.
 import crypto from "node:crypto";
+import { getStripe } from "@/lib/stripe";
+import { kv, storeReady } from "@/lib/server/store";
+import { notify } from "@/lib/server/notify";
+import { getRecord, updateRecord, type Rec } from "@/lib/server/records";
 
 const TOLERANCE_SECONDS = 300;
 
@@ -15,52 +21,53 @@ function verify(raw: string, header: string | null, secret: string) {
   return sigs.some((s) => { const b = Buffer.from(s); return b.length === expected.length && crypto.timingSafeEqual(expected, b); });
 }
 
-type Session = { metadata?: Record<string, string>; customer_details?: { name?: string; phone?: string; email?: string }; amount_total?: number; currency?: string; payment_intent?: string; payment_status?: string };
-
-function compose(s: Session) {
-  const m = s.metadata ?? {}, cd = s.customer_details ?? {};
-  const paid = (s.amount_total ?? 0) / 100;
-  const total = m.service_total_usd ? Number(m.service_total_usd) : null;
-  const when = [m.booking_date, m.booking_time === "ASAP" ? "as soon as possible" : m.booking_time].filter(Boolean).join(" ");
-  const service = m.service_name || "service";
-  const lines = [
-    `New paid booking: ${service}`, ...(m.booking_ref ? [`Reference: ${m.booking_ref}`] : []), `When: ${when || "not specified"} (Cabo time)`,
-    `Customer: ${m.customer_name || cd.name || "-"}`, `Phone: ${m.customer_phone || cd.phone || "-"}`, `Email: ${cd.email || "-"}`,
-  ];
-  if (m.location) lines.push(`Location: ${m.location}`);
-  if (m.notes) lines.push(`Notes: ${m.notes}`);
-  lines.push(`Deposit paid: $${paid.toFixed(2)} ${(s.currency || "usd").toUpperCase()}`);
-  if (total !== null && !Number.isNaN(total)) lines.push(`Balance due after service: $${(total - paid).toFixed(2)} (total $${total})`);
-  if (s.payment_intent) lines.push(`Stripe: https://dashboard.stripe.com/payments/${s.payment_intent}`);
-  const biz = process.env.BUSINESS_NAME ? `${process.env.BUSINESS_NAME} — ` : "";
-  return { subject: `${biz}Paid booking: ${service} — ${when || "no date"}`, text: lines.join("\n") };
-}
+type Obj = { id?: string; metadata?: Record<string, string>; amount_total?: number; amount?: number; amount_refunded?: number; currency?: string; payment_status?: string; payment_intent?: string; refunded?: boolean };
 
 export async function POST(req: Request) {
   const secret = process.env.STRIPE_WEBHOOK_SECRET;
-  if (!secret || !process.env.RESEND_API_KEY || !process.env.NOTIFY_EMAIL) {
-    console.error("Webhook not configured: set STRIPE_WEBHOOK_SECRET, RESEND_API_KEY and NOTIFY_EMAIL");
-    return new Response("Webhook not configured", { status: 500 });
+  if (!secret || !storeReady()) return new Response("not configured", { status: 500 }); // Stripe retries
+  const raw = await req.text();
+  if (!verify(raw, req.headers.get("stripe-signature"), secret)) return new Response("invalid signature", { status: 400 });
+  let event: { id: string; type: string; data?: { object?: Obj } };
+  try { event = JSON.parse(raw); } catch { return new Response("bad json", { status: 400 }); }
+  // Idempotency: each event is processed once
+  if (!(await kv.set(`stripe:evt:${event.id}`, "1", { nx: true, ex: 60 * 60 * 24 * 30 }))) return new Response("duplicate", { status: 200 });
+
+  const o = event.data?.object ?? {};
+  let folio = o.metadata?.folio;
+  // Charges (refunds) do not carry the Checkout metadata: read it from the PaymentIntent
+  if (!folio && o.payment_intent) {
+    try { folio = (await getStripe()?.paymentIntents.retrieve(o.payment_intent))?.metadata?.folio; } catch { /* reconciliation alert below */ }
   }
-  const raw = await req.text(); // exact body, required for signature verification
-  if (!verify(raw, req.headers.get("stripe-signature"), secret)) return new Response("Invalid signature", { status: 400 });
-
-  let event: { type: string; data?: { object?: Session } };
-  try { event = JSON.parse(raw); } catch { return new Response("Bad JSON", { status: 400 }); }
-  const session = event.data?.object;
-  const confirmed = event.type === "checkout.session.async_payment_succeeded" || (event.type === "checkout.session.completed" && session?.payment_status === "paid");
-  if (!confirmed || !session) return new Response("ignored", { status: 200 });
-
-  const msg = compose(session);
-  const r = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      from: process.env.NOTIFY_FROM || "Bookings <onboarding@resend.dev>",
-      to: process.env.NOTIFY_EMAIL.split(",").map((x) => x.trim()).filter(Boolean),
-      subject: msg.subject, text: msg.text,
-    }),
-  });
-  if (!r.ok) { console.error("notify failed", r.status); return new Response("notify failed", { status: 500 }); } // Stripe retries
+  const rec: Rec | null = folio ? await getRecord(folio).catch(() => null) : null;
+  const now = new Date().toISOString();
+  try {
+    if (!rec) {
+      // A payment we can't match to a folio: alert the team (reconciliation)
+      if (event.type.startsWith("checkout.session") || event.type === "charge.refunded") await notify("integration_error", { folio: folio || "UNKNOWN", status: "unmatched" }, { amountCents: o.amount_total ?? o.amount, detail: `Stripe ${event.type} without a matching folio` });
+      return new Response("ok", { status: 200 });
+    }
+    const amount = o.amount_total ?? o.amount;
+    const expected = Number(o.metadata?.expected_cents ?? rec.expectedCents);
+    if (event.type === "checkout.session.completed" || event.type === "checkout.session.async_payment_succeeded") {
+      if (o.payment_status !== "paid") return new Response("pending", { status: 200 });
+      const matches = amount === expected && amount === rec.expectedCents && (o.currency ?? "").toLowerCase() === "usd";
+      const r2 = await updateRecord(rec.folio, { payment: { sessionId: o.id, status: "paid", amountCents: amount, currency: o.currency, paymentIntent: o.payment_intent, updatedAt: now } }, { type: matches ? "payment_succeeded" : "payment_amount_mismatch", status: "paid", by: "stripe", amountCents: amount });
+      await notify(matches ? "payment_succeeded" : "integration_error", r2, { amountCents: amount, detail: matches ? undefined : `Amount/currency mismatch: expected ${expected}` });
+    } else if (event.type === "checkout.session.async_payment_failed") {
+      const r2 = await updateRecord(rec.folio, { payment: { ...rec.payment, status: "failed", updatedAt: now } }, { type: "payment_failed", status: "payment_failed", by: "stripe", amountCents: amount });
+      await notify("payment_failed", r2, { amountCents: amount });
+    } else if (event.type === "checkout.session.expired") {
+      if (rec.payment?.status !== "paid") await updateRecord(rec.folio, { payment: { ...rec.payment, status: "expired", updatedAt: now } }, { type: "checkout_expired", by: "stripe" });
+    } else if (event.type === "charge.refunded") {
+      const full = o.refunded === true;
+      const r2 = await updateRecord(rec.folio, { payment: { ...rec.payment, status: full ? "refunded" : "partially_refunded", updatedAt: now } }, { type: full ? "refunded" : "partially_refunded", status: full ? "refunded" : rec.status, by: "stripe", amountCents: o.amount_refunded });
+      await notify("refunded", r2, { amountCents: o.amount_refunded });
+    }
+  } catch (e) {
+    await kv.del(`stripe:evt:${event.id}`); // let Stripe retry
+    console.error("webhook processing failed", (e as Error).message);
+    return new Response("error", { status: 500 });
+  }
   return new Response("ok", { status: 200 });
 }

@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { BOOKABLE, MODE_LABEL, getBookable, priceOf, type Bookable, type Mode } from "@/lib/booking";
-import { newRequestId } from "@/lib/request";
 
 const WA = "5216242261023"; // bot line (V4 §4)
 const TZ = "America/Mazatlan";
@@ -26,7 +25,7 @@ function caboNow() {
 }
 
 type Details = { name: string; phone: string; email: string; area: string; place: string };
-type Sent = { ref: string; service: string; option?: string; mode: Mode; date: string; time: string; d: Details; opened: boolean };
+type Sent = { folio: string; track: string; service: string; option?: string; mode: Mode; date: string; time: string };
 
 export function BookingFlow({ initial, initialOption }: { initial?: string; initialOption?: string }) {
   const now = useMemo(caboNow, []);
@@ -60,47 +59,48 @@ export function BookingFlow({ initial, initialOption }: { initial?: string; init
     if (!date || !time) return setErr("Choose a preferred date and time.");
     setErr(""); setStep(3);
   };
-  const submit = (e: React.FormEvent) => {
+  const [busy, setBusy] = useState(false);
+  const [fallback, setFallback] = useState(false);
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!d.name.trim()) return setErr("Please enter your name.");
     if (d.phone.replace(/\D/g, "").length < 8) return setErr("Please enter a WhatsApp or phone number.");
     if (mode === "hotel" && !d.place.trim()) return setErr("Please tell us your hotel and room, villa or address.");
     if (d.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email)) return setErr("Please check your email.");
-    setErr("");
-    save({ ref: newRequestId(new Date(), "B"), service: svcId, option: opt || undefined, mode: mode as Mode, date, time, d, opened: false });
-    window.scrollTo({ top: 0 });
+    setErr(""); setFallback(false); setBusy(true);
+    try {
+      const r = await fetch("/api/bookings", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ service: svcId, option: opt || undefined, mode, date, time, ...d, lang: "en" }) });
+      const j = await r.json().catch(() => ({}));
+      if (r.ok && j.folio) { save({ folio: j.folio, track: j.track, service: svcId, option: opt || undefined, mode: mode as Mode, date, time }); window.scrollTo({ top: 0 }); }
+      else if (r.status === 503 || r.status === 429) { setErr("We couldn't save your booking online right now. Please send it on WhatsApp and we'll take care of it."); setFallback(true); }
+      else setErr("Please check the details and try again.");
+    } catch { setErr("We couldn't save your booking online right now. Please send it on WhatsApp and we'll take care of it."); setFallback(true); }
+    setBusy(false);
   };
 
   if (sent) {
     const b = getBookable(sent.service)!;
     const o = b.options?.find((x) => x.id === sent.option);
     const p = priceOf(b, sent.option);
-    const lines = [
-      `Booking request ${sent.ref}`,
-      `Service: ${b.name}${o ? ` — ${o.name}` : ""}${p ? ` ($${p} USD)` : " (quote)"}`,
-      `Where: ${MODE_LABEL[sent.mode]}${sent.mode === "hotel" ? ` — ${sent.d.place}, ${sent.d.area}` : ""}`,
-      `Preferred: ${dlabel(sent.date)}, ${sent.time === "ASAP" ? "as soon as possible" : hlabel(+sent.time.split(":")[0])} (Cabo time)`,
-      `Name: ${sent.d.name}`, `Phone: ${sent.d.phone}`, sent.d.email ? `Email: ${sent.d.email}` : "",
-      "", b.pay === "quote" ? "Please send me a quote and availability." : "Please confirm availability and send me the payment link.",
-    ].filter((x, i) => x || i > 6);
-    const href = `https://wa.me/${WA}?text=${encodeURIComponent(lines.join("\n"))}`;
     const steps: [string, string, boolean][] = [
-      ["Request created", `Reference ${sent.ref}`, true],
-      ["Sent to our team", sent.opened ? "WhatsApp opened: make sure you pressed Send." : "Tap the button to send it on WhatsApp.", sent.opened],
-      [b.pay === "quote" ? "Quote & availability" : "Availability confirmed", b.provider === "partner" ? "We validate the study and the partner center, then send you a quote." : "Our team confirms the exact time with you.", false],
-      [b.pay === "quote" ? "You approve the quote" : "Pay online", b.pay === "quote" ? "Nothing is charged before you approve." : `We send you a secure payment link (${b.payNow < 1 ? `${Math.round(b.payNow * 100)}% deposit` : "full price"}${p ? `, ${money(p * b.payNow)}` : ""}).`, false],
-      ["Appointment confirmed", "You receive the confirmation and receipt.", false],
+      ["Booking received", "Saved with your folio; our team has been notified.", true],
+      [b.pay === "quote" ? "Review & quote" : "Availability confirmed", b.provider === "partner" ? "We validate the study with the partner and send you a quote." : "Our team confirms the exact time and suitability with you.", false],
+      [b.pay === "quote" ? "You approve the quote" : "Pay online", b.pay === "quote" ? "Nothing is charged before you approve." : `We send you a secure payment link (full price${p ? `, ${money(p)}` : ""}).`, false],
+      ["Appointment confirmed", "You receive the confirmation and the receipt.", false],
     ];
     return (
       <div className="grid gap-8 lg:grid-cols-[1fr_22rem]">
         <section className="card overflow-hidden" aria-labelledby="bk-ref">
           <div className="bg-navy px-6 py-6 text-white md:px-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-teal-300">Booking reference</p>
-            <h2 id="bk-ref" className="mt-1 font-display text-3xl font-bold">{sent.ref}</h2>
-            <p className="mt-2 text-sm text-white/75">Nothing has been charged. Send the request so our team can confirm availability.</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-teal-300">Folio</p>
+            <h2 id="bk-ref" className="mt-1 font-mono text-3xl font-bold">{sent.folio}</h2>
+            <p className="mt-2 text-sm text-white/75">Booking received. Nothing has been charged; we contact you to confirm availability.</p>
           </div>
           <div className="p-6 md:p-8">
-            <a href={href} target="_blank" rel="noopener" onClick={() => save({ ...sent, opened: true })} className="btn btn-wa w-full !py-4 text-base sm:w-auto">{sent.opened ? "Open WhatsApp again" : "Send booking request on WhatsApp"}</a>
+            <div className="flex flex-wrap gap-3">
+              <Link href={sent.track} className="btn btn-primary">Track this booking</Link>
+              <a href={`https://wa.me/${WA}?text=${encodeURIComponent(`Folio ${sent.folio}`)}`} target="_blank" rel="noopener" className="btn btn-outline">Questions? WhatsApp us</a>
+            </div>
             <ol className="mt-8">
               {steps.map(([t, s, done], i) => (
                 <li key={t} className="relative flex gap-4 pb-6 last:pb-0">
@@ -119,10 +119,7 @@ export function BookingFlow({ initial, initialOption }: { initial?: string; init
               <div key={k} className="flex justify-between gap-3"><dt className="text-slate-500">{k}</dt><dd className="text-right font-medium text-navy">{v}</dd></div>
             ))}
           </dl>
-          <div className="mt-6 grid gap-2">
-            <button type="button" className="btn btn-outline" onClick={() => { setSvcId(sent.service); setOpt(sent.option ?? ""); setMode(sent.mode); setDate(sent.date); setTime(sent.time); setD(sent.d); setStep(3); save(null); }}>Edit booking</button>
-            <button type="button" className="text-sm font-semibold text-brand hover:underline" onClick={() => { save(null); setSvcId(""); setStep(1); }}>Book another service</button>
-          </div>
+          <button type="button" className="mt-6 text-sm font-semibold text-brand hover:underline" onClick={() => { save(null); setSvcId(""); setStep(1); }}>Book another service</button>
           <p className="mt-4 text-xs text-slate-500">Not an emergency service. In an emergency call 911.</p>
         </aside>
       </div>
@@ -237,7 +234,8 @@ export function BookingFlow({ initial, initialOption }: { initial?: string; init
             {err && <p role="alert" className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-800 sm:col-span-2">{err}</p>}
             <div className="flex flex-wrap gap-3 sm:col-span-2">
               <button type="button" className="btn btn-outline" onClick={() => setStep(2)}>← Back</button>
-              <button type="submit" className="btn btn-primary flex-1 sm:flex-none">Create booking request</button>
+              <button type="submit" disabled={busy} className="btn btn-primary flex-1 sm:flex-none disabled:opacity-60">{busy ? "Sending…" : "Send booking request"}</button>
+              {fallback && <a href={`https://wa.me/${WA}?text=${encodeURIComponent(`Booking request: ${svc.name} · ${date} ${time} · ${d.name}`)}`} target="_blank" rel="noopener" className="btn btn-wa">Send on WhatsApp</a>}
             </div>
           </form>
         )}

@@ -5,7 +5,7 @@ import { SITE } from "@/lib/site";
 export default function robots(): MetadataRoute.Robots {
   const count = 2 + Math.ceil(products.length / 1000);
   return {
-    rules: { userAgent: "*", allow: "/", disallow: ["/*?q=", "/*?sort="] },
+    rules: { userAgent: "*", allow: "/", disallow: ["/*?q=", "/*?sort=", "/api/", "/concierge", "/pay", "/track", "/request", "/search"] },
     sitemap: Array.from({ length: count }, (_, i) => `${SITE.url}/sitemap/${i}.xml`),
     host: SITE.url,
   };
