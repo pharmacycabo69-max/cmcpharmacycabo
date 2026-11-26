@@ -24,7 +24,7 @@ export default async function Track({ searchParams }: { searchParams: Promise<{ 
   const es = lang === "es";
   const rec = storeReady() && f && k ? await getRecord(f.toUpperCase()).catch(() => null) : null;
   const ok = rec && safeEqual(k, rec.trackKey);
-  if (!ok) {
+  if (!rec || !ok) {
     return (
       <div className="mx-auto max-w-xl px-4 py-20 text-center">
         <h1 className="font-display text-3xl font-bold text-navy">{es ? "No encontramos esa solicitud" : "We couldn't find that request"}</h1>

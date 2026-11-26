@@ -101,9 +101,9 @@ async function deliverOne(n: Note, ch: Channel, rec?: Rec): Promise<Delivery> {
 }
 
 /** Sends one event to every configured channel. Never throws: the record is already saved. */
-export async function notify(type: EventType, rec: Pick<Rec, "folio" | "status"> & Partial<Rec>, opts: { amountCents?: number; detail?: string } = {}) {
+export async function notify(type: EventType, rec: { folio: string; status: string } & Partial<Omit<Rec, "folio" | "status">>, opts: { amountCents?: number; detail?: string } = {}) {
   const n: Note = { id: `${rec.folio}:${type}:${crypto.randomBytes(4).toString("hex")}`, type, folio: rec.folio, status: rec.status, amountCents: opts.amountCents, at: new Date().toISOString(), detail: opts.detail };
-  const results = await Promise.all(CHANNELS.map((ch) => deliverOne(n, ch, rec as Rec).catch((e) => ({ channel: ch, ok: false, error: String(e) }) as Delivery)));
+  const results = await Promise.all(CHANNELS.map((ch) => deliverOne(n, ch, rec as unknown as Rec).catch((e) => ({ channel: ch, ok: false, error: String(e) }) as Delivery)));
   try {
     await kv.set(`ntf:log:${n.id}`, JSON.stringify({ n, results }), { ex: 60 * 60 * 24 * 90 });
     await kv.zadd(`ntf:byfolio:${rec.folio}`, Date.now(), n.id);

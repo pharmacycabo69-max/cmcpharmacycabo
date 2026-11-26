@@ -6,7 +6,7 @@ import { BOOKABLE, MODE_LABEL, getBookable, priceOf, type Bookable, type Mode } 
 
 const WA = "5216242261023"; // bot line (V4 §4)
 const TZ = "America/Mazatlan";
-const LAST = "cmc-booking-last";
+const LAST = "cmc-booking-v5";
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const WD = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 const AREAS = ["Cabo San Lucas", "Tourist Corridor", "San José del Cabo", "Other / not sure"];
