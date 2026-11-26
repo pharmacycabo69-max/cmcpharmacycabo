@@ -66,7 +66,8 @@ export function score(name: string, query: string): number {
   for (const w of qw) {
     let best = 0;
     if (w.length >= 3 ? hay.includes(w) : tokens.includes(w)) best = 3;
-    else if (SAME.some((g) => g.includes(w) && g.some((s) => s !== w && tokenHit(tokens, s)))) best = 2;
+    // a synonym can't be another word of the same query ("protector solar" must not match any "protector")
+    else if (SAME.some((g) => g.includes(w) && g.some((s) => s !== w && !qw.includes(s) && tokenHit(tokens, s)))) best = 2;
     else if (NEED.some(([need, prods]) => need.includes(w) && prods.some((s) => tokenHit(tokens, s)))) best = 1;
     else if (w.length >= 5 && tokens.some((t) => t.length >= 4 && within(w, t.slice(0, w.length + 1), w.length > 7 ? 2 : 1))) best = 1;
     if (!best) return 0; // every query word must match somehow
