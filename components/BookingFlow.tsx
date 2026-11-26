@@ -88,7 +88,7 @@ export function BookingFlow({ initial, initialOption, initialPeople }: { initial
     const steps: [string, string, boolean][] = [
       ["Booking received", "Saved with your folio; our team has been notified.", true],
       [b.pay === "quote" ? "Review & quote" : "Availability confirmed", b.provider === "partner" ? "We validate the study with the partner and send you a quote." : "Our team confirms the exact time and suitability with you.", false],
-      [b.pay === "quote" ? "You approve the quote" : "Pay online", b.pay === "quote" ? "Nothing is charged before you approve." : `We send you a secure payment link (full price${p ? `, ${money(p)}` : ""}).`, false],
+      [b.pay === "quote" ? "You approve the quote" : "Pay online", b.pay === "quote" ? "Nothing is charged before you approve." : `We send you a secure payment link or agree another authorized method (full price${p ? `, ${money(p)}` : ""}).`, false],
       ["Appointment confirmed", "You receive the confirmation and the receipt.", false],
     ];
     return (
@@ -270,7 +270,7 @@ export function BookingFlow({ initial, initialOption, initialPeople }: { initial
                 {mode && <div className="flex justify-between"><dt className="text-slate-500">Where</dt><dd className="text-navy">{MODE_LABEL[mode]}</dd></div>}
                 {date && <div className="flex justify-between"><dt className="text-slate-500">When</dt><dd className="text-navy">{dlabel(date)}{time ? `, ${time === "ASAP" ? "ASAP" : hlabel(+time.split(":")[0])}` : ""}</dd></div>}
               </dl>
-              <p className="mt-4 text-xs leading-relaxed text-slate-500">{svc.pay === "quote" ? "Quoted after review. Nothing is charged before you approve." : `Taxes included. ${svc.payNow < 1 ? `A ${Math.round(svc.payNow * 100)}% deposit is paid online once your time is confirmed; the balance after the service.` : "Paid online once your time is confirmed."}`}</p>
+              <p className="mt-4 text-xs leading-relaxed text-slate-500">{svc.pay === "quote" ? "Quoted after review. Nothing is charged before you approve." : `Taxes included. ${svc.payNow < 1 ? `A ${Math.round(svc.payNow * 100)}% deposit is paid online once your time is confirmed; the balance after the service.` : "Paid once your time is confirmed (secure link or another authorized method)."}`}</p>
               <Link href={svc.page} className="mt-3 inline-block text-sm font-semibold text-brand hover:underline">About this service →</Link>
             </>
           ) : <p className="mt-2 text-sm text-slate-600">Choose a service to see the price and how payment works.</p>}
