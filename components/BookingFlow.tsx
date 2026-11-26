@@ -131,11 +131,11 @@ export function BookingFlow({ initial, initialOption, initialPeople }: { initial
 
   const groups = ["Doctor", "IV therapy", "Tests", "Aesthetics"] as const;
   return (
-    <div className="grid gap-8 lg:grid-cols-[1fr_20rem]">
-      <div>
+    <div className="grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[minmax(0,1fr)_20rem]">
+      <div className="min-w-0">
         <ol className="mb-6 flex gap-2 text-xs font-semibold" aria-label="Booking steps">
           {["Service", "Date & place", "Your details"].map((t, i) => (
-            <li key={t} className={`flex flex-1 items-center gap-2 rounded-full px-3 py-2 ${step === i + 1 ? "bg-navy text-white" : step > i + 1 ? "bg-brand-soft text-brand-dark" : "bg-surface text-navy/50"}`} aria-current={step === i + 1 ? "step" : undefined}>
+            <li key={t} className={`flex min-w-0 flex-1 items-center gap-2 rounded-full px-3 py-2 ${step === i + 1 ? "bg-navy text-white" : step > i + 1 ? "bg-brand-soft text-brand-dark" : "bg-surface text-navy/50"}`} aria-current={step === i + 1 ? "step" : undefined}>
               <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white/20">{step > i + 1 ? "✓" : i + 1}</span><span className="truncate">{t}</span>
             </li>
           ))}
